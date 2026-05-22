@@ -727,6 +727,23 @@
     letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3);
   }
 
+  /* Bridge block: a calm, upright callout (not a quote) */
+  .bridge {
+    margin: 40px 0 0; padding: 24px 28px;
+    background: var(--paper-2); border: 1px solid var(--rule);
+    border-radius: 8px; max-width: 64ch;
+    display: flex; align-items: flex-start; gap: 18px;
+  }
+  .bridge .b-mark {
+    flex-shrink: 0; font-family: var(--display); font-style: italic; font-weight: 500;
+    font-size: 30px; line-height: 1; color: var(--accent); transform: translateY(-2px);
+  }
+  .bridge .b-text {
+    font-family: var(--serif); font-weight: 500; font-size: 19px; line-height: 1.45;
+    color: var(--ink); margin: 0;
+  }
+  .bridge .b-text a { font-weight: 600; }
+
   /* Body prose */
   .body-prose {
     max-width: 64ch; font-family: var(--serif); font-size: 17.5px; line-height: 1.65; color: var(--ink);
@@ -801,6 +818,7 @@
     <div class="links">
       <a href="#what">What it is</a>
       <a href="#handbook">Handbook</a>
+      <a href="#proposals">Aria proposes</a>
       <a href="#flow">How it works</a>
       <a href="/safety">Safety</a>
       <a href="/faq">FAQ</a>
@@ -880,10 +898,10 @@
     </div>
   </div>
 
-  <p class="frame" style="margin: 0 0 22px;">Ariadot sorts what it finds by how much it's actually bleeding, so the loud things stay loud and the quiet things stay quiet.</p>
+  <p class="frame" style="margin: 0 0 22px;">Ariadot sorts what it finds by how much it actually needs you, so the loud things stay loud and the quiet things stay quiet.</p>
   <div class="concept-grid">
     <article class="concept">
-      <div class="loop-head"><span class="pip bleed"></span><h3>Bleeding</h3></div>
+      <div class="loop-head"><span class="pip bleed"></span><h3>Needs you now</h3></div>
       <p>Promises past their date. A confirmation you said you'd send last week, a bill that's crossed into overdue. <b>These come first, every time.</b></p>
     </article>
     <article class="concept">
@@ -896,9 +914,9 @@
     </article>
   </div>
 
-  <div class="pull">
-    <q>And the things that aren't loops at all, just worth keeping, go somewhere too.</q>
-    <div class="cite">Your handbook, below</div>
+  <div class="bridge">
+    <span class="b-mark" aria-hidden="true">&rarr;</span>
+    <p class="b-text">And the things that aren't loops at all, just worth keeping, go somewhere too. That's the <a href="#handbook">handbook</a>.</p>
   </div>
 </section>
 
@@ -924,9 +942,38 @@
       <p>When Ariadot spots something durable in your mail, it doesn't just file it. It <b>proposes</b> the entry and you tap to keep or skip. The handbook fills itself, one small yes at a time, and never with anything you didn't approve.</p>
     </article>
     <article class="concept">
-      <p class="kicker">Shared, effortlessly</p>
+      <p class="kicker">Coming soon</p>
       <h3>Hand it to whoever needs it</h3>
-      <p>Because it's built passively, it's actually <b>there</b> when your partner asks "what's our energy account number?" Share the handbook with your spouse and the household details live in one place, kept current with zero effort from either of you.</p>
+      <p>Because it's built passively, it's actually <b>there</b> when your partner asks "what's our energy account number?" Soon you'll be able to share the handbook with your spouse, so the household details live in one place, kept current with zero effort from either of you.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ARIA PROPOSES -->
+<section class="section" id="proposals">
+  <div class="head">
+    <div class="num"><span class="sn">03</span><span class="sl">Aria proposes</span></div>
+    <div>
+      <h2>Nothing is kept <em>until you say so.</em></h2>
+      <p class="frame">Ariadot never quietly files things behind your back. When it reads something worth holding, Aria <b>proposes</b> it, and you keep it or skip it with a tap. The app fills itself one small yes at a time, and remembers a no so it doesn't ask twice.</p>
+    </div>
+  </div>
+
+  <div class="concept-grid">
+    <article class="concept">
+      <p class="kicker">It asks</p>
+      <h3>A proposal, not a fait accompli</h3>
+      <p>Spot a policy number, a renewal date, the name of your usual plumber? Aria shows it as a suggested handbook entry. <b>Keep</b> adds it; <b>Skip</b> drops it. Your handbook only ever holds what you approved.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">It remembers</p>
+      <h3>A no means no</h3>
+      <p>Skip a proposal and Aria won't surface that same thing again. You're not training a system that nags. You're teaching it, once, where your line is.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">It refuses</p>
+      <h3>Some things it won't even offer</h3>
+      <p>Passwords, one-time codes, bank logins. A guard catches anything that looks like a secret and drops it before it's ever stored, so it's never even a proposal. <b>Ariadot is not a password manager,</b> on purpose.</p>
     </article>
   </div>
 </section>
@@ -934,7 +981,7 @@
 <!-- HOW IT WORKS -->
 <section class="section" id="flow">
   <div class="head">
-    <div class="num"><span class="sn">03</span><span class="sl">The core loop</span></div>
+    <div class="num"><span class="sn">04</span><span class="sl">The core loop</span></div>
     <div>
       <h2>Read, sort, surface. <em>That's the whole machine.</em></h2>
       <p class="frame">Everything in the app is plumbing around one idea. Connect once, then it runs in the background and writes you a brief twice a day. No tagging, no rules, no folders to maintain.</p>
@@ -1006,7 +1053,7 @@
 <!-- WHAT WE NEVER DO -->
 <section class="section" id="safety">
   <div class="head">
-    <div class="num"><span class="sn">04</span><span class="sl">What we never do</span></div>
+    <div class="num"><span class="sn">05</span><span class="sl">What we never do</span></div>
     <div>
       <h2>A short list. <em>None of this. Ever.</em></h2>
       <p class="frame">Ariadot reads some of the most personal email you own, so the most useful thing we can tell you is what we will never do with it. Every line here is true today, not a someday promise.</p>
@@ -1074,7 +1121,7 @@
   <div class="col-l">
     <svg aria-hidden="true"><use href="#ariadot"/></svg>
     <span class="name">ariadot</span>
-    <span>© 2026 · Set in Source Serif 4 and Cormorant Garamond</span>
+    <span>© 2026 Ariadot · private beta</span>
   </div>
   <div class="links">
     <a href="/privacy">Privacy policy</a>
