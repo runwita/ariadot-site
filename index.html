@@ -209,11 +209,24 @@
   .brief-card.evening .bc-foot { color: #7a715f; border-top-color: #2e2920; }
 
   /* Section scaffolding */
-  .section { padding: 96px 0; border-top: 2px solid var(--ink); }
+  .section { padding: 96px 0; border-top: 3px solid var(--ink); }
   .section.tight { padding: 64px 0; }
   .section .head { display: grid; grid-template-columns: 160px 1fr; gap: 32px; margin-bottom: 48px; }
-  @media (max-width: 760px) { .section .head { grid-template-columns: 1fr; gap: 8px; } }
-  .section .num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); padding-top: 8px; }
+  @media (max-width: 760px) { .section .head { grid-template-columns: 1fr; gap: 14px; } }
+  /* Section eyebrow: a bold accent chip so each divider clearly reads
+     as "new section / here's how it works", not a faint label. */
+  .section .num {
+    font-family: var(--mono); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent);
+    padding-top: 4px;
+    display: flex; align-items: flex-start;
+  }
+  .section .num::before {
+    content: ""; display: inline-block;
+    width: 22px; height: 2px; background: var(--accent);
+    margin: 9px 12px 0 0; flex-shrink: 0;
+  }
   .section h2 {
     font-family: var(--serif); font-weight: 600;
     font-size: clamp(32px, 4vw, 48px);
@@ -241,6 +254,11 @@
   .concept .pip.due { background: var(--due); box-shadow: 0 0 0 4px rgba(176,122,31,0.10); }
   .concept .pip.info { background: var(--info); box-shadow: 0 0 0 4px rgba(106,122,90,0.10); }
   .concept h3 { font-family: var(--serif); font-weight: 600; font-size: 21px; letter-spacing: -0.005em; margin: 0 0 8px; }
+  /* Loop-type header: severity dot inline with the title, so the three
+     read as a spectrum of urgency, not a numbered catalogue. */
+  .concept .loop-head { display: flex; align-items: center; gap: 11px; margin-bottom: 12px; }
+  .concept .loop-head .pip { margin: 0; width: 13px; height: 13px; flex-shrink: 0; }
+  .concept .loop-head h3 { margin: 0; }
   .concept .kicker { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 18px; }
   .concept p { color: var(--ink-2); font-size: 15.5px; line-height: 1.55; margin: 0 0 10px; }
   .concept p b { color: var(--ink); font-weight: 600; }
@@ -745,9 +763,9 @@
     </a>
     <div class="links">
       <a href="#what">What it is</a>
+      <a href="#handbook">Handbook</a>
       <a href="#flow">How it works</a>
       <a href="#privacy">Privacy</a>
-      <a href="#data">Your data</a>
       <a href="#faq">FAQ</a>
     </div>
     <a href="#join" class="cta">Request access</a>
@@ -825,37 +843,61 @@
     </div>
   </div>
 
+  <p class="frame" style="margin: 0 0 22px;">Ariadot sorts what it finds by how much it's actually bleeding, so the loud things stay loud and the quiet things stay quiet.</p>
   <div class="concept-grid">
     <article class="concept">
-      <span class="pip bleed"></span>
-      <p class="kicker">Loop type · 01</p>
-      <h3>Bleeding</h3>
-      <p>Promises past their date. A confirmation you said you'd send last week. A bill that crossed into overdue. <b>These come first in every brief.</b></p>
+      <div class="loop-head"><span class="pip bleed"></span><h3>Bleeding</h3></div>
+      <p>Promises past their date. A confirmation you said you'd send last week, a bill that's crossed into overdue. <b>These come first, every time.</b></p>
     </article>
     <article class="concept">
-      <span class="pip due"></span>
-      <p class="kicker">Loop type · 02</p>
-      <h3>Due soon</h3>
-      <p>Anything attached to a real date. A renewal in two weeks, an invoice on Thursday, a friend's birthday this weekend. Surfaced with enough runway to actually do something.</p>
+      <div class="loop-head"><span class="pip due"></span><h3>Due soon</h3></div>
+      <p>Attached to a real date. A renewal in two weeks, an invoice Thursday, a friend's birthday this weekend. Surfaced with enough runway to actually do something.</p>
     </article>
     <article class="concept">
-      <span class="pip info"></span>
-      <p class="kicker">Loop type · 03</p>
-      <h3>Information</h3>
-      <p>Soft loops. Context worth carrying. <em>"You told her you'd send the link by Friday."</em> Nothing on fire, just a string you don't want to drop.</p>
+      <div class="loop-head"><span class="pip info"></span><h3>Just so you know</h3></div>
+      <p><em>"You told her you'd send the link by Friday."</em> Nothing on fire, just a thread you'd rather not drop.</p>
     </article>
   </div>
 
   <div class="pull">
-    <q>And it quietly keeps the things that aren't loops at all, just worth remembering. The insurance policy number. Your anniversary. The membership ID buried in a welcome email. The subscription you meant to cancel three months ago. Not password-manager secrets, just the small important details you'd never think to file, until the one moment you need them.</q>
-    <div class="cite">Your handbook · built as Ariadot reads</div>
+    <q>And the things that aren't loops at all, just worth keeping, go somewhere too.</q>
+    <div class="cite">Your handbook, below</div>
+  </div>
+</section>
+
+<!-- HANDBOOK -->
+<section class="section" id="handbook">
+  <div class="head">
+    <div class="num">§ 02 · The handbook</div>
+    <div>
+      <h2>The details you'd never think to file, <em>until the one moment you need them.</em></h2>
+      <p class="frame">Not everything worth remembering is a deadline. The insurance policy number. Your anniversary. The membership ID buried in a welcome email. Ariadot keeps a quiet handbook of these, built from your mail as it reads, so the answer is already there when you go looking.</p>
+    </div>
+  </div>
+
+  <div class="concept-grid">
+    <article class="concept">
+      <p class="kicker">What it holds</p>
+      <h3>The small, important things</h3>
+      <p>Account and policy numbers, IDs, the renewal dates that matter, the name of the person you always deal with. <b>Not password-manager secrets</b>, just the everyday details that are a pain to dig up.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">How it grows</p>
+      <h3>Aria offers, you decide</h3>
+      <p>When Ariadot spots something durable in your mail, it doesn't just file it. It <b>proposes</b> the entry and you tap to keep or skip. The handbook fills itself, one small yes at a time, and never with anything you didn't approve.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">Shared, effortlessly</p>
+      <h3>Hand it to whoever needs it</h3>
+      <p>Because it's built passively, it's actually <b>there</b> when your partner asks "what's our energy account number?" Share the handbook with your spouse and the household details live in one place, kept current with zero effort from either of you.</p>
+    </article>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
 <section class="section" id="flow">
   <div class="head">
-    <div class="num">§ 02 · How it works</div>
+    <div class="num">§ 03 · How it works</div>
     <div>
       <h2>Connect your email. <em>That's the whole setup.</em></h2>
       <p class="frame">No tagging, no rules, no folders to maintain. ariadot reads your inbox, does the work, and writes you a brief. Twice a day, in plain prose.</p>
@@ -867,13 +909,13 @@
       <div class="step-n">i.</div>
       <p class="step-tag">15 seconds</p>
       <h3>Plug in your email.</h3>
-      <p>Read-only Google OAuth for Gmail and Calendar. We never see your password. No folders to make, no rules to write. The app starts working the moment the connection lands.</p>
+      <p>Read-only Google OAuth for Gmail and Calendar. We never see your password, and there are no folders to make or rules to write. Connect <b>more than one account</b>, work and personal, and Ariadot reads them together into a single brief.</p>
     </div>
     <div class="step">
       <div class="step-n">ii.</div>
       <p class="step-tag">Background, ongoing</p>
       <h3>We read, mask, and reason.</h3>
-      <p>Messages are pulled to our processing edge on Cloudflare, masked with realistic, natural-looking stand-ins, and reasoned over by Claude. Drafts get a small model. Hard calls get a bigger one.</p>
+      <p>Messages are pulled to our edge, screened for anything secret, masked with realistic stand-ins, then reasoned over. A fast, cheap model triages; Claude does the careful judgement. The raw email is deleted within 24 hours.</p>
     </div>
     <div class="step">
       <div class="step-n">iii.</div>
@@ -889,21 +931,26 @@
       <span class="tag">Morning brief</span>
       <h4>Shape of the day, before it starts.</h4>
       <p class="when">around 6 am, your local time</p>
-      <p>What's locked into the calendar, what's quietly due, what would be worth a beat before the day gets loud. Designed to be read in 30 seconds and forgotten.</p>
+      <p>What's locked into the calendar, what's quietly due, what would be worth a beat before the day gets loud. Short enough to read over your first coffee, and then get on with the day.</p>
     </div>
     <div class="rhythm-card pm">
       <span class="tag">Evening wind down</span>
       <h4>How today actually landed.</h4>
       <p class="when">around 6 pm, your local time</p>
-      <p>A short reflection on what closed, what didn't, what's still worth a beat tonight, and what tomorrow already looks like. Written for the version of you who is tired.</p>
+      <p>A short reflection on what closed, what didn't, what's still worth a beat tonight, and what tomorrow already looks like. Written for the version of you at the end of the day, with nothing left for a to-do list.</p>
     </div>
+  </div>
+
+  <div class="pull">
+    <q>The brief only ever shows you the near: today, the rest of the week. The odd insurance renewal eight months out isn't clutter on your list, it's held quietly in the background, and Aria brings it back when it's close. That's the trade a task manager can't make: nothing to file now, and still nothing forgotten later.</q>
+    <div class="cite">Why it's not a to-do list</div>
   </div>
 </section>
 
 <!-- PRIVACY ARCHITECTURE -->
 <section class="section" id="privacy">
   <div class="head">
-    <div class="num">§ 03 · Privacy architecture</div>
+    <div class="num">§ 04 · Privacy architecture</div>
     <div>
       <h2>We treat your inbox the way it deserves to be treated.</h2>
       <p class="frame">Email is one of the most personal datasets you own. We know that. The privacy model below was designed before the product was, and the product was built around it.</p>
@@ -1044,7 +1091,7 @@
 <!-- WHAT GETS SENT (LEDGER) -->
 <section class="section" id="data">
   <div class="head">
-    <div class="num">§ 04 · The ledger</div>
+    <div class="num">§ 05 · The ledger</div>
     <div>
       <h2>What leaves your inbox, line by line.</h2>
       <p class="frame">No hedging, no "may include." Two columns. Left side is what travels to the model. Right side is what never does.</p>
@@ -1122,7 +1169,7 @@
 <!-- RETENTION + DELETION -->
 <section class="section">
   <div class="head">
-    <div class="num">§ 05 · Retention &amp; deletion</div>
+    <div class="num">§ 06 · Retention &amp; deletion</div>
     <div>
       <h2>How long anything lives, and how to make it go away.</h2>
       <p class="frame">Different parts of the system have different windows. All of them, in one place, on one axis.</p>
@@ -1196,7 +1243,7 @@
 <!-- SECURITY -->
 <section class="section">
   <div class="head">
-    <div class="num">§ 06 · Security</div>
+    <div class="num">§ 07 · Security</div>
     <div>
       <h2>The boring, important stuff.</h2>
       <p class="frame">No badges we haven't earned. Just what's actually true about how Ariadot is built today.</p>
@@ -1281,7 +1328,7 @@
 <!-- FAQ -->
 <section class="section" id="faq">
   <div class="head">
-    <div class="num">§ 07 · Asked &amp; answered</div>
+    <div class="num">§ 08 · Asked &amp; answered</div>
     <div>
       <h2>The questions we get most.</h2>
       <p class="frame">Mostly about the models and the masking. Reasonable questions, honest answers.</p>
