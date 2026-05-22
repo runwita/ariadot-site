@@ -65,12 +65,15 @@
     display: flex; align-items: center; justify-content: space-between;
     gap: 24px;
   }
-  .topnav .wordmark { display: flex; align-items: baseline; gap: 8px; }
-  .topnav .wordmark svg { width: 26px; height: 26px; transform: translateY(4px); }
+  .topnav .wordmark { display: flex; align-items: baseline; border-bottom: 0; }
   .topnav .wordmark .name {
     font-family: var(--display); font-style: italic;
     font-size: 26px; font-weight: 500; letter-spacing: -0.005em;
     color: var(--ink);
+  }
+  .topnav .wordmark .dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); margin-left: 2px; transform: translateY(-2px);
   }
   .topnav .links {
     display: flex; gap: 28px;
@@ -821,8 +824,7 @@
 <nav class="topnav">
   <div class="inner">
     <a class="wordmark" href="#" aria-label="ariadot">
-      <svg aria-hidden="true"><use href="#ariadot"/></svg>
-      <span class="name">ariadot</span>
+      <span class="name">ariadot<span class="dot"></span></span>
     </a>
     <div class="links">
       <a href="#what">What it is</a>
