@@ -213,19 +213,24 @@
   .section.tight { padding: 64px 0; }
   .section .head { display: grid; grid-template-columns: 160px 1fr; gap: 32px; margin-bottom: 48px; }
   @media (max-width: 760px) { .section .head { grid-template-columns: 1fr; gap: 14px; } }
-  /* Section eyebrow: a bold accent chip so each divider clearly reads
-     as "new section / here's how it works", not a faint label. */
-  .section .num {
-    font-family: var(--mono); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--accent);
-    padding-top: 4px;
-    display: flex; align-items: flex-start;
+  /* Section marker: a large display number anchors each divider, with a
+     small caption label beneath. Reads unmistakably as "new section". */
+  .section .num { padding-top: 2px; }
+  .section .num .sn {
+    display: block;
+    font-family: var(--display); font-weight: 600; font-style: italic;
+    font-size: 46px; line-height: 0.9; color: var(--accent);
+    letter-spacing: -0.01em;
   }
-  .section .num::before {
-    content: ""; display: inline-block;
-    width: 22px; height: 2px; background: var(--accent);
-    margin: 9px 12px 0 0; flex-shrink: 0;
+  .section .num .sl {
+    display: block; margin-top: 8px;
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3);
+  }
+  @media (max-width: 760px) {
+    .section .num { display: flex; align-items: baseline; gap: 12px; }
+    .section .num .sn { font-size: 32px; }
+    .section .num .sl { margin-top: 0; }
   }
   .section h2 {
     font-family: var(--serif); font-weight: 600;
@@ -836,7 +841,7 @@
 <!-- WHAT IT IS -->
 <section class="section" id="what">
   <div class="head">
-    <div class="num">§ 01 · The premise</div>
+    <div class="num"><span class="sn">01</span><span class="sl">The premise</span></div>
     <div>
       <h2>It's <em>not</em> a task manager. That's the whole point.</h2>
       <p class="frame">A task manager only knows what you remember to type into it, which means the things you forget never make it in. ariadot works the other way around: it reads your inbox and surfaces the loops on its own, with nothing to set up, no list to build, no reminder to write. It reports. You close.</p>
@@ -868,7 +873,7 @@
 <!-- HANDBOOK -->
 <section class="section" id="handbook">
   <div class="head">
-    <div class="num">§ 02 · The handbook</div>
+    <div class="num"><span class="sn">02</span><span class="sl">The handbook</span></div>
     <div>
       <h2>The details you'd never think to file, <em>until the one moment you need them.</em></h2>
       <p class="frame">Not everything worth remembering is a deadline. The insurance policy number. Your anniversary. The membership ID buried in a welcome email. Ariadot keeps a quiet handbook of these, built from your mail as it reads, so the answer is already there when you go looking.</p>
@@ -897,7 +902,7 @@
 <!-- HOW IT WORKS -->
 <section class="section" id="flow">
   <div class="head">
-    <div class="num">§ 03 · How it works</div>
+    <div class="num"><span class="sn">03</span><span class="sl">How it works</span></div>
     <div>
       <h2>Connect your email. <em>That's the whole setup.</em></h2>
       <p class="frame">No tagging, no rules, no folders to maintain. ariadot reads your inbox, does the work, and writes you a brief. Twice a day, in plain prose.</p>
@@ -950,7 +955,7 @@
 <!-- PRIVACY ARCHITECTURE -->
 <section class="section" id="privacy">
   <div class="head">
-    <div class="num">§ 04 · Privacy architecture</div>
+    <div class="num"><span class="sn">04</span><span class="sl">Privacy architecture</span></div>
     <div>
       <h2>We treat your inbox the way it deserves to be treated.</h2>
       <p class="frame">Email is one of the most personal datasets you own. We know that. The privacy model below was designed before the product was, and the product was built around it.</p>
@@ -1091,7 +1096,7 @@
 <!-- WHAT GETS SENT (LEDGER) -->
 <section class="section" id="data">
   <div class="head">
-    <div class="num">§ 05 · The ledger</div>
+    <div class="num"><span class="sn">05</span><span class="sl">The ledger</span></div>
     <div>
       <h2>What leaves your inbox, line by line.</h2>
       <p class="frame">No hedging, no "may include." Two columns. Left side is what travels to the model. Right side is what never does.</p>
@@ -1169,7 +1174,7 @@
 <!-- RETENTION + DELETION -->
 <section class="section">
   <div class="head">
-    <div class="num">§ 06 · Retention &amp; deletion</div>
+    <div class="num"><span class="sn">06</span><span class="sl">Retention &amp; deletion</span></div>
     <div>
       <h2>How long anything lives, and how to make it go away.</h2>
       <p class="frame">Different parts of the system have different windows. All of them, in one place, on one axis.</p>
@@ -1243,7 +1248,7 @@
 <!-- SECURITY -->
 <section class="section">
   <div class="head">
-    <div class="num">§ 07 · Security</div>
+    <div class="num"><span class="sn">07</span><span class="sl">Security</span></div>
     <div>
       <h2>The boring, important stuff.</h2>
       <p class="frame">No badges we haven't earned. Just what's actually true about how Ariadot is built today.</p>
@@ -1328,7 +1333,7 @@
 <!-- FAQ -->
 <section class="section" id="faq">
   <div class="head">
-    <div class="num">§ 08 · Asked &amp; answered</div>
+    <div class="num"><span class="sn">08</span><span class="sl">Asked &amp; answered</span></div>
     <div>
       <h2>The questions we get most.</h2>
       <p class="frame">Mostly about the models and the masking. Reasonable questions, honest answers.</p>
