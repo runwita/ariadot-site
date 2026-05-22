@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index,follow" />
+<title>How we keep your email safe — Ariadot</title>
+<meta name="description" content="Your email is yours. Six plain-English promises about how Ariadot reads it, what it never does, and the one thing we honestly can't promise." />
+<link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
+<link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
+<meta name="theme-color" content="#15120d" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="How we keep your email safe — Ariadot" />
+<meta property="og:description" content="Your email is yours. We treat it that way. Six promises, in plain words." />
+<meta property="og:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<meta property="og:url" content="https://ariadot.app/safety" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#faf6ec; --paper-2:#f3ecd9; --ink:#1a1814; --ink-2:#5a544a;
+    --ink-3:#968d7c; --rule:#ddd3bc; --rule-soft:#e6dec8; --accent:#8a3a1f;
+    --info:#6a7a5a;
+    --serif:"Source Serif 4","New York",Georgia,serif;
+    --display:"Cormorant Garamond","Source Serif 4",serif;
+    --sans:-apple-system,"SF Pro Text",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(138,58,31,0.3); }
+  a:hover { border-bottom-color:var(--accent); }
+  ::selection { background: rgba(138,58,31,0.18); }
+  code { font-family:var(--mono); font-size:13.5px; background:var(--paper-2); padding:1px 5px; border-radius:4px; border:1px solid var(--rule); color:var(--ink); }
+
+  .topnav { position:sticky; top:0; z-index:50;
+    background:color-mix(in oklab, var(--paper) 90%, transparent);
+    backdrop-filter:blur(14px) saturate(160%); border-bottom:1px solid var(--rule-soft); }
+  .topnav .inner { max-width:760px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between; }
+  .topnav .name { font-family:var(--display); font-style:italic; font-weight:500;
+    font-size:24px; color:var(--ink); border:0; }
+  .topnav .name .dot { display:inline-block; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); margin-left:2px; transform:translateY(-2px); }
+  .topnav .links { display:flex; gap:22px; font-family:var(--sans); font-size:14px; }
+  .topnav .links a { color:var(--ink-2); border:0; }
+  .topnav .links a:hover { color:var(--ink); }
+  @media (max-width:560px){ .topnav .links a:not(.here){ display:none; } }
+
+  .wrap { max-width:760px; margin:0 auto; padding:56px 24px 80px; }
+  .eyebrow { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 12px; }
+  h1 { font-family:var(--serif); font-weight:600; font-size:clamp(34px,5vw,52px);
+    line-height:1.05; letter-spacing:-0.015em; margin:0 0 12px; }
+  .lede { font-size:20px; line-height:1.5; color:var(--ink-2); margin:0 0 8px; max-width:60ch; }
+  .lede em { font-family:var(--display); font-style:italic; }
+
+  .promise { border-top:1px solid var(--rule); padding:30px 0 4px; }
+  .promise:first-of-type { margin-top:36px; }
+  .promise .pn { font-family:var(--display); font-style:italic; font-weight:500;
+    color:var(--accent); font-size:22px; line-height:1; margin:0 0 6px; }
+  .promise h2 { font-family:var(--serif); font-weight:600; font-size:25px; letter-spacing:-0.008em;
+    margin:0 0 10px; border:0; padding:0; }
+  .promise p { color:var(--ink-2); margin:0 0 12px; }
+  .promise p:last-child { margin-bottom:4px; }
+  .promise b { color:var(--ink); font-weight:600; }
+  .promise em { font-style:italic; }
+
+  .worries { margin-top:60px; padding-top:36px; border-top:2px solid var(--rule); }
+  .worries .eyebrow { color:var(--ink-3); }
+  .worries h2 { font-family:var(--serif); font-weight:600; font-size:clamp(26px,4vw,34px);
+    letter-spacing:-0.012em; margin:0 0 6px; border:0; padding:0; }
+  .worries .sub { font-family:var(--display); font-style:italic; font-size:19px; color:var(--ink-2); margin:0 0 8px; }
+
+  .qa { border-top:1px solid var(--rule); padding:22px 4px; }
+  .qa:last-of-type { border-bottom:1px solid var(--rule); }
+  .qa summary { list-style:none; cursor:pointer;
+    display:flex; align-items:baseline; justify-content:space-between; gap:24px;
+    font-family:var(--serif); font-weight:600; font-size:20px; letter-spacing:-0.005em; color:var(--ink); }
+  .qa summary::-webkit-details-marker { display:none; }
+  .qa summary .plus { font-family:var(--display); font-style:italic; color:var(--accent);
+    font-size:27px; line-height:1; flex-shrink:0; transition:transform 0.2s ease; }
+  .qa[open] summary .plus { transform:rotate(45deg); }
+  .qa .answer { margin-top:13px; color:var(--ink-2); font-size:16.5px; line-height:1.6; max-width:72ch; }
+  .qa .answer p { margin:0 0 12px; } .qa .answer p:last-child { margin:0; }
+  .qa .answer b { color:var(--ink); font-weight:600; }
+
+  .callout { margin-top:48px; background:var(--paper-2); border:1px solid var(--rule);
+    border-radius:8px; padding:26px 28px; }
+  .callout h3 { margin:0 0 8px; font-size:20px; font-weight:600; color:var(--ink); }
+  .callout p { margin:0; color:var(--ink-2); }
+
+  .footer { margin-top:56px; padding-top:24px; border-top:1px solid var(--rule);
+    font-family:var(--sans); font-size:13.5px; color:var(--ink-3);
+    display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .footer a { color:var(--ink-3); }
+  .footer .spacer { flex:1; }
+</style>
+</head>
+<body>
+  <nav class="topnav">
+    <div class="inner">
+      <a class="name" href="/">ariadot<span class="dot"></span></a>
+      <div class="links">
+        <a href="/">Home</a>
+        <a class="here" href="/safety">Safety</a>
+        <a href="/faq">FAQ</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <p class="eyebrow">Your email, kept safe</p>
+    <h1>Your email is yours. We treat it that way.</h1>
+    <p class="lede">Ariadot reads some of the most personal things you own, so you deserve to know exactly how we handle it. <em>Six promises, in plain words, and one honest limit we won't hide from you.</em></p>
+
+    <div class="promise">
+      <p class="pn">i.</p>
+      <h2>We never see your password.</h2>
+      <p>You sign in through Google or Apple, the same way you sign in to anything else. Your password never leaves them. We can't see it, type it, or store it.</p>
+    </div>
+
+    <div class="promise">
+      <p class="pn">ii.</p>
+      <h2>We can only read. Never send, reply, or delete.</h2>
+      <p>Google only lets us <b>see</b> what's already in your inbox. We have no way to send mail, reply to anyone, or move a thing to the bin. Not by accident, not on purpose. That limit is set by Google's read-only permission, not just promised by us.</p>
+    </div>
+
+    <div class="promise">
+      <p class="pn">iii.</p>
+      <h2>Names and numbers get swapped before any AI reads them.</h2>
+      <p>Before we ask an AI to help write your note, we change every real name, phone number, address and dollar amount into a believable fake one. The AI reasons about a stranger's details, never yours.</p>
+      <p>We swap the real ones back <b>at our end</b>, just before the note reaches you, using a map that's sealed with a key unique to you and never sent to any model. <em>What we don't touch are dates and times</em>, because a note that reasons about the wrong day is worse than useless.</p>
+    </div>
+
+    <div class="promise">
+      <p class="pn">iv.</p>
+      <h2>The AI doesn't keep what it sees, or train on it.</h2>
+      <p>We mostly use <b>Claude</b>, made by Anthropic, with a couple of smaller models for the quick sorting and screening. Each one only ever sees the swapped, fake version, and none of them keep it or learn from it.</p>
+    </div>
+
+    <div class="promise">
+      <p class="pn">v.</p>
+      <h2>The raw email doesn't hang around.</h2>
+      <p>Once Ariadot has read a message and written your note, the original is <b>deleted within a day</b>. Most go within minutes; a daily sweep makes sure nothing older than that remains. It's always re-fetchable from Google if needed, so there's no reason to keep it.</p>
+      <p>What we <em>do</em> keep is the useful part: your loops, your handbook, and a quiet profile of your routines. You can see all of it in the app.</p>
+    </div>
+
+    <div class="promise">
+      <p class="pn">vi.</p>
+      <h2>You can delete everything yourself.</h2>
+      <p>Settings &rarr; Delete account. There's a <b>7-day window</b> in case you change your mind, then it's gone for good, and your Google connection is switched off at Google's end. No "we'll keep it just in case."</p>
+    </div>
+
+    <section class="worries">
+      <p class="eyebrow">Common worries</p>
+      <h2>The questions you'd ask a friend over coffee.</h2>
+      <p class="sub">Honest answers, including the uncomfortable one.</p>
+
+      <details class="qa" open>
+        <summary>What if I lose my phone?<span class="plus">+</span></summary>
+        <div class="answer">
+          <p>Nothing important lives on your phone. Sign in on a new one and your morning notes come back. Your loops and handbook live on our servers, not the phone, so a dropped phone loses nothing.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Do you read my emails yourself?<span class="plus">+</span></summary>
+        <div class="answer">
+          <p>No. No one at Ariadot can open your inbox and have a browse, not even our engineers. The only thing that reads your mail is software, doing one quick pass, then moving on.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>What if there's a hack?<span class="plus">+</span></summary>
+        <div class="answer">
+          <p>We'll be honest here, because this is the one thing we can't promise away. To write your note, our software reads your email in readable form, and we hold the keys to do that, so we are <b>not a vault that only you can open</b>.</p>
+          <p>What protects you is narrower and real: the only copy that ever leaves our edge to an AI is the swapped, fake-name version; the raw email is gone within a day; your access tokens are sealed with a key unique to you; and everything is encrypted in transit and at rest.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>What if you go out of business?<span class="plus">+</span></summary>
+        <div class="answer">
+          <p>We'd give you 30 days' notice by email and let you keep what you'd like, then wipe everything. You'll never wake up wondering where your data went.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>What if the morning note is wrong?<span class="plus">+</span></summary>
+        <div class="answer">
+          <p>Tell Aria what was off and the next one learns from it. And if we ever can't write one because something broke, we say so plainly. No fake notes, no pretending.</p>
+        </div>
+      </details>
+
+      <details class="qa">
+        <summary>Will my whole family be on it?<span class="plus">+</span></summary>
+        <div class="answer">
+          <p>Not yet. Right now it's for one person, the one who carries the household mental load. You can already <b>share your handbook</b> with a partner, so the household details live in one place. Full household sharing is something we want to do well, not quickly.</p>
+        </div>
+      </details>
+    </section>
+
+    <div class="callout">
+      <h3>Want the technical detail?</h3>
+      <p>The exact model list, retention mechanics, sub-processors, and your legal rights live in the <a href="/privacy">full privacy policy</a>. The <a href="/faq">FAQ</a> covers the rest.</p>
+    </div>
+
+    <div class="footer">
+      <span>© 2026 Ariadot · beta</span>
+      <span class="spacer"></span>
+      <a href="/">Home</a>
+      <a href="/faq">FAQ</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -802,7 +802,7 @@
       <a href="#what">What it is</a>
       <a href="#handbook">Handbook</a>
       <a href="#flow">How it works</a>
-      <a href="#privacy">Privacy</a>
+      <a href="/safety">Safety</a>
       <a href="/faq">FAQ</a>
     </div>
     <a href="#join" class="cta">Request access</a>
@@ -826,7 +826,7 @@
       <p class="lede">ariadot reads your email so you don't have to keep a list. The renewal next month, the reply you owe a friend, the subscription you meant to cancel. Twice a day it reads back what's open, what's coming, and what just landed. <b>Nothing to set up. You decide what to do about any of it.</b></p>
       <div class="row">
         <a href="#join" class="btn">Request access <span class="arr">→</span></a>
-        <a href="#privacy" class="btn ghost">Read the privacy memo</a>
+        <a href="/safety" class="btn ghost">How we keep email safe</a>
         <span class="availability"><span class="pip"></span>Private beta, iOS and Android</span>
       </div>
     </div>
@@ -1003,422 +1003,54 @@
   </div>
 </section>
 
-<!-- PRIVACY ARCHITECTURE -->
-<section class="section" id="privacy">
+<!-- WHAT WE NEVER DO -->
+<section class="section" id="safety">
   <div class="head">
-    <div class="num"><span class="sn">04</span><span class="sl">Privacy architecture</span></div>
+    <div class="num"><span class="sn">04</span><span class="sl">What we never do</span></div>
     <div>
-      <h2>We treat your inbox the way it deserves to be treated.</h2>
-      <p class="frame">Email is one of the most personal datasets you own. We know that. The privacy model below was designed before the product was, and the product was built around it.</p>
+      <h2>A short list. <em>None of this. Ever.</em></h2>
+      <p class="frame">Ariadot reads some of the most personal email you own, so the most useful thing we can tell you is what we will never do with it. Every line here is true today, not a someday promise.</p>
     </div>
   </div>
 
-  <div class="body-prose">
-    <p><span class="drop">A</span>riadot reads your email so you don't have to. That means we are temporarily handling some of the most sensitive content you own: your relationships, your finances, your medical correspondence, your travel, your conversations with your family. We hold that responsibility seriously. <b>Everything is encrypted at rest. Everything that resembles PII is masked before any model sees it. And the masks we send are not robotic placeholders, they are realistic, plausible stand-ins drawn from a synthetic corpus we built specifically for this.</b></p>
-    <p>The pipeline below describes every place your data exists, from inbox to brief. Three colors, three locations. Read it left to right.</p>
+  <div class="concept-grid">
+    <article class="concept">
+      <p class="kicker">No.</p>
+      <h3>Show you ads</h3>
+      <p>Not on the site, not in the app, not ever. Your inbox is not an audience to sell.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">No.</p>
+      <h3>Sell or share your data</h3>
+      <p>We don't sell, rent, or swap your email or anything we learn from it. No advertisers, no data brokers.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">No.</p>
+      <h3>Train AI on your mail</h3>
+      <p>Nothing from your inbox trains a model, ours or anyone else's. Every model sees a masked copy and keeps none of it.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">No.</p>
+      <h3>Read it ourselves</h3>
+      <p>No one at Ariadot sits down and browses your inbox. Not support, not engineers. Software does one quick pass, then moves on.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">No.</p>
+      <h3>Hold your passwords</h3>
+      <p>We won't keep passwords, PINs, or bank logins. A guard drops anything that looks like a secret before it's ever stored.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">No.</p>
+      <h3>Send from your inbox</h3>
+      <p>Read-only, always. We can't reply, forward, or delete a thing. That limit is set by Google, not just promised by us.</p>
+    </article>
   </div>
 
-  <div class="privacy-card" style="padding-top: 32px;">
-    <div class="pcard-head">
-      <span class="badge">PIPELINE</span>
-      <h3>One brief, from inbox to your hand</h3>
-    </div>
-
-    <div class="pipeline">
-      <div class="row">
-        <div class="stage">01 · Authorize</div>
-        <div class="what">You grant read-only Google OAuth for Gmail and Calendar. We never receive or store your password. The token is held in our edge keystore, scoped to your account.</div>
-        <div class="where"><span class="pin device"></span>YOUR DEVICE</div>
-      </div>
-      <div class="row">
-        <div class="stage">02 · Fetch</div>
-        <div class="what">Messages are pulled to our processing edge on Cloudflare Workers, encrypted in transit and at rest. <em>The phone is a thin client; ariadot's brain lives on the edge.</em></div>
-        <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
-      </div>
-      <div class="row">
-        <div class="stage">03 · Screen</div>
-        <div class="what">Before anything else, a credential guard (Llama, on Cloudflare Workers AI) reads each message and drops anything that looks like a password, OTP, or secret. <em>That material is never stored and never reaches the reasoning models.</em></div>
-        <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
-      </div>
-      <div class="row">
-        <div class="stage">04 · Triage</div>
-        <div class="what">A small, fast model (OpenAI's smallest) decides what's even worth a closer look, so most noise is filtered cheaply before the heavier reasoning. Masked input only.</div>
-        <div class="where"><span class="pin llm"></span>OPENAI API</div>
-      </div>
-      <div class="row">
-        <div class="stage">05 · Mask</div>
-        <div class="what">Names, emails, phone numbers, addresses, account references, IDs, and any free text that resembles PII are replaced with natural-looking stand-ins. Dates and amounts that matter to your day are kept true. <em>The mapping is stable per user: if Mary becomes Jackson once, she stays Jackson in every future brief.</em></div>
-        <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
-      </div>
-      <div class="row">
-        <div class="stage">06 · Reason</div>
-        <div class="what">Claude (Sonnet for the brief in your voice, Haiku for lighter Aria tasks) does the judgement: what's a loop, what's worth surfacing, how to say it. Masked input only. <em>Not retained, not trained on.</em></div>
-        <div class="where"><span class="pin llm"></span>ANTHROPIC API</div>
-      </div>
-      <div class="row">
-        <div class="stage">07 · Unmask &amp; deliver</div>
-        <div class="what">The finished brief is unmasked at our edge using your persistent mask map, then delivered to your device over TLS. The mask map itself stays encrypted in our keystore, sealed with a per-user key, so model output is never reconstructible without it.</div>
-        <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
-      </div>
-      <div class="row">
-        <div class="stage">08 · Read</div>
-        <div class="what">Brief lands in the app, encrypted at rest on device. It is read only. To close, snooze, or hand off a loop, you move to the Loops page.</div>
-        <div class="where"><span class="pin device"></span>YOUR DEVICE</div>
-      </div>
-    </div>
-
-    <div class="legend">
-      <div class="li"><span class="pin device"></span>Your device, thin client</div>
-      <div class="li"><span class="pin edge"></span>Cloudflare edge, screening, masking and key storage</div>
-      <div class="li"><span class="pin llm"></span>Model APIs, masked input, not retained, not trained on</div>
-    </div>
-  </div>
-
-  <!-- Model card -->
-  <div class="privacy-card">
-    <div class="pcard-head">
-      <span class="badge">THE MODELS WE USE</span>
-      <h3>A small set, each picked for one job.</h3>
-    </div>
-    <div class="body-prose" style="margin-bottom: 18px;">
-      <p>Every model only ever sees <b>masked</b> input, and none of them retains or trains on it. The cheap, fast ones do the screening and triage so your data touches the heavier reasoning as little as possible. We're also exploring running a model locally on Cloudflare Workers, to keep more of the work on our own edge.</p>
-    </div>
-    <div class="models">
-      <article class="model">
-        <div class="glyph">l</div>
-        <div>
-          <p class="name">Screening · Cloudflare Workers AI</p>
-          <h4>Llama 3.1</h4>
-          <p>The privacy-sensitive first pass, including the credential guard that catches passwords and secrets before anything is stored or sent onward.</p>
-        </div>
-      </article>
-      <article class="model">
-        <div class="glyph">o</div>
-        <div>
-          <p class="name">Triage · OpenAI</p>
-          <h4>Smallest GPT</h4>
-          <p>A fast, cheap classifier that decides what's even worth a closer look, so most of your inbox is filtered out before the careful reasoning begins.</p>
-        </div>
-      </article>
-      <article class="model">
-        <div class="glyph">s</div>
-        <div>
-          <p class="name">Reasoning · Anthropic</p>
-          <h4>Claude Sonnet &amp; Haiku</h4>
-          <p>The judgement: Sonnet writes the brief in your voice and weighs the shape of a day; Haiku handles lighter Aria tasks. Used with care, on masked input only.</p>
-        </div>
-      </article>
-    </div>
-  </div>
-
-  <!-- Mask demo -->
-  <div class="privacy-card">
-    <div class="pcard-head">
-      <span class="badge">MASKING · WORKED EXAMPLE</span>
-      <h3>What the model actually sees.</h3>
-    </div>
-
-    <div class="body-prose" style="margin-bottom: 8px;">
-      <p>Here is the same line of email in both forms. The left card is what arrived in your inbox. The right card is what we send Claude. Identifiers are swapped for realistic stand-ins, not placeholders, because <b>natural-looking text leads to better reasoning than alien tokens</b>, and the stand-ins are uncorrelated with the real values.</p>
-    </div>
-
-    <div class="mask-demo">
-      <div class="mask-card">
-        <span class="label">What arrived</span>
-        From: <span class="swap">priya.menon@gmail.com</span>. Hey, can you forward the invoice from <span class="swap">Sigma Studios</span> for the <span class="swap">$1,840</span> shoot? Trying to close out the May books before Friday. My mobile is <span class="swap">+61 412 558 904</span> if easier.
-      </div>
-      <div class="mask-arrow">
-        <svg viewBox="0 0 36 18" fill="none">
-          <path d="M2 9 H32 M28 4 L33 9 L28 14" stroke="#8a3a1f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="mask-card">
-        <span class="label">What Claude sees</span>
-        From: <span class="swap">helena.dorff@gmail.com</span>. Hey, can you forward the invoice from <span class="swap">Bramley House</span> for the <span class="swap">$2,610</span> shoot? Trying to close out the May books before Friday. My mobile is <span class="swap">+61 478 211 663</span> if easier.
-      </div>
-    </div>
-
-    <p class="mask-fineprint"><b>Why this works.</b> Every masked field is drawn from a synthetic dataset of names, addresses, amounts, phone numbers, IDs, and free-text fragments. The stand-ins are realistic and statistically diverse, but uncorrelated with anything in your real life. Even if the model output were leaked, it would describe a coherent stranger, not you. The mapping back to your real values is held only on our edge, sealed with a per-user key, and never reaches any model. <b>Notice what didn't change:</b> "May" and "Friday" stay exactly as written. Dates, times, and deadlines are never shifted, because a brief that reasons about the wrong day is worse than useless.</p>
-
-    <p class="mask-fineprint" style="margin-top: 14px;"><b>The masks are stable across sessions.</b> Continuity matters. If "Mary" gets masked as "Jackson" today, she will still be "Jackson" in tomorrow's brief and next month's brief. That stability is what makes reasoning over time possible: the model sees a consistent cast of characters across your week, even though it never sees the real ones.</p>
+  <div class="pull">
+    <q>The full picture, in plain words: how masking works, what we keep, how to delete it, and the one thing we honestly can't promise.</q>
+    <div class="cite"><a href="/safety">How we keep your email safe →</a></div>
   </div>
 </section>
-
-<!-- WHAT GETS SENT (LEDGER) -->
-<section class="section" id="data">
-  <div class="head">
-    <div class="num"><span class="sn">05</span><span class="sl">Sensitivity tiers</span></div>
-    <div>
-      <h2>What we'll hold, <em>ask before holding,</em> or <em>refuse outright.</em></h2>
-      <p class="frame">Ariadot keeps loops and a handbook. It is <b>not</b> a password manager, and the line between the two is drawn in three tiers, enforced before anything is ever stored.</p>
-    </div>
-  </div>
-
-  <div class="tiers">
-    <div class="tier t1">
-      <div class="tier-label">
-        <span class="badge">Tier 1 · Reference</span>
-        <h3>Store freely</h3>
-        <p>No friction. <b>This is the handbook.</b></p>
-      </div>
-      <div>
-        <div class="chips">
-          <span class="chip">plumber · name · phone</span>
-          <span class="chip">school office hours</span>
-          <span class="chip">wifi network name</span>
-          <span class="chip">passport expiry</span>
-          <span class="chip">insurance excess</span>
-          <span class="chip">appliance warranty</span>
-        </div>
-        <p class="behavior"><b>Behavior.</b> Stored when you save it. Surfaced when you ask, or quietly alongside a related time-bound loop.</p>
-      </div>
-    </div>
-
-    <div class="tier t2">
-      <div class="tier-label">
-        <span class="badge">Tier 2 · Identifiers</span>
-        <h3>Ask first</h3>
-        <p>Stored only with a one-time OK per category. <b>An identifier labels an account; on its own it unlocks nothing.</b></p>
-      </div>
-      <div>
-        <div class="chips">
-          <span class="chip">BSB + account number</span>
-          <span class="chip">card last 4 digits</span>
-          <span class="chip">policy numbers</span>
-          <span class="chip">customer reference</span>
-          <span class="chip">Medicare number</span>
-          <span class="chip">licence / rego</span>
-        </div>
-        <p class="behavior"><b>Behavior.</b> The first time you try to save one, Aria asks: <em>"This is an identifier, not a password. Store it? Yes / No / Always allow this category."</em> Never read out in the morning brief, retrieved on demand only.</p>
-      </div>
-    </div>
-
-    <div class="tier t3">
-      <div class="tier-label">
-        <span class="badge">Tier 3 · Credentials</span>
-        <h3>Refuse, hard</h3>
-        <p>No override. <b>Possession alone unlocks something, that belongs in a password manager.</b></p>
-      </div>
-      <div>
-        <div class="chips">
-          <span class="chip">passwords</span>
-          <span class="chip">PINs</span>
-          <span class="chip">recovery codes</span>
-          <span class="chip">2FA / OTP</span>
-          <span class="chip">full card + CVV</span>
-          <span class="chip">Tax File Number</span>
-        </div>
-        <p class="behavior"><b>Behavior.</b> Detected and refused before storage. Aria won't keep it, and it never reaches a model. The same check runs as a fast pattern match <b>and</b> again as a model pass, defence in depth.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="refusal-bar">
-    <span class="tag">[!] Tier 3 refusal</span>
-    <q>"That's a password. Not in here. Tell me where it lives, not what it is."</q>
-    <p class="note">The exact line Aria gives when you try to hand it a credential.</p>
-  </div>
-
-  <!-- The promises -->
-  <div style="margin-top: 32px;">
-    <div class="pcard-head" style="border-bottom: 0; padding-bottom: 0; margin-bottom: 16px;">
-      <span class="badge">PROMISES</span>
-      <h3>Six things we will not do, in plain language</h3>
-    </div>
-    <div class="promises">
-      <div class="promise">
-        <div class="ix">i.</div>
-        <h4>No training on your data, ever.</h4>
-        <p>Not for us, not for the model providers. We do not train anything on your email, and our API access to Anthropic, OpenAI, and Cloudflare is under terms that do not use API traffic for training. We have no model of our own to train.</p>
-      </div>
-      <div class="promise">
-        <div class="ix">ii.</div>
-        <h4>No ads, no data brokers.</h4>
-        <p>ariadot is paid for by ariadot subscribers. We have no advertising business, no analytics business, and no "data partner" of any kind.</p>
-      </div>
-      <div class="promise">
-        <div class="ix">iii.</div>
-        <h4>No human review of your briefs.</h4>
-        <p>Engineers and support staff cannot read your briefs or your email. There is no internal tool that surfaces them. When you write to support, you choose what to share, and we mask what you send before it lands in a ticket.</p>
-      </div>
-      <div class="promise">
-        <div class="ix">iv.</div>
-        <h4>No silent expansion of scope.</h4>
-        <p>Ariadot's access is read-only Gmail and Calendar, and that is all we ask for. If we ever need a new permission or change how data is handled, you will be asked to approve it and told plainly what changed, in the app and in this policy. We will not change the rules quietly.</p>
-      </div>
-      <div class="promise">
-        <div class="ix">v.</div>
-        <h4>No retention beyond what's necessary.</h4>
-        <p>The raw email and calendar we fetch is deleted once Ariadot has read it and written your brief, within 24 hours, not kept around. What stays is the useful output: your loops, your handbook, and the profile Aria builds, all visible to you in the app and held until you delete your account. The model providers retain nothing of what we send.</p>
-      </div>
-      <div class="promise">
-        <div class="ix">vi.</div>
-        <h4>No dark patterns on the way out.</h4>
-        <p>One tap to delete, one tap to revoke our email access. No "are you sure" gauntlet, no dark patterns. Deletion runs with a 7-day grace window, so a mistaken tap is recoverable by signing back in; after 7 days it is permanent and irreversible, and your Google access is revoked upstream. When you leave, you leave clean.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- RETENTION + DELETION -->
-<section class="section">
-  <div class="head">
-    <div class="num"><span class="sn">06</span><span class="sl">Retention &amp; deletion</span></div>
-    <div>
-      <h2>How long anything lives, and how to make it go away.</h2>
-      <p class="frame">Different parts of the system have different windows. All of them, in one place, on one axis.</p>
-    </div>
-  </div>
-
-  <div class="timeline">
-    <div class="timeline-axis">
-      <div class="bar"></div>
-      <div class="fill"></div>
-
-      <div class="marker top" style="left: 4%;">
-        <div class="what">Raw email &amp; calendar</div>
-        <span class="pin" style="background: var(--info);"></span>
-        <div class="when">≤ 24 hours</div>
-      </div>
-      <div class="marker top" style="left: 34%;">
-        <div class="what">The model providers</div>
-        <span class="pin" style="background: var(--info);"></span>
-        <div class="when">Zero</div>
-      </div>
-      <div class="marker top" style="left: 64%;">
-        <div class="what">Loops, handbook, profile</div>
-        <span class="pin" style="background: var(--due);"></span>
-        <div class="when">Until you delete</div>
-      </div>
-      <div class="marker top" style="left: 94%;">
-        <div class="what">After Delete account</div>
-        <span class="pin" style="background: var(--bleed);"></span>
-        <div class="when">7-day grace, then gone</div>
-      </div>
-    </div>
-
-    <div class="ret-grid">
-      <div class="ret-cell">
-        <div class="k">Raw email &amp; calendar</div>
-        <div class="v">≤ 24 hours</div>
-        <div class="n">Fetched, read, turned into your brief, then deleted. Re-fetchable from Google if ever needed, so we don't keep it.</div>
-      </div>
-      <div class="ret-cell">
-        <div class="k">The model providers</div>
-        <div class="v">Zero</div>
-        <div class="n">Only masked input is ever sent, and it is not retained or trained on by Anthropic, OpenAI, or Cloudflare Workers AI.</div>
-      </div>
-      <div class="ret-cell">
-        <div class="k">Loops, handbook, profile</div>
-        <div class="v">Until you delete</div>
-        <div class="n">The useful output Aria builds for you. All visible in the app. Kept until you delete your account.</div>
-      </div>
-      <div class="ret-cell">
-        <div class="k">When you delete</div>
-        <div class="v">7-day grace</div>
-        <div class="n">Everything is removed and your Google access revoked upstream. Recoverable within 7 days; permanent after.</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="delete-panel">
-    <div>
-      <h4>Delete everything, in one tap.</h4>
-      <p><em>Settings, Delete account.</em> That single action revokes our Google access upstream, and removes every loop, brief, note, handbook entry, the profile we built, and all stored email and calendar data. Deletion runs with a <em>7-day grace window</em> — sign back in within 7 days to restore everything; after that it is permanent and irreversible.</p>
-    </div>
-    <div class="actions">
-      <div class="act"><b>Delete account</b><span class="shortcut">In Settings</span></div>
-      <div class="act"><b>Disconnect an account</b><span class="shortcut">In Settings</span></div>
-      <div class="act"><b>See what we hold</b><span class="shortcut">Activity tab</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- SECURITY -->
-<section class="section">
-  <div class="head">
-    <div class="num"><span class="sn">07</span><span class="sl">Security</span></div>
-    <div>
-      <h2>The boring, important stuff.</h2>
-      <p class="frame">No badges we haven't earned. Just what's actually true about how Ariadot is built today.</p>
-    </div>
-  </div>
-
-  <div class="sec-grid">
-    <div class="plate">
-      <div class="plate-h">
-        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
-        <h4>Encryption</h4>
-      </div>
-      <ul>
-        <li><b>Encrypted in transit at every hop</b>: app to our edge, edge to Gmail, edge to every model provider.</li>
-        <li>Encrypted at rest.</li>
-        <li>Your Google access tokens are <b>additionally sealed with a per-user key</b>, so a partial exposure doesn't unlock them.</li>
-      </ul>
-    </div>
-
-    <div class="plate">
-      <div class="plate-h">
-        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
-        <h4>Where it runs</h4>
-      </div>
-      <ul>
-        <li>All processing on <b>Cloudflare Workers</b>, with state isolated per user.</li>
-        <li>Only <b>masked</b> content is ever sent to a model.</li>
-        <li>Raw email and calendar is <b>deleted within 24 hours</b> of producing your brief.</li>
-      </ul>
-    </div>
-
-    <div class="plate">
-      <div class="plate-h">
-        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div>
-        <h4>Untrusted input</h4>
-      </div>
-      <ul>
-        <li>Your email is untrusted by default. Every message is screened for <b>prompt-injection</b> before any reasoning, and content is fenced off from instructions.</li>
-        <li>A <b>credential guard</b> drops anything resembling a password, OTP, or secret before storage.</li>
-        <li><b>Semgrep</b> runs in CI on every change.</li>
-      </ul>
-    </div>
-
-    <div class="plate">
-      <div class="plate-h">
-        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M4 6l16 12M20 6L4 18"/></svg></div>
-        <h4>Access &amp; sign-in</h4>
-      </div>
-      <ul>
-        <li>Sign in with <b>Apple</b> or <b>Google</b>. No passwords for us to lose.</li>
-        <li>Gmail and Calendar are <b>read-only</b>: we cannot send, delete, or change anything.</li>
-        <li>Access to our own systems is protected with multi-factor authentication.</li>
-      </ul>
-    </div>
-
-    <div class="plate">
-      <div class="plate-h">
-        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
-        <h4>Sub-processors</h4>
-      </div>
-      <ul>
-        <li>Named in our <a href="/privacy#subprocessors">privacy policy</a>: Cloudflare, Anthropic, OpenAI, Google, and TickTick (only if you connect it).</li>
-        <li>No advertisers, no data brokers, no analytics resold.</li>
-        <li>Each receives only the minimum needed, masked where it leaves our edge.</li>
-      </ul>
-    </div>
-
-    <div class="plate">
-      <div class="plate-h">
-        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <h4>What we don't claim</h4>
-      </div>
-      <ul>
-        <li>We're a small team in private beta. We don't yet hold SOC 2 or a published audit, and we won't pretend otherwise.</li>
-        <li>We process your email in readable form to do the work, and hold the keys to do it. <b>We are not zero-knowledge, and we don't claim to be.</b></li>
-        <li>What we promise is on this page, and it's true today.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
 
 <!-- WAITLIST -->
 <section class="section tight" id="join">
