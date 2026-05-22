@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ariadot, a calm hand on your day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:    #faf6ec;
+    --paper-2:  #f3ecd9;
+    --paper-3:  #ebe3cc;
+    --paper-4:  #e6dec8;
+    --ink:      #1a1814;
+    --ink-2:    #5a544a;
+    --ink-3:    #968d7c;
+    --ink-4:    #c4baa3;
+    --rule:     #ddd3bc;
+    --rule-soft:#e6dec8;
+    --accent:   #8a3a1f;
+    --accent-warm: #d97a5a;
+    --accent-tint: rgba(138,58,31,0.10);
+    --bleed:    #c14a32;
+    --due:      #b07a1f;
+    --info:     #6a7a5a;
+    --calendar: #5a6e8a;
+    --serif:  "Source Serif 4", "New York", Georgia, serif;
+    --display:"Cormorant Garamond", "Source Serif 4", serif;
+    --sans:   -apple-system, "SF Pro Text", system-ui, sans-serif;
+    --mono:   "IBM Plex Mono", ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  ::selection { background: rgba(138,58,31,0.18); }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(138,58,31,0.3); }
+  a:hover { border-bottom-color: var(--accent); }
+
+  /* Top nav */
+  .topnav {
+    position: sticky; top: 0; z-index: 50;
+    background: color-mix(in oklab, var(--paper) 90%, transparent);
+    backdrop-filter: blur(14px) saturate(160%);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .topnav .inner {
+    max-width: 1240px; margin: 0 auto;
+    padding: 14px 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 24px;
+  }
+  .topnav .wordmark { display: flex; align-items: baseline; gap: 8px; }
+  .topnav .wordmark svg { width: 26px; height: 26px; transform: translateY(4px); }
+  .topnav .wordmark .name {
+    font-family: var(--display); font-style: italic;
+    font-size: 26px; font-weight: 500; letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .topnav .links {
+    display: flex; gap: 28px;
+    font-family: var(--sans); font-size: 14px; color: var(--ink-2);
+  }
+  .topnav .links a { color: var(--ink-2); border-bottom: 0; }
+  .topnav .links a:hover { color: var(--ink); }
+  .topnav .cta {
+    font-family: var(--sans); font-size: 13.5px; font-weight: 600;
+    background: var(--ink); color: var(--paper);
+    padding: 8px 16px; border-radius: 999px;
+    border: 1px solid var(--ink);
+  }
+  .topnav .cta:hover { background: var(--accent); border-color: var(--accent); }
+  @media (max-width: 760px) {
+    .topnav .inner { padding: 12px 24px; }
+    .topnav .links { display: none; }
+  }
+
+  .page { max-width: 1240px; margin: 0 auto; padding: 0 56px; }
+  @media (max-width: 760px) { .page { padding: 0 24px; } }
+
+  /* Hero */
+  .hero { padding: 88px 0 80px; border-bottom: 1px solid var(--rule); }
+  .hero .stamp { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
+  .hero .stamp .seal { width: 60px; height: 60px; border-radius: 14px; background: var(--paper-2); border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 6px 18px rgba(26,24,20,0.08); }
+  .hero .stamp .seal svg { width: 48px; height: 48px; }
+  .hero .stamp .meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); line-height: 1.6; }
+  .hero .stamp .meta b { color: var(--ink); font-weight: 500; }
+
+  .hero h1 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(40px, 6.2vw, 80px);
+    line-height: 1.02; letter-spacing: -0.018em;
+    margin: 0 0 24px;
+    max-width: 20ch;
+  }
+  .hero h1 em { font-family: var(--display); font-style: italic; font-weight: 500; color: var(--ink); }
+  .hero h1 .dot { display: inline-block; width: 0.14em; height: 0.14em; background: var(--accent); border-radius: 50%; transform: translate(-0.18em, -0.06em); }
+  .hero .lede {
+    font-size: 22px; line-height: 1.45; color: var(--ink-2);
+    max-width: 58ch; margin: 0 0 36px;
+  }
+  .hero .lede b { color: var(--ink); font-weight: 600; }
+  .hero .row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--sans); font-size: 15px; font-weight: 600;
+    padding: 13px 22px; border-radius: 999px;
+    border: 1px solid var(--ink); background: var(--ink); color: var(--paper);
+    display: inline-flex; align-items: center; gap: 8px;
+    cursor: pointer;
+  }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn:hover { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+  .btn .arr { transform: translateY(0.5px); }
+  .hero .availability {
+    font-family: var(--mono); font-size: 12px; color: var(--ink-3);
+    letter-spacing: 0.06em; margin-left: 4px;
+  }
+  .hero .availability .pip {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--info); margin-right: 8px; transform: translateY(-1px);
+  }
+
+  /* Hero figure: two briefs, morning + evening */
+  .hero-layout { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px; align-items: start; }
+  @media (max-width: 1000px) { .hero-layout { grid-template-columns: 1fr; gap: 48px; } }
+
+  .brief-stack {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    position: relative;
+  }
+  @media (max-width: 520px) { .brief-stack { grid-template-columns: 1fr; } }
+  .brief-card {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 22px 22px 20px;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset,
+                0 18px 50px rgba(26,24,20,0.08),
+                0 2px 4px rgba(26,24,20,0.04);
+    font-family: var(--serif);
+  }
+  .brief-card.evening {
+    background: #1a1814;
+    color: #ede5d3;
+    border-color: #2e2920;
+    transform: rotate(0.5deg);
+  }
+  .brief-card.morning { transform: rotate(-0.5deg); }
+  .brief-card .bc-mark {
+    font-family: var(--display); font-style: italic; font-weight: 500;
+    font-size: 18px; color: var(--ink-2); letter-spacing: -0.005em;
+    margin: 0 0 14px;
+  }
+  .brief-card.evening .bc-mark { color: #b0a690; }
+  .brief-card .bc-date {
+    font-family: var(--serif); font-weight: 600; font-size: 17px;
+    line-height: 1.2; margin: 0 0 4px;
+  }
+  .brief-card .bc-date em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--ink-2); }
+  .brief-card.evening .bc-date em { color: #b0a690; }
+  .brief-card .bc-when {
+    font-family: var(--serif); font-style: italic; color: var(--ink-2); font-size: 14px;
+    margin: 0 0 16px; padding-bottom: 14px; border-bottom: 1px solid var(--rule);
+  }
+  .brief-card.evening .bc-when { color: #7a715f; border-bottom-color: #2e2920; }
+  .brief-card .bc-h {
+    font-family: var(--serif); font-weight: 600; font-size: 17px;
+    margin: 14px 0 8px; display: flex; align-items: center; gap: 8px;
+    letter-spacing: -0.003em;
+  }
+  .brief-card .bc-h .pip { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .brief-card .bc-h .pip.due { background: var(--due); box-shadow: 0 0 0 3px rgba(176,122,31,0.18); }
+  .brief-card .bc-h .pip.info { background: var(--info); box-shadow: 0 0 0 3px rgba(106,122,90,0.18); }
+  .brief-card .bc-p {
+    font-family: var(--serif); font-size: 14.5px; line-height: 1.5;
+    color: var(--ink); margin: 0 0 10px;
+  }
+  .brief-card.evening .bc-p { color: #ede5d3; }
+  .brief-card .bc-p b { font-weight: 600; }
+  .brief-card .bc-stamp {
+    position: absolute; top: -8px; left: 14px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 3px;
+    background: var(--accent); color: var(--paper);
+    box-shadow: 0 2px 4px rgba(26,24,20,0.12);
+  }
+  .brief-card.evening .bc-stamp { background: var(--accent-warm); color: #1a1814; }
+  .brief-card .bc-foot {
+    font-family: var(--serif); font-style: italic; font-size: 13px;
+    color: var(--ink-3); margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--rule);
+  }
+  .brief-card.evening .bc-foot { color: #7a715f; border-top-color: #2e2920; }
+
+  /* Section scaffolding */
+  .section { padding: 96px 0; border-top: 2px solid var(--ink); }
+  .section.tight { padding: 64px 0; }
+  .section .head { display: grid; grid-template-columns: 160px 1fr; gap: 32px; margin-bottom: 48px; }
+  @media (max-width: 760px) { .section .head { grid-template-columns: 1fr; gap: 8px; } }
+  .section .num { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); padding-top: 8px; }
+  .section h2 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(32px, 4vw, 48px);
+    letter-spacing: -0.012em; line-height: 1.05;
+    margin: 0 0 18px;
+    max-width: 22ch;
+  }
+  .section h2 em { font-family: var(--display); font-style: italic; font-weight: 500; }
+  .section .frame { font-family: var(--serif); font-style: italic; color: var(--ink-2); font-size: 19px; line-height: 1.5; max-width: 60ch; margin: 0; }
+
+  /* Concept (loop types) */
+  .concept-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  @media (max-width: 900px) { .concept-grid { grid-template-columns: 1fr; } }
+  .concept {
+    background: var(--paper-2); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 28px 28px 30px; position: relative;
+  }
+  .concept .pip {
+    display: inline-block;
+    width: 12px; height: 12px; border-radius: 50%; margin-bottom: 16px;
+  }
+  .concept .pip.bleed { background: var(--bleed); box-shadow: 0 0 0 4px rgba(193,74,50,0.10); }
+  .concept .pip.due { background: var(--due); box-shadow: 0 0 0 4px rgba(176,122,31,0.10); }
+  .concept .pip.info { background: var(--info); box-shadow: 0 0 0 4px rgba(106,122,90,0.10); }
+  .concept h3 { font-family: var(--serif); font-weight: 600; font-size: 21px; letter-spacing: -0.005em; margin: 0 0 8px; }
+  .concept .kicker { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 18px; }
+  .concept p { color: var(--ink-2); font-size: 15.5px; line-height: 1.55; margin: 0 0 10px; }
+  .concept p b { color: var(--ink); font-weight: 600; }
+
+  /* Flow */
+  .flow {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  @media (max-width: 900px) { .flow { grid-template-columns: 1fr; } }
+  .step {
+    border-top: 1px solid var(--rule);
+    padding-top: 20px;
+  }
+  .step .step-n {
+    font-family: var(--display); font-style: italic; font-weight: 500;
+    font-size: 44px; color: var(--accent); line-height: 1; margin-bottom: 14px;
+  }
+  .step .step-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); margin: 0 0 6px; }
+  .step h3 { font-family: var(--serif); font-weight: 600; font-size: 22px; letter-spacing: -0.005em; margin: 0 0 10px; }
+  .step p { color: var(--ink-2); font-size: 15.5px; line-height: 1.55; margin: 0; }
+
+  /* Rhythm: two briefs side by side */
+  .rhythm {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    margin-top: 36px;
+  }
+  @media (max-width: 800px) { .rhythm { grid-template-columns: 1fr; } }
+  .rhythm-card {
+    border: 1px solid var(--rule); border-radius: 6px;
+    padding: 28px 30px;
+  }
+  .rhythm-card.am { background: var(--paper-2); }
+  .rhythm-card.pm { background: #1a1814; color: #ede5d3; border-color: #2e2920; }
+  .rhythm-card .tag {
+    display: inline-block;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 3px; margin-bottom: 18px;
+  }
+  .rhythm-card.am .tag { background: var(--ink); color: var(--paper); }
+  .rhythm-card.pm .tag { background: var(--accent-warm); color: #1a1814; }
+  .rhythm-card h4 {
+    font-family: var(--serif); font-weight: 600; font-size: 24px; letter-spacing: -0.005em;
+    margin: 0 0 10px;
+  }
+  .rhythm-card.pm h4 { color: #ede5d3; }
+  .rhythm-card .when {
+    font-family: var(--display); font-style: italic; font-size: 18px; color: var(--accent); margin: 0 0 16px;
+  }
+  .rhythm-card.pm .when { color: var(--accent-warm); }
+  .rhythm-card p {
+    font-family: var(--serif); font-size: 16px; line-height: 1.55; margin: 0 0 12px;
+    color: var(--ink-2);
+  }
+  .rhythm-card.pm p { color: #b0a690; }
+  .rhythm-card p b { color: var(--ink); font-weight: 600; }
+  .rhythm-card.pm p b { color: #ede5d3; }
+
+  /* Privacy card */
+  .privacy-card {
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 40px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 760px) { .privacy-card { padding: 28px 24px; } }
+  .pcard-head { display: flex; align-items: center; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--rule); margin-bottom: 24px; }
+  .pcard-head .badge {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    background: var(--ink); color: var(--paper); padding: 4px 8px; border-radius: 3px;
+  }
+  .pcard-head h3 { font-family: var(--serif); font-weight: 600; font-size: 26px; letter-spacing: -0.005em; margin: 0; }
+
+  /* Pipeline */
+  .pipeline {
+    display: grid; grid-template-columns: 1fr; gap: 0;
+    border: 1px solid var(--rule);
+    border-radius: 6px; overflow: hidden;
+    background: var(--paper);
+  }
+  .pipeline .row {
+    display: grid; grid-template-columns: 160px 1fr 200px;
+    align-items: stretch;
+    border-bottom: 1px solid var(--rule-soft);
+    min-height: 64px;
+  }
+  .pipeline .row:last-child { border-bottom: 0; }
+  .pipeline .row .stage {
+    padding: 16px 18px;
+    background: var(--paper-2);
+    border-right: 1px solid var(--rule-soft);
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--ink-2); font-weight: 600;
+    display: flex; align-items: center;
+  }
+  .pipeline .row .what {
+    padding: 14px 22px;
+    font-family: var(--serif); font-size: 15.5px; color: var(--ink);
+    line-height: 1.5;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .pipeline .row .what em { font-style: italic; color: var(--ink-2); }
+  .pipeline .row .where {
+    padding: 14px 18px;
+    border-left: 1px solid var(--rule-soft);
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em; color: var(--ink-2);
+  }
+  .pipeline .row .where .pin { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .pipeline .row .where .pin.device { background: var(--info); }
+  .pipeline .row .where .pin.edge { background: var(--calendar); }
+  .pipeline .row .where .pin.llm { background: var(--bleed); }
+  @media (max-width: 760px) {
+    .pipeline .row { grid-template-columns: 1fr; }
+    .pipeline .row .stage, .pipeline .row .where { border-right: 0; border-left: 0; }
+    .pipeline .row .where { border-top: 1px solid var(--rule-soft); }
+  }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 22px; margin-top: 20px;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-2);
+  }
+  .legend .li { display: flex; align-items: center; gap: 8px; }
+  .legend .pin { width: 9px; height: 9px; border-radius: 50%; }
+  .legend .pin.device { background: var(--info); }
+  .legend .pin.edge { background: var(--calendar); }
+  .legend .pin.llm { background: var(--bleed); }
+
+  /* Ledger */
+  .ledger {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    border: 1px solid var(--rule); border-radius: 6px;
+    background: var(--paper); overflow: hidden;
+  }
+  @media (max-width: 760px) { .ledger { grid-template-columns: 1fr; } }
+  .ledger .col { padding: 28px 28px 24px; }
+  .ledger .col + .col { border-left: 1px solid var(--rule); }
+  @media (max-width: 760px) { .ledger .col + .col { border-left: 0; border-top: 1px solid var(--rule); } }
+  .ledger .col-h {
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 14px; margin-bottom: 16px;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .ledger .col-h .stamp {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 3px;
+  }
+  .ledger .col.sent .col-h .stamp { background: var(--bleed); color: var(--paper); }
+  .ledger .col.kept .col-h .stamp { background: var(--info); color: var(--paper); }
+  .ledger .col-h h4 { font-family: var(--serif); font-weight: 600; font-size: 20px; margin: 0; }
+  .ledger ul { list-style: none; padding: 0; margin: 0; }
+  .ledger li {
+    font-family: var(--serif); font-size: 15.5px; line-height: 1.5;
+    color: var(--ink); padding: 10px 0; border-bottom: 1px dotted var(--rule);
+    display: grid; grid-template-columns: 16px 1fr; gap: 10px;
+  }
+  .ledger li:last-child { border-bottom: 0; }
+  .ledger li .glyph { font-family: var(--mono); font-weight: 600; line-height: 1.4; }
+  .ledger li small { display: block; font-family: var(--serif); font-style: italic; color: var(--ink-2); font-size: 14px; margin-top: 2px; }
+  .ledger .col.sent li .glyph { color: var(--bleed); }
+  .ledger .col.kept li .glyph { color: var(--info); }
+
+  /* Mask demo */
+  .mask-demo {
+    margin-top: 28px;
+    display: grid; grid-template-columns: 1fr 60px 1fr; gap: 18px;
+    align-items: stretch;
+  }
+  @media (max-width: 760px) { .mask-demo { grid-template-columns: 1fr; } }
+  .mask-card {
+    background: var(--paper); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 20px 22px; font-family: var(--serif); font-size: 14.5px; line-height: 1.55;
+    color: var(--ink); position: relative;
+  }
+  .mask-card .label {
+    position: absolute; top: -10px; left: 14px;
+    font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    background: var(--paper-2); padding: 0 8px; color: var(--ink-3);
+    border: 1px solid var(--rule); border-radius: 3px;
+  }
+  .mask-card .swap {
+    background: rgba(106,122,90,0.16);
+    border-bottom: 1px dotted var(--info);
+    padding: 0 2px; border-radius: 1px;
+  }
+  .mask-arrow {
+    display: flex; align-items: center; justify-content: center;
+  }
+  .mask-arrow svg { width: 36px; height: 18px; }
+
+  .mask-fineprint {
+    margin-top: 20px;
+    font-family: var(--serif); font-style: italic; color: var(--ink-2); font-size: 14.5px; line-height: 1.5;
+    max-width: 72ch;
+  }
+  .mask-fineprint b { font-style: normal; font-weight: 600; color: var(--ink); }
+
+  /* Promises */
+  .promises {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 0;
+    border: 1px solid var(--rule); border-radius: 6px;
+    background: var(--paper); overflow: hidden;
+  }
+  @media (max-width: 760px) { .promises { grid-template-columns: 1fr; } }
+  .promise {
+    padding: 24px 26px; border-right: 1px solid var(--rule-soft); border-bottom: 1px solid var(--rule-soft);
+  }
+  .promise:nth-child(2n) { border-right: 0; }
+  .promise:nth-last-child(-n+2) { border-bottom: 0; }
+  @media (max-width: 760px) { .promise { border-right: 0; } .promise:nth-last-child(-n+2) { border-bottom: 1px solid var(--rule-soft); } .promise:last-child { border-bottom: 0; } }
+  .promise .ix {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.16em; text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .promise h4 { font-family: var(--serif); font-weight: 600; font-size: 19px; letter-spacing: -0.005em; margin: 0 0 8px; }
+  .promise p { font-family: var(--serif); color: var(--ink-2); font-size: 15px; line-height: 1.55; margin: 0; }
+
+  /* Retention */
+  .timeline {
+    background: var(--paper);
+    border: 1px solid var(--rule); border-radius: 6px;
+    padding: 32px 32px 36px;
+  }
+  .timeline-axis {
+    position: relative; height: 88px; margin: 32px 12px 16px;
+  }
+  .timeline-axis .bar {
+    position: absolute; left: 0; right: 0; top: 38px; height: 4px;
+    background: var(--rule); border-radius: 2px;
+  }
+  .timeline-axis .fill {
+    position: absolute; left: 0; top: 38px; height: 4px; right: 0;
+    background: linear-gradient(90deg, var(--info), var(--due) 50%, var(--bleed));
+    border-radius: 2px;
+  }
+  .timeline-axis .marker {
+    position: absolute; top: 26px;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+  .timeline-axis .marker .pin {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 3px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--rule);
+  }
+  .timeline-axis .marker .when {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.08em; color: var(--ink-3); text-transform: uppercase;
+    margin-top: 24px; white-space: nowrap;
+  }
+  .timeline-axis .marker .what {
+    font-family: var(--serif); font-size: 13.5px; color: var(--ink); font-weight: 600;
+    white-space: nowrap; margin-top: -1px;
+  }
+  .timeline-axis .marker.top { top: -22px; }
+  .timeline-axis .marker.top .when { margin-top: 0; }
+  .timeline-axis .marker.top .what { order: -1; margin-bottom: 4px; }
+
+  .ret-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    border-top: 1px solid var(--rule); margin-top: 12px;
+  }
+  @media (max-width: 760px) { .ret-grid { grid-template-columns: 1fr 1fr; } }
+  .ret-cell {
+    padding: 18px 20px;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .ret-cell:last-child { border-right: 0; }
+  .ret-cell .k { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+  .ret-cell .v { font-family: var(--serif); font-weight: 600; font-size: 18px; color: var(--ink); margin-bottom: 4px; }
+  .ret-cell .n { font-family: var(--serif); color: var(--ink-2); font-size: 13.5px; line-height: 1.45; font-style: italic; }
+
+  /* Delete panel */
+  .delete-panel {
+    margin-top: 32px;
+    background: var(--ink); color: var(--paper);
+    border-radius: 6px; padding: 32px 36px;
+    display: grid; grid-template-columns: 1fr 320px; gap: 32px;
+    align-items: center;
+  }
+  @media (max-width: 760px) { .delete-panel { grid-template-columns: 1fr; padding: 28px 24px; } }
+  .delete-panel h4 { font-family: var(--serif); font-weight: 600; font-size: 24px; margin: 0 0 10px; letter-spacing: -0.005em; color: var(--paper); }
+  .delete-panel p { font-family: var(--serif); color: rgba(250,246,236,0.78); font-size: 15.5px; line-height: 1.55; margin: 0; }
+  .delete-panel p em { color: var(--paper-2); font-style: italic; }
+  .delete-panel .actions { display: flex; flex-direction: column; gap: 10px; align-items: stretch; }
+  .delete-panel .act {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 16px; border-radius: 4px;
+    background: rgba(250,246,236,0.06); border: 1px solid rgba(250,246,236,0.14);
+    font-family: var(--mono); font-size: 12px; letter-spacing: 0.06em; color: var(--paper);
+  }
+  .delete-panel .act b { color: var(--paper); font-weight: 600; }
+  .delete-panel .act .shortcut { font-family: var(--mono); font-size: 10.5px; color: rgba(250,246,236,0.55); }
+
+  /* Security plates */
+  .sec-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  @media (max-width: 900px) { .sec-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .sec-grid { grid-template-columns: 1fr; } }
+  .plate {
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 24px;
+    background: var(--paper);
+  }
+  .plate .plate-h { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .plate .plate-h .sigil {
+    width: 36px; height: 36px; border-radius: 6px;
+    background: var(--paper-2); border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+  }
+  .plate .plate-h .sigil svg { width: 18px; height: 18px; }
+  .plate h4 { font-family: var(--serif); font-weight: 600; font-size: 18px; letter-spacing: -0.003em; margin: 0; }
+  .plate ul { padding: 0; margin: 0; list-style: none; }
+  .plate li {
+    font-family: var(--serif); font-size: 14.5px; line-height: 1.5;
+    color: var(--ink-2);
+    padding: 8px 0; border-top: 1px dotted var(--rule);
+    padding-left: 18px; position: relative;
+  }
+  .plate li::before { content: "·"; position: absolute; left: 6px; top: 5px; color: var(--ink-4); }
+  .plate li:first-child { border-top: 0; }
+  .plate li b { color: var(--ink); font-weight: 600; }
+
+  /* FAQ */
+  .faq { display: grid; grid-template-columns: 1fr; gap: 0; }
+  .faq details {
+    border-top: 1px solid var(--rule);
+    padding: 22px 4px;
+  }
+  .faq details:last-child { border-bottom: 1px solid var(--rule); }
+  .faq summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
+    font-family: var(--serif); font-weight: 600; font-size: 21px; letter-spacing: -0.005em;
+    color: var(--ink);
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary .plus {
+    font-family: var(--display); font-style: italic; color: var(--accent); font-size: 28px; line-height: 1; flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  .faq details[open] summary .plus { transform: rotate(45deg); }
+  .faq .answer {
+    margin-top: 14px;
+    font-family: var(--serif); color: var(--ink-2); font-size: 16.5px; line-height: 1.6;
+    max-width: 72ch;
+  }
+  .faq .answer p { margin: 0 0 12px; }
+  .faq .answer p:last-child { margin: 0; }
+  .faq .answer b { color: var(--ink); font-weight: 600; }
+
+  /* Waitlist */
+  .waitlist {
+    background: var(--ink); color: var(--paper);
+    border-radius: 8px;
+    padding: 56px 48px;
+    margin-top: 16px;
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .waitlist { grid-template-columns: 1fr; padding: 40px 28px; gap: 32px; } }
+  .waitlist h3 {
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.01em;
+    margin: 0 0 14px; color: var(--paper);
+  }
+  .waitlist h3 em { font-family: var(--display); font-style: italic; font-weight: 500; color: var(--paper-2); }
+  .waitlist p { font-family: var(--serif); color: rgba(250,246,236,0.78); font-size: 16.5px; line-height: 1.55; max-width: 46ch; margin: 0; }
+  .waitlist .form { display: flex; flex-direction: column; gap: 12px; }
+  .waitlist .field {
+    display: flex; gap: 8px;
+    background: rgba(250,246,236,0.08);
+    border: 1px solid rgba(250,246,236,0.18);
+    border-radius: 999px;
+    padding: 6px 6px 6px 18px;
+    align-items: center;
+  }
+  .waitlist .field input {
+    flex: 1; background: transparent; border: 0; outline: 0;
+    font-family: var(--serif); font-size: 16.5px; color: var(--paper);
+    padding: 10px 0;
+  }
+  .waitlist .field input::placeholder { color: rgba(250,246,236,0.45); font-style: italic; }
+  .waitlist .field button {
+    border: 0; cursor: pointer;
+    font-family: var(--sans); font-size: 14px; font-weight: 600;
+    background: var(--accent); color: var(--paper);
+    padding: 12px 20px; border-radius: 999px;
+  }
+  .waitlist .field button:hover { background: #a04528; }
+  .waitlist .fine { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(250,246,236,0.55); }
+
+  /* Colophon */
+  .colophon {
+    padding: 56px 0 80px;
+    border-top: 1px solid var(--rule);
+    margin-top: 80px;
+    display: grid; grid-template-columns: 1fr auto; gap: 24px;
+    align-items: end;
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-3);
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 760px) { .colophon { grid-template-columns: 1fr; align-items: start; } }
+  .colophon .col-l { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .colophon .col-l svg { width: 22px; height: 22px; transform: translateY(4px); }
+  .colophon .col-l .name { font-family: var(--display); font-style: italic; font-size: 22px; color: var(--ink); font-weight: 500; letter-spacing: -0.005em; }
+  .colophon .links { display: flex; gap: 22px; }
+  .colophon .links a { color: var(--ink-3); border-bottom: 0; }
+  .colophon .links a:hover { color: var(--ink); }
+
+  /* Pull quote */
+  .pull {
+    margin: 40px 0 0;
+    padding: 28px 32px;
+    border-left: 3px solid var(--accent);
+    background: var(--paper-2);
+    border-radius: 0 6px 6px 0;
+    max-width: 64ch;
+  }
+  .pull q {
+    font-family: var(--display); font-style: italic; font-weight: 500;
+    font-size: 24px; line-height: 1.35; color: var(--ink);
+    quotes: "“" "”";
+  }
+  .pull .cite {
+    margin-top: 14px; font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3);
+  }
+
+  /* Body prose */
+  .body-prose {
+    max-width: 64ch; font-family: var(--serif); font-size: 17.5px; line-height: 1.65; color: var(--ink);
+    margin: 0 0 28px;
+  }
+  .body-prose p { margin: 0 0 14px; }
+  .body-prose p:last-child { margin: 0; }
+  .body-prose b { font-weight: 600; }
+  .body-prose .drop {
+    font-family: var(--display); font-style: italic; font-weight: 500;
+    font-size: 4em; float: left; line-height: 0.85; padding: 0.1em 0.1em 0 0;
+    color: var(--accent);
+  }
+
+  /* Inline mono */
+  code, .tok {
+    font-family: var(--mono); font-size: 0.86em;
+    background: var(--paper-2); padding: 1px 6px; border-radius: 3px;
+    border: 1px solid var(--rule-soft); color: var(--ink);
+  }
+
+  /* Model band */
+  .models {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+    margin-top: 12px;
+  }
+  @media (max-width: 760px) { .models { grid-template-columns: 1fr; } }
+  .model {
+    border: 1px solid var(--rule); border-radius: 6px;
+    background: var(--paper);
+    padding: 22px 24px;
+    display: grid; grid-template-columns: 56px 1fr; gap: 18px; align-items: start;
+  }
+  .model .glyph {
+    width: 56px; height: 56px; border-radius: 8px;
+    background: var(--paper-2); border: 1px solid var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-style: italic; font-weight: 500; font-size: 30px;
+    color: var(--accent);
+  }
+  .model .name {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-3); margin: 0 0 4px;
+  }
+  .model h4 { font-family: var(--serif); font-weight: 600; font-size: 19px; letter-spacing: -0.003em; margin: 0 0 6px; }
+  .model p { font-family: var(--serif); font-size: 14.5px; line-height: 1.5; color: var(--ink-2); margin: 0; }
+  .model p b { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- Wordmark SVG -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="ariadot" viewBox="0 0 184 184">
+      <rect width="184" height="184" rx="40" fill="#faf6ec"/>
+      <text x="92" y="138" text-anchor="middle"
+            font-family="'Cormorant Garamond', 'Source Serif 4', serif"
+            font-style="italic" font-weight="500" font-size="156" fill="#1a1814">a</text>
+      <circle cx="138" cy="138" r="11" fill="#8a3a1f"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- Top nav -->
+<nav class="topnav">
+  <div class="inner">
+    <a class="wordmark" href="#" aria-label="ariadot">
+      <svg aria-hidden="true"><use href="#ariadot"/></svg>
+      <span class="name">ariadot</span>
+    </a>
+    <div class="links">
+      <a href="#what">What it is</a>
+      <a href="#flow">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#data">Your data</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <a href="#join" class="cta">Request access</a>
+  </div>
+</nav>
+
+<main class="page">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-layout">
+    <div>
+      <div class="stamp">
+        <div class="seal"><svg aria-hidden="true"><use href="#ariadot"/></svg></div>
+        <div class="meta">
+          <b>ariadot</b><br/>
+          a calm hand on your day
+        </div>
+      </div>
+      <h1>A calmer way through the week<span class="dot"></span></h1>
+      <p class="lede">ariadot reads your email and quietly keeps track of the things you'd rather not. The bills that renew next month. The friend you said you'd reply to on Sunday. The subscription you've been meaning to cancel. Twice a day, it sits beside you and reads back what's open, what's coming, and what just landed. <b>You decide what to do about any of it.</b></p>
+      <div class="row">
+        <a href="#join" class="btn">Request access <span class="arr">→</span></a>
+        <a href="#privacy" class="btn ghost">Read the privacy memo</a>
+        <span class="availability"><span class="pip"></span>Private beta, iOS and Android</span>
+      </div>
+    </div>
+
+    <!-- Two briefs side by side -->
+    <aside class="brief-stack" aria-label="Sample daily briefs">
+
+      <!-- Morning brief -->
+      <article class="brief-card morning">
+        <span class="bc-stamp">06 : 00 · Morning</span>
+        <p class="bc-mark">ariadot</p>
+        <h3 class="bc-date">Wednesday, 20 May</h3>
+        <p class="bc-when">good morning, Sydney</p>
+
+        <h4 class="bc-h">Shape of the day</h4>
+        <p class="bc-p">Aria pickups at 3, tennis at 4, piano at 5. The afternoon is locked. The morning still has air in it, and the Bramley call at 8:30 is the only thing that needs your head fully in the room.</p>
+
+        <h4 class="bc-h"><span class="pip due"></span>Worth a beat today</h4>
+        <p class="bc-p">The Helios renewal is sitting on your list and quietly expires on 3 June. Two minutes today clears it.</p>
+
+        <p class="bc-foot">3 open loops · sample brief, masked</p>
+      </article>
+
+      <!-- Evening brief -->
+      <article class="brief-card evening">
+        <span class="bc-stamp">18 : 00 · Wind down</span>
+        <p class="bc-mark">ariadot</p>
+        <h3 class="bc-date">Wednesday, 20 May</h3>
+        <p class="bc-when">6:00 pm, Sydney</p>
+
+        <h4 class="bc-h">How today landed</h4>
+        <p class="bc-p">That electricity bill came in at <b>$49</b> for the new place. Forty-nine dollars. For a whole cycle. Whatever you're doing with the Polestar 4 and the habits at 44 Marrenah Lane, keep doing it.</p>
+        <p class="bc-p">Today looked busy from the outside. The calendar was full in both halves. So if you got through it, that's real.</p>
+
+        <h4 class="bc-h"><span class="pip due"></span>Still worth a beat tonight</h4>
+        <p class="bc-p">Helios decision was due today. Expires 3 June, so there's runway. But if you've already made up your mind, two minutes clears it.</p>
+
+        <p class="bc-foot">Sample brief, masked. Read only in app.</p>
+      </article>
+
+    </aside>
+  </div>
+</section>
+
+<!-- WHAT IT IS -->
+<section class="section" id="what">
+  <div class="head">
+    <div class="num">§ 01 · The premise</div>
+    <div>
+      <h2>An <em>open loop</em> is anything you've started but not closed.</h2>
+      <p class="frame">ariadot watches three kinds of loops in your email, the ones already bleeding, the ones due soon, and the ones that are just useful to remember. It reports. You close.</p>
+    </div>
+  </div>
+
+  <div class="concept-grid">
+    <article class="concept">
+      <span class="pip bleed"></span>
+      <p class="kicker">Loop type · 01</p>
+      <h3>Bleeding</h3>
+      <p>Promises past their date. A confirmation you said you'd send last week. A bill that crossed into overdue. <b>These come first in every brief.</b></p>
+    </article>
+    <article class="concept">
+      <span class="pip due"></span>
+      <p class="kicker">Loop type · 02</p>
+      <h3>Due soon</h3>
+      <p>Anything attached to a real date. A renewal in two weeks, an invoice on Thursday, a friend's birthday this weekend. Surfaced with enough runway to actually do something.</p>
+    </article>
+    <article class="concept">
+      <span class="pip info"></span>
+      <p class="kicker">Loop type · 03</p>
+      <h3>Information</h3>
+      <p>Soft loops. Context worth carrying. <em>"You told her you'd send the link by Friday."</em> Nothing on fire, just a string you don't want to drop.</p>
+    </article>
+  </div>
+
+  <div class="pull">
+    <q>ariadot is the journal a thoughtful assistant would keep for you, if you trusted one enough to read your email. The whole product is built around the fact that you shouldn't have to.</q>
+    <div class="cite">Design principle 01</div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="flow">
+  <div class="head">
+    <div class="num">§ 02 · How it works</div>
+    <div>
+      <h2>Connect your email. <em>That's the whole setup.</em></h2>
+      <p class="frame">No tagging, no rules, no folders to maintain. ariadot reads your inbox, does the work, and writes you a brief. Twice a day, in plain prose.</p>
+    </div>
+  </div>
+
+  <div class="flow">
+    <div class="step">
+      <div class="step-n">i.</div>
+      <p class="step-tag">15 seconds</p>
+      <h3>Plug in your email.</h3>
+      <p>Read-only Google OAuth for Gmail and Calendar. We never see your password. No folders to make, no rules to write. The app starts working the moment the connection lands.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">ii.</div>
+      <p class="step-tag">Background, ongoing</p>
+      <h3>We read, mask, and reason.</h3>
+      <p>Messages are pulled to our processing edge on Cloudflare, masked with realistic, natural-looking stand-ins, and reasoned over by Claude. Drafts get a small model. Hard calls get a bigger one.</p>
+    </div>
+    <div class="step">
+      <div class="step-n">iii.</div>
+      <p class="step-tag">Twice a day</p>
+      <h3>Read your brief. Act on Loops.</h3>
+      <p>The morning brief sets the shape of your day. The evening brief winds it down. Both are read only, on purpose. When you want to close, snooze, or hand something off, that lives on the Loops page.</p>
+    </div>
+  </div>
+
+  <!-- AM / PM rhythm -->
+  <div class="rhythm">
+    <div class="rhythm-card am">
+      <span class="tag">Morning brief</span>
+      <h4>Shape of the day, before it starts.</h4>
+      <p class="when">around 6 am, your local time</p>
+      <p>What's locked into the calendar, what's quietly due, what would be worth a beat before the day gets loud. Designed to be read in 30 seconds and forgotten.</p>
+    </div>
+    <div class="rhythm-card pm">
+      <span class="tag">Evening wind down</span>
+      <h4>How today actually landed.</h4>
+      <p class="when">around 6 pm, your local time</p>
+      <p>A short reflection on what closed, what didn't, what's still worth a beat tonight, and what tomorrow already looks like. Written for the version of you who is tired.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY ARCHITECTURE -->
+<section class="section" id="privacy">
+  <div class="head">
+    <div class="num">§ 03 · Privacy architecture</div>
+    <div>
+      <h2>We treat your inbox the way it deserves to be treated.</h2>
+      <p class="frame">Email is one of the most personal datasets you own. We know that. The privacy model below was designed before the product was, and the product was built around it.</p>
+    </div>
+  </div>
+
+  <div class="body-prose">
+    <p><span class="drop">A</span>riadot reads your email so you don't have to. That means we are temporarily handling some of the most sensitive content you own: your relationships, your finances, your medical correspondence, your travel, your conversations with your family. We hold that responsibility seriously. <b>Everything is encrypted at rest. Everything that resembles PII is masked before any model sees it. And the masks we send are not robotic placeholders, they are realistic, plausible stand-ins drawn from a synthetic corpus we built specifically for this.</b></p>
+    <p>The pipeline below describes every place your data exists, from inbox to brief. Three colors, three locations. Read it left to right.</p>
+  </div>
+
+  <div class="privacy-card" style="padding-top: 32px;">
+    <div class="pcard-head">
+      <span class="badge">PIPELINE</span>
+      <h3>One brief, from inbox to your hand</h3>
+    </div>
+
+    <div class="pipeline">
+      <div class="row">
+        <div class="stage">01 · Authorize</div>
+        <div class="what">You grant read-only Google OAuth for Gmail and Calendar. We never receive or store your password. The token is held in our edge keystore, scoped to your account.</div>
+        <div class="where"><span class="pin device"></span>YOUR DEVICE</div>
+      </div>
+      <div class="row">
+        <div class="stage">02 · Fetch</div>
+        <div class="what">Messages are pulled to our processing edge on Cloudflare Workers, encrypted in transit and at rest. <em>The phone is a thin client; ariadot's brain lives on the edge.</em></div>
+        <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
+      </div>
+      <div class="row">
+        <div class="stage">03 · Filter</div>
+        <div class="what">A small on-device check runs first when you type into ariadot itself, scanning anything that looks like a password, OTP, or secret and refusing to send it. <em>We never want those leaving your phone.</em></div>
+        <div class="where"><span class="pin device"></span>YOUR DEVICE</div>
+      </div>
+      <div class="row">
+        <div class="stage">04 · Mask</div>
+        <div class="what">Names, emails, phone numbers, addresses, account references, IDs, and any free text that resembles PII are replaced with natural-looking stand-ins from a 50,000-row synthetic dataset. <em>The mapping is stable per user: if Mary becomes Jackson once, she stays Jackson in every future brief.</em></div>
+        <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
+      </div>
+      <div class="row">
+        <div class="stage">05 · Reason (Haiku)</div>
+        <div class="what">Claude Haiku handles the high-volume work: classifying loops, extracting dates, drafting short copy. Sees masked data only. <em>Zero retention. No training.</em></div>
+        <div class="where"><span class="pin llm"></span>ANTHROPIC API</div>
+      </div>
+      <div class="row">
+        <div class="stage">06 · Reason (Sonnet)</div>
+        <div class="what">Claude Sonnet handles the harder calls: writing the brief in your voice, weighing the day, judging tone. Same zero-retention contract, same masked input.</div>
+        <div class="where"><span class="pin llm"></span>ANTHROPIC API</div>
+      </div>
+      <div class="row">
+        <div class="stage">07 · Unmask &amp; deliver</div>
+        <div class="what">The finished brief is unmasked at our edge using your persistent mask map, then delivered to your device over TLS. The mask map itself stays encrypted in our keystore, sealed with a per-user key, so model output is never reconstructible without it.</div>
+        <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
+      </div>
+      <div class="row">
+        <div class="stage">08 · Read</div>
+        <div class="what">Brief lands in the app, encrypted at rest on device. It is read only. To close, snooze, or hand off a loop, you move to the Loops page.</div>
+        <div class="where"><span class="pin device"></span>YOUR DEVICE</div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="li"><span class="pin device"></span>Your device, thin client</div>
+      <div class="li"><span class="pin edge"></span>Cloudflare edge, masked work and key storage</div>
+      <div class="li"><span class="pin llm"></span>Anthropic API, zero retention, no training, masked input</div>
+    </div>
+  </div>
+
+  <!-- Model card -->
+  <div class="privacy-card">
+    <div class="pcard-head">
+      <span class="badge">THE MODELS WE USE</span>
+      <h3>Claude, picked deliberately, used differently.</h3>
+    </div>
+    <div class="body-prose" style="margin-bottom: 18px;">
+      <p>We use two Claude models for two jobs. Both run under the same zero-retention, no-training contract with Anthropic. Both only ever see masked input. We do not use any other model providers.</p>
+    </div>
+    <div class="models">
+      <article class="model">
+        <div class="glyph">h</div>
+        <div>
+          <p class="name">Workhorse model</p>
+          <h4>Claude Haiku</h4>
+          <p>Runs the high-volume work: classifying loops, extracting dates and amounts, drafting short copy, scoring urgency. Fast and cheap, so we can be conservative and call it often.</p>
+        </div>
+      </article>
+      <article class="model">
+        <div class="glyph">s</div>
+        <div>
+          <p class="name">Reasoning model</p>
+          <h4>Claude Sonnet</h4>
+          <p>Handles the harder calls: writing the brief in your voice, weighing the shape of a day, judging tone in something delicate. Used sparingly, with care.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Mask demo -->
+  <div class="privacy-card">
+    <div class="pcard-head">
+      <span class="badge">MASKING · WORKED EXAMPLE</span>
+      <h3>What the model actually sees.</h3>
+    </div>
+
+    <div class="body-prose" style="margin-bottom: 8px;">
+      <p>Here is the same line of email in both forms. The left card is what arrived in your inbox. The right card is what we send Claude. Identifiers are swapped for realistic stand-ins, not placeholders, because <b>natural-looking text leads to better reasoning than alien tokens</b>, and the stand-ins are uncorrelated with the real values.</p>
+    </div>
+
+    <div class="mask-demo">
+      <div class="mask-card">
+        <span class="label">What arrived</span>
+        From: <span class="swap">priya.menon@gmail.com</span>. Hey, can you forward the invoice from <span class="swap">Sigma Studios</span> for the <span class="swap">$1,840</span> shoot? Trying to close out the May books before Friday. My mobile is <span class="swap">+61 412 558 904</span> if easier.
+      </div>
+      <div class="mask-arrow">
+        <svg viewBox="0 0 36 18" fill="none">
+          <path d="M2 9 H32 M28 4 L33 9 L28 14" stroke="#8a3a1f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="mask-card">
+        <span class="label">What Claude sees</span>
+        From: <span class="swap">helena.dorff@gmail.com</span>. Hey, can you forward the invoice from <span class="swap">Bramley House</span> for the <span class="swap">$2,610</span> shoot? Trying to close out the April books before Tuesday. My mobile is <span class="swap">+61 478 211 663</span> if easier.
+      </div>
+    </div>
+
+    <p class="mask-fineprint"><b>Why this works.</b> Every masked field is drawn from a 50,000-row synthetic dataset of names, addresses, amounts, phone numbers, IDs, and free-text fragments. The stand-ins are realistic and statistically diverse, but uncorrelated with anything in your real life. Even if the model output were leaked, it would describe a coherent stranger, not you. The mapping back to your real values is held only in our edge keystore, sealed with a per-user key, and never reaches any model.</p>
+
+    <p class="mask-fineprint" style="margin-top: 14px;"><b>The masks are stable across sessions.</b> Continuity matters. If "Mary" gets masked as "Jackson" today, she will still be "Jackson" in tomorrow's brief and next month's brief. That stability is what makes reasoning over time possible: the model sees a consistent cast of characters across your week, even though it never sees the real ones.</p>
+  </div>
+</section>
+
+<!-- WHAT GETS SENT (LEDGER) -->
+<section class="section" id="data">
+  <div class="head">
+    <div class="num">§ 04 · The ledger</div>
+    <div>
+      <h2>What leaves your inbox, line by line.</h2>
+      <p class="frame">No hedging, no "may include." Two columns. Left side is what travels to the model. Right side is what never does.</p>
+    </div>
+  </div>
+
+  <div class="ledger">
+    <div class="col sent">
+      <div class="col-h">
+        <span class="stamp">Sent to Claude</span>
+        <h4>Masked, then forwarded</h4>
+      </div>
+      <ul>
+        <li><span class="glyph">→</span><div>Email content with natural masks substituted in<small>"helena.dorff" instead of "priya.menon", "$2,610" instead of "$1,840", etc.</small></div></li>
+        <li><span class="glyph">→</span><div>Structural metadata<small>Timestamps, thread shape, message length, attachment types. No filenames.</small></div></li>
+        <li><span class="glyph">→</span><div>Anonymous account ID<small>A random UUID. Not tied to your email, your name, or your phone number.</small></div></li>
+      </ul>
+    </div>
+    <div class="col kept">
+      <div class="col-h">
+        <span class="stamp">Stays at our edge or on device</span>
+        <h4>Never sent to any model</h4>
+      </div>
+      <ul>
+        <li><span class="glyph">◦</span><div>Your real names, emails, addresses, phone numbers<small>Held only in our edge keystore on Cloudflare, sealed with a per-user key.</small></div></li>
+        <li><span class="glyph">◦</span><div>Anything that looks like a password, OTP, or secret<small>An on-device classifier intercepts these before they leave your phone.</small></div></li>
+        <li><span class="glyph">◦</span><div>Financial figures, account numbers, IDs<small>Replaced with realistic stand-ins before the model call.</small></div></li>
+        <li><span class="glyph">◦</span><div>Calendar event titles and locations<small>Masked in transit; unmasked only on your device for display.</small></div></li>
+        <li><span class="glyph">◦</span><div>The mask map<small>The key that unmasks your brief. Held per user in our edge keystore, sealed with a key only your account can unlock. Stable across sessions for continuity.</small></div></li>
+        <li><span class="glyph">◦</span><div>Your billing email<small>Held by Stripe, never joined to usage data on our side.</small></div></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- The promises -->
+  <div style="margin-top: 32px;">
+    <div class="pcard-head" style="border-bottom: 0; padding-bottom: 0; margin-bottom: 16px;">
+      <span class="badge">PROMISES</span>
+      <h3>Six things we will not do, in plain language</h3>
+    </div>
+    <div class="promises">
+      <div class="promise">
+        <div class="ix">i.</div>
+        <h4>No training on your data, ever.</h4>
+        <p>Not for our work, not for Anthropic's. Our API contract forbids using ariadot traffic for training, and Anthropic publishes the same in their policy. We will publish the redacted contract on our trust page.</p>
+      </div>
+      <div class="promise">
+        <div class="ix">ii.</div>
+        <h4>No ads, no data brokers.</h4>
+        <p>ariadot is paid for by ariadot subscribers. We have no advertising business, no analytics business, and no "data partner" of any kind.</p>
+      </div>
+      <div class="promise">
+        <div class="ix">iii.</div>
+        <h4>No human review of your briefs.</h4>
+        <p>Engineers and support staff cannot read your briefs or your email. There is no internal tool that surfaces them. When you write to support, you choose what to share, and we mask what you send before it lands in a ticket.</p>
+      </div>
+      <div class="promise">
+        <div class="ix">iv.</div>
+        <h4>No silent expansion of scope.</h4>
+        <p>If we ever want to read a new inbox, send a new field, or change a mask category, you'll see an in-app card with a plain English diff and a refusable toggle. We won't change the rules without telling you.</p>
+      </div>
+      <div class="promise">
+        <div class="ix">v.</div>
+        <h4>No retention beyond what's necessary.</h4>
+        <p>Masked work product is purged from our edge within 24 hours of producing your brief. The persistent mask map stays sealed in our keystore and never leaves it. Anthropic retains nothing: that is zero retention, in writing.</p>
+      </div>
+      <div class="promise">
+        <div class="ix">vi.</div>
+        <h4>No dark patterns on the way out.</h4>
+        <p>One tap to delete, one tap to revoke our email access. No "are you sure" gauntlet, no dark patterns. Deletion runs with a 7-day grace window, so a mistaken tap is recoverable by signing back in; after 7 days it is permanent and irreversible, and your Google access is revoked upstream. When you leave, you leave clean.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RETENTION + DELETION -->
+<section class="section">
+  <div class="head">
+    <div class="num">§ 05 · Retention &amp; deletion</div>
+    <div>
+      <h2>How long anything lives, and how to make it go away.</h2>
+      <p class="frame">Different parts of the system have different windows. All of them, in one place, on one axis.</p>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-axis">
+      <div class="bar"></div>
+      <div class="fill"></div>
+
+      <div class="marker top" style="left: 4%;">
+        <div class="what">Masked work product</div>
+        <span class="pin" style="background: var(--info);"></span>
+        <div class="when">≤ 24 hours</div>
+      </div>
+      <div class="marker top" style="left: 26%;">
+        <div class="what">Mask map</div>
+        <span class="pin" style="background: var(--due);"></span>
+        <div class="when">Until you delete account</div>
+      </div>
+      <div class="marker top" style="left: 50%;">
+        <div class="what">Diagnostic logs</div>
+        <span class="pin" style="background: var(--due);"></span>
+        <div class="when">14 days</div>
+      </div>
+      <div class="marker top" style="left: 74%;">
+        <div class="what">Billing record</div>
+        <span class="pin" style="background: var(--due);"></span>
+        <div class="when">7 years (legal)</div>
+      </div>
+      <div class="marker top" style="left: 96%;">
+        <div class="what">Your local data</div>
+        <span class="pin" style="background: var(--bleed);"></span>
+        <div class="when">Until you delete it</div>
+      </div>
+    </div>
+
+    <div class="ret-grid">
+      <div class="ret-cell">
+        <div class="k">Mask map</div>
+        <div class="v">Persistent</div>
+        <div class="n">Stable per user so Mary is always Jackson. Sealed with a per-user key. Deleted when you delete your account.</div>
+      </div>
+      <div class="ret-cell">
+        <div class="k">Masked content</div>
+        <div class="v">≤ 24 hours</div>
+        <div class="n">In our edge queue just long enough to assemble your brief. Then purged.</div>
+      </div>
+      <div class="ret-cell">
+        <div class="k">Anthropic</div>
+        <div class="v">Zero</div>
+        <div class="n">Contractually no retention. Not stored, not logged, not used for training.</div>
+      </div>
+      <div class="ret-cell">
+        <div class="k">Local data</div>
+        <div class="v">You decide</div>
+        <div class="n">Briefs, loops, settings. Encrypted at rest. Deletes with the app.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="delete-panel">
+    <div>
+      <h4>Delete everything, in one tap.</h4>
+      <p><em>Settings, Delete account.</em> That single action revokes our Google access upstream, and removes every loop, brief, note, handbook entry, the profile we built, and all stored email and calendar data. Deletion runs with a <em>7-day grace window</em> — sign back in within 7 days to restore everything; after that it is permanent and irreversible.</p>
+    </div>
+    <div class="actions">
+      <div class="act"><b>Delete account</b><span class="shortcut">In Settings</span></div>
+      <div class="act"><b>Disconnect an account</b><span class="shortcut">In Settings</span></div>
+      <div class="act"><b>See what we hold</b><span class="shortcut">Activity tab</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECURITY -->
+<section class="section">
+  <div class="head">
+    <div class="num">§ 06 · Security</div>
+    <div>
+      <h2>The boring, important stuff.</h2>
+      <p class="frame">Each plate below is something we are willing to put a stake in, and each one is verifiable, not just claimed.</p>
+    </div>
+  </div>
+
+  <div class="sec-grid">
+    <div class="plate">
+      <div class="plate-h">
+        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+        <h4>Encryption</h4>
+      </div>
+      <ul>
+        <li>TLS 1.3 in transit, <b>AES-256-GCM at rest</b>, on edge and on device.</li>
+        <li>Local store sealed with a device-bound key in the Secure Enclave (iOS) or Keystore (Android).</li>
+        <li>Per-user envelope keys rotated every 90 days.</li>
+      </ul>
+    </div>
+
+    <div class="plate">
+      <div class="plate-h">
+        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg></div>
+        <h4>Where it runs</h4>
+      </div>
+      <ul>
+        <li>All processing on <b>Cloudflare Workers</b>, region-pinned (EU or US, you pick).</li>
+        <li>No cross-region transfer of masked data without re-consent.</li>
+        <li>Anthropic calls routed within your chosen region.</li>
+      </ul>
+    </div>
+
+    <div class="plate">
+      <div class="plate-h">
+        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div>
+        <h4>OWASP &amp; AppSec</h4>
+      </div>
+      <ul>
+        <li>Threat model covers the <b>OWASP LLM Top 10</b>: prompt injection, output handling, training-data leakage.</li>
+        <li>Inbound prompt-injection scanning on every message before reasoning.</li>
+        <li><b>Semgrep</b> in CI for design-time vulnerability checks, on every PR.</li>
+      </ul>
+    </div>
+
+    <div class="plate">
+      <div class="plate-h">
+        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M4 6l16 12M20 6L4 18"/></svg></div>
+        <h4>Authentication</h4>
+      </div>
+      <ul>
+        <li>Passkey by default. No passwords, no SMS one-time codes.</li>
+        <li>Per-device approval, revoke any device from any other device.</li>
+        <li>Optional biometric lock on the brief itself.</li>
+      </ul>
+    </div>
+
+    <div class="plate">
+      <div class="plate-h">
+        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+        <h4>Subprocessors</h4>
+      </div>
+      <ul>
+        <li>Listed publicly: Cloudflare (edge), Anthropic (LLM), Stripe (billing).</li>
+        <li>Changes announced 30 days in advance, in app and on the trust page.</li>
+        <li>All bound by ariadot's data-processing addendum.</li>
+      </ul>
+    </div>
+
+    <div class="plate">
+      <div class="plate-h">
+        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h4>Audits &amp; certs</h4>
+      </div>
+      <ul>
+        <li><b>SOC 2 Type II</b>, annual, report on request.</li>
+        <li><b>GDPR and CCPA</b> compliant. DPA available before signup.</li>
+        <li>Independent pen test every six months, summary published.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="head">
+    <div class="num">§ 07 · Asked &amp; answered</div>
+    <div>
+      <h2>The questions we get most.</h2>
+      <p class="frame">Mostly about the models and the masking. Reasonable questions, honest answers.</p>
+    </div>
+  </div>
+
+  <div class="faq">
+    <details open>
+      <summary>Which models do you use, and why those?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>We use two Anthropic Claude models: <b>Claude Haiku</b> for the high-volume work (classifying loops, extracting dates and amounts, drafting short copy) and <b>Claude Sonnet</b> for the harder, more delicate work (writing the brief in your voice, weighing the shape of a day, judging tone).</p>
+        <p>Both run under a single Anthropic API contract that sets server-side retention to zero and forbids training on our traffic. Both only ever receive masked input. We do not use any other model provider.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why mask with realistic names instead of <code>«person_3»</code> placeholders?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Two reasons. <b>First</b>, models reason better over natural text. Placeholders like <code>«person_3»</code> degrade the quality of judgement and write awkward briefs. <b>Second</b>, the masks are drawn from a 50,000-row synthetic dataset that is statistically diverse and uncorrelated with anything real. So if model output were ever leaked, it would describe a coherent stranger, not you.</p>
+        <p>This is also why we never send obvious markers like <code>[REDACTED]</code> in their place. The model should not even know it is reasoning over masked data; that is the whole point.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>So Anthropic actually never sees my real email content?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Correct. Every API call from ariadot to Anthropic contains masked text only: names, emails, addresses, phone numbers, account references, amounts, and any free text that resembles PII have all been swapped for stand-ins before the call is built. The mapping between real and masked values is held only in our edge keystore, sealed with a per-user key, and never sent to any model.</p>
+        <p>The mapping is also <b>stable per user</b>: once Mary becomes Jackson, she stays Jackson across every future brief. That continuity is what makes reasoning over your week possible, while still keeping the real names off the wire.</p>
+        <p>The strongest argument for this is not trust, it is that <b>we built the system so that "trust us" is not load bearing.</b></p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What if I type a password or OTP into the app itself?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>An on-device classifier scans anything you type into ariadot, and if it looks like a password, OTP, API key, or secret, the app refuses to send it. We never want that material reaching our edge, let alone the model. This is one of the few places where on-device ML is the right tool for the job, and we run it there.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Why process on Cloudflare instead of on device?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Because the key input to ariadot is your email, and email lives on a server, not on your phone. A fully on-device architecture would mean constantly pulling your entire inbox onto the device, which is heavy, battery-hungry, and worse for privacy than people assume.</p>
+        <p>Cloudflare Workers let us do the work in a region-pinned, encrypted, ephemeral environment, with strict isolation per user. The phone is a thin client by design.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What about prompt injection? My email is full of untrusted content.<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Treated as a first-class threat. Every message is scanned for prompt-injection patterns before reasoning, and untrusted content is wrapped in clearly delineated boundaries so the model cannot mistake email body for instructions. Output is also constrained to a strict schema so the model cannot ask the system to do anything outside its job. We track the <b>OWASP LLM Top 10</b> as our working list, and run <b>Semgrep</b> in CI to catch design-time vulnerabilities on every PR.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Where is the brief read, and can I act from it?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>The brief is intentionally read only. It exists to give you a clear, calm summary, not to lure you into clicking. To close a loop, snooze it, or hand it off, you move to the <b>Loops</b> page. That separation keeps the brief honest and keeps you in control of what gets actioned.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>I'm not in the EU. Do I still get GDPR-style rights?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Yes. We apply GDPR-equivalent rights to every ariadot user regardless of jurisdiction: access, correction, portability, erasure, and the right to know who we share with. Right of erasure is a single button. See §05 above.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How does ariadot make money?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Subscription, plain and simple. <b>$8 a month or $72 a year</b>, after a 14-day free trial. No free tier funded by data, no ads, no enterprise upsell that quietly relaxes the privacy model. If ariadot ever pursues a different business model, you will hear about it in this section first.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What platforms is it on?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>iOS and Android, in private beta now. macOS and Windows are not on the near roadmap; the briefs are designed to live in your pocket.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- WAITLIST -->
+<section class="section tight" id="join">
+  <div class="waitlist">
+    <div>
+      <h3>A calmer week. <em>Plug in your email.</em></h3>
+      <p>Private beta opens monthly cohorts on iOS and Android. Leave your email and we'll send a one-line note when your slot is ready. Never anything else.</p>
+    </div>
+    <form class="form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ On the list';">
+      <div class="field">
+        <input type="email" placeholder="you@somewhere.fine" required />
+        <button type="submit">Request access</button>
+      </div>
+      <p class="fine">No marketing, no "product updates," no partner emails. Ever.</p>
+    </form>
+  </div>
+</section>
+
+<!-- COLOPHON -->
+<footer class="colophon">
+  <div class="col-l">
+    <svg aria-hidden="true"><use href="#ariadot"/></svg>
+    <span class="name">ariadot</span>
+    <span>© 2026 · Set in Source Serif 4 and Cormorant Garamond</span>
+  </div>
+  <div class="links">
+    <a href="/privacy">Privacy policy</a>
+    <a href="/terms">Terms of service</a>
+    <a href="/privacy#subprocessors">Subprocessors</a>
+    <a href="mailto:privacy@ariadot.com">Contact</a>
+  </div>
+</footer>
+
+</main>
+
+</body>
+</html>

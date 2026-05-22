@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index,follow" />
+<title>Privacy Policy — Ariadot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#faf6ec; --paper-2:#f3ecd9; --ink:#1a1814; --ink-2:#5a544a;
+    --ink-3:#968d7c; --rule:#ddd3bc; --rule-soft:#e6dec8; --accent:#8a3a1f;
+    --serif:"Source Serif 4","New York",Georgia,serif;
+    --display:"Cormorant Garamond","Source Serif 4",serif;
+    --sans:-apple-system,"SF Pro Text",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(138,58,31,0.3); }
+  a:hover { border-bottom-color:var(--accent); }
+  ::selection { background: rgba(138,58,31,0.18); }
+
+  .topnav { position:sticky; top:0; z-index:50;
+    background:color-mix(in oklab, var(--paper) 90%, transparent);
+    backdrop-filter:blur(14px) saturate(160%); border-bottom:1px solid var(--rule-soft); }
+  .topnav .inner { max-width:760px; margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between; }
+  .topnav .name { font-family:var(--display); font-style:italic; font-weight:500;
+    font-size:24px; color:var(--ink); border:0; }
+  .topnav .name .dot { display:inline-block; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); margin-left:2px; transform:translateY(-2px); }
+  .topnav .links { display:flex; gap:22px; font-family:var(--sans); font-size:14px; }
+  .topnav .links a { color:var(--ink-2); border:0; }
+  .topnav .links a:hover { color:var(--ink); }
+  @media (max-width:560px){ .topnav .links a:not(.here){ display:none; } }
+
+  .wrap { max-width:760px; margin:0 auto; padding:56px 24px 80px; }
+  h1 { font-family:var(--serif); font-weight:600; font-size:clamp(34px,5vw,52px);
+    line-height:1.05; letter-spacing:-0.015em; margin:0 0 8px; }
+  .meta { font-family:var(--mono); font-size:12px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-3); margin:0 0 28px; }
+  .lede { font-size:20px; line-height:1.5; color:var(--ink-2); margin:0 0 8px; }
+  .lede em { font-family:var(--display); font-style:italic; }
+  h2 { font-family:var(--serif); font-weight:600; font-size:24px; letter-spacing:-0.005em;
+    margin:44px 0 10px; padding-top:20px; border-top:1px solid var(--rule); scroll-margin-top:70px; }
+  h3 { font-size:18px; margin:22px 0 6px; color:var(--ink); }
+  p, li { color:var(--ink-2); }
+  ul { padding-left:22px; } li { margin:6px 0; }
+  strong { color:var(--ink); font-weight:600; }
+  code { font-family:var(--mono); font-size:13.5px; background:var(--paper-2);
+    padding:1px 5px; border-radius:4px; border:1px solid var(--rule); color:var(--ink); }
+  .footer { margin-top:56px; padding-top:24px; border-top:1px solid var(--rule);
+    font-family:var(--sans); font-size:13.5px; color:var(--ink-3);
+    display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .footer a { color:var(--ink-3); }
+  .footer .spacer { flex:1; }
+</style>
+</head>
+<body>
+  <nav class="topnav">
+    <div class="inner">
+      <a class="name" href="/">ariadot<span class="dot"></span></a>
+      <div class="links">
+        <a href="/">Home</a>
+        <a class="here" href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <h1>Privacy Policy</h1>
+    <p class="meta">Ariadot · Last updated 22 May 2026</p>
+
+    <p class="lede">
+      Ariadot is a personal assistant that reads your email and calendar so it can surface the
+      things that genuinely need your attention — deadlines, commitments, and the small
+      obligations that slip through. <em>This policy explains, in plain language, what we collect,
+      why, where it goes, and how you stay in control.</em>
+    </p>
+    <p>
+      We have written this to be honest rather than reassuring. If something here reads as a real
+      trade-off, that is because it is one, and we would rather you understand it than be soothed
+      by it.
+    </p>
+
+    <h2>What we access</h2>
+    <p>When you connect a Google account, you grant Ariadot <strong>read-only</strong> access to:</p>
+    <ul>
+      <li><strong>Gmail</strong> (<code>gmail.readonly</code>) — the content of your email messages, so Ariadot can identify commitments and surface them to you.</li>
+      <li><strong>Google Calendar</strong> (<code>calendar.readonly</code>) — your events, so Ariadot can understand your day and avoid surfacing things you already have scheduled.</li>
+      <li>Your <strong>name and email address</strong> (<code>openid</code>, <code>email</code>, <code>profile</code>) — to identify your account.</li>
+    </ul>
+    <p>
+      Ariadot <strong>cannot send, delete, or modify</strong> your email or calendar. The access
+      is read-only. You may connect more than one Google account; each is read the same way.
+    </p>
+    <p>
+      If you sign in with Apple instead, we receive the identifier Apple provides and, on first
+      sign-in only, your name. If you use Apple's "Hide My Email," we only ever see the private
+      relay address.
+    </p>
+
+    <h2>What we store, and for how long</h2>
+    <p>We store two kinds of data, with different lifetimes:</p>
+    <h3>Raw ingested email and calendar — kept 30 days</h3>
+    <p>
+      The raw messages and calendar snapshots we fetch are held for <strong>30 days</strong>, then
+      automatically deleted. They are re-fetchable from Google if ever needed, so we do not keep
+      them longer than necessary to process them.
+    </p>
+    <h3>What Ariadot learns — kept until you delete it</h3>
+    <p>
+      The useful, condensed output Ariadot builds from your data is kept until you delete your
+      account. This includes the loops it tracks, the daily briefs it writes, the profile it forms
+      of your routines and standing concerns, your handbook entries, and its working notes. This is
+      the product; it is what lets Ariadot get more useful over time.
+    </p>
+
+    <h2>Where your data is processed</h2>
+    <p>
+      Ariadot processes your data on our servers (Cloudflare), not on your device. Email and
+      calendar content is fetched to our processing edge, where we mask personal identifiers before
+      sending the minimum necessary content to the AI models that write your brief. The briefs,
+      loops, and profile we build are stored on our servers and shown back to you in the app. We are
+      being precise about this on purpose: Ariadot is a server-side service, not an on-device one.
+    </p>
+
+    <h2>How your data is protected</h2>
+    <ul>
+      <li>All data is encrypted in transit (TLS) and at rest.</li>
+      <li>Your Google access tokens are additionally encrypted with a per-user key, so a partial data exposure does not unlock them.</li>
+      <li>Personal identifiers (names, emails, phone numbers, account references, amounts) are masked with realistic stand-ins before email content is sent to an AI model where possible.</li>
+      <li>Access to our systems is protected by multi-factor authentication.</li>
+    </ul>
+    <p>
+      We want to be straight with you about the limits of this: Ariadot's servers process your email
+      content in readable form in order to do their job, and we hold the keys required to do that.
+      We are not a zero-knowledge service and we do not claim to be. What we promise is that we do
+      not sell your data, we do not use it for advertising, and we share it only with the processors
+      listed below, only to run the product.
+    </p>
+
+    <h2>Automated decision-making</h2>
+    <p>
+      Ariadot uses AI models to make automated decisions about your email: which messages matter,
+      what to surface as a commitment, what to suggest for your handbook, and what to quietly set
+      aside. These decisions are assistive, not consequential — they affect what Ariadot shows you,
+      nothing legal or financial. You remain in control: you can accept, dismiss, or permanently
+      decline any suggestion Ariadot makes, and you can see what it did with each email in the
+      in-app Activity view.
+    </p>
+
+    <h2 id="subprocessors">Who we share data with (sub-processors)</h2>
+    <p>To run the product, your data is processed by:</p>
+    <ul>
+      <li><strong>Anthropic</strong> — the AI model that reads filtered email content to identify commitments and write your briefs. Email content is masked to remove names and identifiers before it is sent where possible.</li>
+      <li><strong>OpenAI</strong> — used for lightweight classification and text embeddings during filtering.</li>
+      <li><strong>Google</strong> — the source of your email and calendar, accessed under the read-only scopes above.</li>
+      <li><strong>Cloudflare</strong> — our hosting, compute, storage, and database provider.</li>
+      <li><strong>TickTick</strong> — only if you choose to connect it, to create tasks from your loops.</li>
+    </ul>
+    <p>We do not share your data with anyone else, and we do not sell it.</p>
+
+    <h2>Your control and your rights</h2>
+    <ul>
+      <li><strong>Disconnect any account</strong> at any time in Settings. This stops Ariadot reading that account and revokes our access at Google.</li>
+      <li><strong>Delete your account</strong> in Settings. Deletion runs with a <strong>7-day grace period</strong> — if you change your mind within 7 days, sign back in to restore everything. After 7 days, deletion is permanent and irreversible.</li>
+      <li><strong>Permanent deletion removes everything:</strong> every loop, brief, note, handbook entry, and the profile Ariadot built; all stored email and calendar data; and your Google access tokens are revoked upstream at Google so we can no longer reach your account.</li>
+    </ul>
+    <p>
+      We apply these rights to every Ariadot user regardless of where you live, including access,
+      correction, portability, and erasure.
+    </p>
+
+    <h2>Children</h2>
+    <p>Ariadot is not directed at children and is not intended for anyone under 16.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      If we change how we handle your data, we will update this page and revise the date at the top.
+      Material changes will be communicated in the app.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Questions about your data, or requests to access or delete it, can be sent to
+      <a href="mailto:privacy@ariadot.com">privacy@ariadot.com</a>.
+    </p>
+
+    <div class="footer">
+      <span>© 2026 Ariadot · beta</span>
+      <span class="spacer"></span>
+      <a href="/">Home</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+  </div>
+</body>
+</html>
