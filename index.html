@@ -1173,12 +1173,12 @@
       <h3>A calmer week. <em>Plug in your email.</em></h3>
       <p>Private beta opens monthly cohorts on iOS and Android. Leave your email and we'll send a one-line note when your slot is ready. Nothing else unless you ask for it.</p>
     </div>
-    <form class="form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ On the list';">
+    <form class="form" id="waitlist">
       <div class="field">
-        <input type="email" placeholder="you@somewhere.fine" required />
+        <input type="email" name="email" placeholder="you@somewhere.fine" autocomplete="email" required />
         <button type="submit">Request access</button>
       </div>
-      <p class="fine">No marketing, no partner emails. Product updates only if you opt in.</p>
+      <p class="fine" id="waitlist-note">No marketing, no partner emails. Product updates only if you opt in.</p>
     </form>
   </div>
 </section>
@@ -1202,5 +1202,46 @@
 
 </main>
 
+<script>
+(function () {
+  var form = document.getElementById('waitlist');
+  if (!form) return;
+  var input = form.querySelector('input[name="email"]');
+  var button = form.querySelector('button');
+  var note = document.getElementById('waitlist-note');
+  var defaultNote = note ? note.textContent : '';
+  var endpoint = 'https://open-loops.runwita.workers.dev/waitlist';
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = (input.value || '').trim();
+    if (!email) return;
+    button.disabled = true;
+    button.textContent = 'Sending…';
+
+    fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email })
+    })
+      .then(function (r) { return r.ok; })
+      .then(function (ok) {
+        if (ok) {
+          button.textContent = '✓ On the list';
+          input.disabled = true;
+          if (note) note.textContent = "You're in. We'll send a one-line note when your slot is ready.";
+        } else {
+          throw new Error('bad response');
+        }
+      })
+      .catch(function () {
+        button.disabled = false;
+        button.textContent = 'Request access';
+        if (note) note.textContent = "Something went wrong. Try again, or email support@ariadot.app.";
+        setTimeout(function () { if (note) note.textContent = defaultNote; }, 6000);
+      });
+  });
+})();
+</script>
 </body>
 </html>
