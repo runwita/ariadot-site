@@ -917,23 +917,23 @@
         <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
       </div>
       <div class="row">
-        <div class="stage">03 · Filter</div>
-        <div class="what">A small on-device check runs first when you type into ariadot itself, scanning anything that looks like a password, OTP, or secret and refusing to send it. <em>We never want those leaving your phone.</em></div>
-        <div class="where"><span class="pin device"></span>YOUR DEVICE</div>
-      </div>
-      <div class="row">
-        <div class="stage">04 · Mask</div>
-        <div class="what">Names, emails, phone numbers, addresses, account references, IDs, and any free text that resembles PII are replaced with natural-looking stand-ins from a 50,000-row synthetic dataset. <em>The mapping is stable per user: if Mary becomes Jackson once, she stays Jackson in every future brief.</em></div>
+        <div class="stage">03 · Screen</div>
+        <div class="what">Before anything else, a credential guard (Llama, on Cloudflare Workers AI) reads each message and drops anything that looks like a password, OTP, or secret. <em>That material is never stored and never reaches the reasoning models.</em></div>
         <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
       </div>
       <div class="row">
-        <div class="stage">05 · Reason (Haiku)</div>
-        <div class="what">Claude Haiku handles the high-volume work: classifying loops, extracting dates, drafting short copy. Sees masked data only. <em>Zero retention. No training.</em></div>
-        <div class="where"><span class="pin llm"></span>ANTHROPIC API</div>
+        <div class="stage">04 · Triage</div>
+        <div class="what">A small, fast model (OpenAI's smallest) decides what's even worth a closer look, so most noise is filtered cheaply before the heavier reasoning. Masked input only.</div>
+        <div class="where"><span class="pin llm"></span>OPENAI API</div>
       </div>
       <div class="row">
-        <div class="stage">06 · Reason (Sonnet)</div>
-        <div class="what">Claude Sonnet handles the harder calls: writing the brief in your voice, weighing the day, judging tone. Same zero-retention contract, same masked input.</div>
+        <div class="stage">05 · Mask</div>
+        <div class="what">Names, emails, phone numbers, addresses, account references, IDs, and any free text that resembles PII are replaced with natural-looking stand-ins. Dates and amounts that matter to your day are kept true. <em>The mapping is stable per user: if Mary becomes Jackson once, she stays Jackson in every future brief.</em></div>
+        <div class="where"><span class="pin edge"></span>CLOUDFLARE EDGE</div>
+      </div>
+      <div class="row">
+        <div class="stage">06 · Reason</div>
+        <div class="what">Claude (Sonnet for the brief in your voice, Haiku for lighter Aria tasks) does the judgement: what's a loop, what's worth surfacing, how to say it. Masked input only. <em>Not retained, not trained on.</em></div>
         <div class="where"><span class="pin llm"></span>ANTHROPIC API</div>
       </div>
       <div class="row">
@@ -950,8 +950,8 @@
 
     <div class="legend">
       <div class="li"><span class="pin device"></span>Your device, thin client</div>
-      <div class="li"><span class="pin edge"></span>Cloudflare edge, masked work and key storage</div>
-      <div class="li"><span class="pin llm"></span>Anthropic API, zero retention, no training, masked input</div>
+      <div class="li"><span class="pin edge"></span>Cloudflare edge, screening, masking and key storage</div>
+      <div class="li"><span class="pin llm"></span>Model APIs, masked input, not retained, not trained on</div>
     </div>
   </div>
 
@@ -959,26 +959,34 @@
   <div class="privacy-card">
     <div class="pcard-head">
       <span class="badge">THE MODELS WE USE</span>
-      <h3>Claude, picked deliberately, used differently.</h3>
+      <h3>A small set, each picked for one job.</h3>
     </div>
     <div class="body-prose" style="margin-bottom: 18px;">
-      <p>We use two Claude models for two jobs. Both run under the same zero-retention, no-training contract with Anthropic. Both only ever see masked input. We do not use any other model providers.</p>
+      <p>Every model only ever sees <b>masked</b> input, and none of them retains or trains on it. The cheap, fast ones do the screening and triage so your data touches the heavier reasoning as little as possible. We're also exploring running a model locally on Cloudflare Workers, to keep more of the work on our own edge.</p>
     </div>
     <div class="models">
       <article class="model">
-        <div class="glyph">h</div>
+        <div class="glyph">l</div>
         <div>
-          <p class="name">Workhorse model</p>
-          <h4>Claude Haiku</h4>
-          <p>Runs the high-volume work: classifying loops, extracting dates and amounts, drafting short copy, scoring urgency. Fast and cheap, so we can be conservative and call it often.</p>
+          <p class="name">Screening · Cloudflare Workers AI</p>
+          <h4>Llama 3.1</h4>
+          <p>The privacy-sensitive first pass, including the credential guard that catches passwords and secrets before anything is stored or sent onward.</p>
+        </div>
+      </article>
+      <article class="model">
+        <div class="glyph">o</div>
+        <div>
+          <p class="name">Triage · OpenAI</p>
+          <h4>Smallest GPT</h4>
+          <p>A fast, cheap classifier that decides what's even worth a closer look, so most of your inbox is filtered out before the careful reasoning begins.</p>
         </div>
       </article>
       <article class="model">
         <div class="glyph">s</div>
         <div>
-          <p class="name">Reasoning model</p>
-          <h4>Claude Sonnet</h4>
-          <p>Handles the harder calls: writing the brief in your voice, weighing the shape of a day, judging tone in something delicate. Used sparingly, with care.</p>
+          <p class="name">Reasoning · Anthropic</p>
+          <h4>Claude Sonnet &amp; Haiku</h4>
+          <p>The judgement: Sonnet writes the brief in your voice and weighs the shape of a day; Haiku handles lighter Aria tasks. Used with care, on masked input only.</p>
         </div>
       </article>
     </div>
@@ -1007,11 +1015,11 @@
       </div>
       <div class="mask-card">
         <span class="label">What Claude sees</span>
-        From: <span class="swap">helena.dorff@gmail.com</span>. Hey, can you forward the invoice from <span class="swap">Bramley House</span> for the <span class="swap">$2,610</span> shoot? Trying to close out the April books before Tuesday. My mobile is <span class="swap">+61 478 211 663</span> if easier.
+        From: <span class="swap">helena.dorff@gmail.com</span>. Hey, can you forward the invoice from <span class="swap">Bramley House</span> for the <span class="swap">$2,610</span> shoot? Trying to close out the May books before Friday. My mobile is <span class="swap">+61 478 211 663</span> if easier.
       </div>
     </div>
 
-    <p class="mask-fineprint"><b>Why this works.</b> Every masked field is drawn from a 50,000-row synthetic dataset of names, addresses, amounts, phone numbers, IDs, and free-text fragments. The stand-ins are realistic and statistically diverse, but uncorrelated with anything in your real life. Even if the model output were leaked, it would describe a coherent stranger, not you. The mapping back to your real values is held only in our edge keystore, sealed with a per-user key, and never reaches any model.</p>
+    <p class="mask-fineprint"><b>Why this works.</b> Every masked field is drawn from a synthetic dataset of names, addresses, amounts, phone numbers, IDs, and free-text fragments. The stand-ins are realistic and statistically diverse, but uncorrelated with anything in your real life. Even if the model output were leaked, it would describe a coherent stranger, not you. The mapping back to your real values is held only on our edge, sealed with a per-user key, and never reaches any model. <b>Notice what didn't change:</b> "May" and "Friday" stay exactly as written. Dates, times, and deadlines are never shifted, because a brief that reasons about the wrong day is worse than useless.</p>
 
     <p class="mask-fineprint" style="margin-top: 14px;"><b>The masks are stable across sessions.</b> Continuity matters. If "Mary" gets masked as "Jackson" today, she will still be "Jackson" in tomorrow's brief and next month's brief. That stability is what makes reasoning over time possible: the model sees a consistent cast of characters across your week, even though it never sees the real ones.</p>
   </div>
@@ -1034,23 +1042,22 @@
         <h4>Masked, then forwarded</h4>
       </div>
       <ul>
-        <li><span class="glyph">→</span><div>Email content with natural masks substituted in<small>"helena.dorff" instead of "priya.menon", "$2,610" instead of "$1,840", etc.</small></div></li>
+        <li><span class="glyph">→</span><div>Email content with natural masks substituted in<small>"helena.dorff" instead of "priya.menon", "$2,610" instead of "$1,840". Dates, times, and deadlines are left exactly as they are, so the reasoning lands on the right day.</small></div></li>
         <li><span class="glyph">→</span><div>Structural metadata<small>Timestamps, thread shape, message length, attachment types. No filenames.</small></div></li>
-        <li><span class="glyph">→</span><div>Anonymous account ID<small>A random UUID. Not tied to your email, your name, or your phone number.</small></div></li>
+        <li><span class="glyph">→</span><div>Anonymous account ID<small>A random identifier. Not tied to your email, your name, or your phone number.</small></div></li>
       </ul>
     </div>
     <div class="col kept">
       <div class="col-h">
-        <span class="stamp">Stays at our edge or on device</span>
+        <span class="stamp">Held by us, never sent to a model</span>
         <h4>Never sent to any model</h4>
       </div>
       <ul>
-        <li><span class="glyph">◦</span><div>Your real names, emails, addresses, phone numbers<small>Held only in our edge keystore on Cloudflare, sealed with a per-user key.</small></div></li>
-        <li><span class="glyph">◦</span><div>Anything that looks like a password, OTP, or secret<small>An on-device classifier intercepts these before they leave your phone.</small></div></li>
+        <li><span class="glyph">◦</span><div>Your real names, emails, addresses, phone numbers<small>Replaced with stand-ins before any model call. The mapping is held server-side, sealed with a per-user key.</small></div></li>
+        <li><span class="glyph">◦</span><div>Anything that looks like a password, OTP, or secret<small>A credential guard catches these and drops the message before it reaches a model.</small></div></li>
         <li><span class="glyph">◦</span><div>Financial figures, account numbers, IDs<small>Replaced with realistic stand-ins before the model call.</small></div></li>
-        <li><span class="glyph">◦</span><div>Calendar event titles and locations<small>Masked in transit; unmasked only on your device for display.</small></div></li>
-        <li><span class="glyph">◦</span><div>The mask map<small>The key that unmasks your brief. Held per user in our edge keystore, sealed with a key only your account can unlock. Stable across sessions for continuity.</small></div></li>
-        <li><span class="glyph">◦</span><div>Your billing email<small>Held by Stripe, never joined to usage data on our side.</small></div></li>
+        <li><span class="glyph">◦</span><div>Calendar event titles and locations<small>Masked the same way as email before reasoning; shown in the clear only back to you in the app.</small></div></li>
+        <li><span class="glyph">◦</span><div>The mask map<small>The key that unmasks your brief. Held per user, sealed with a key only your account can unlock. Stable across sessions for continuity.</small></div></li>
       </ul>
     </div>
   </div>
@@ -1065,7 +1072,7 @@
       <div class="promise">
         <div class="ix">i.</div>
         <h4>No training on your data, ever.</h4>
-        <p>Not for our work, not for Anthropic's. Our API contract forbids using ariadot traffic for training, and Anthropic publishes the same in their policy. We will publish the redacted contract on our trust page.</p>
+        <p>Not for us, not for the model providers. We do not train anything on your email, and our API access to Anthropic, OpenAI, and Cloudflare is under terms that do not use API traffic for training. We have no model of our own to train.</p>
       </div>
       <div class="promise">
         <div class="ix">ii.</div>
@@ -1080,12 +1087,12 @@
       <div class="promise">
         <div class="ix">iv.</div>
         <h4>No silent expansion of scope.</h4>
-        <p>If we ever want to read a new inbox, send a new field, or change a mask category, you'll see an in-app card with a plain English diff and a refusable toggle. We won't change the rules without telling you.</p>
+        <p>Ariadot's access is read-only Gmail and Calendar, and that is all we ask for. If we ever need a new permission or change how data is handled, you will be asked to approve it and told plainly what changed, in the app and in this policy. We will not change the rules quietly.</p>
       </div>
       <div class="promise">
         <div class="ix">v.</div>
         <h4>No retention beyond what's necessary.</h4>
-        <p>Masked work product is purged from our edge within 24 hours of producing your brief. The persistent mask map stays sealed in our keystore and never leaves it. Anthropic retains nothing: that is zero retention, in writing.</p>
+        <p>The raw email and calendar we fetch is deleted once Ariadot has read it and written your brief, within 24 hours, not kept around. What stays is the useful output: your loops, your handbook, and the profile Aria builds, all visible to you in the app and held until you delete your account. The model providers retain nothing of what we send.</p>
       </div>
       <div class="promise">
         <div class="ix">vi.</div>
@@ -1112,52 +1119,47 @@
       <div class="fill"></div>
 
       <div class="marker top" style="left: 4%;">
-        <div class="what">Masked work product</div>
+        <div class="what">Raw email &amp; calendar</div>
         <span class="pin" style="background: var(--info);"></span>
         <div class="when">≤ 24 hours</div>
       </div>
-      <div class="marker top" style="left: 26%;">
-        <div class="what">Mask map</div>
-        <span class="pin" style="background: var(--due);"></span>
-        <div class="when">Until you delete account</div>
+      <div class="marker top" style="left: 34%;">
+        <div class="what">The model providers</div>
+        <span class="pin" style="background: var(--info);"></span>
+        <div class="when">Zero</div>
       </div>
-      <div class="marker top" style="left: 50%;">
-        <div class="what">Diagnostic logs</div>
+      <div class="marker top" style="left: 64%;">
+        <div class="what">Loops, handbook, profile</div>
         <span class="pin" style="background: var(--due);"></span>
-        <div class="when">14 days</div>
+        <div class="when">Until you delete</div>
       </div>
-      <div class="marker top" style="left: 74%;">
-        <div class="what">Billing record</div>
-        <span class="pin" style="background: var(--due);"></span>
-        <div class="when">7 years (legal)</div>
-      </div>
-      <div class="marker top" style="left: 96%;">
-        <div class="what">Your local data</div>
+      <div class="marker top" style="left: 94%;">
+        <div class="what">After Delete account</div>
         <span class="pin" style="background: var(--bleed);"></span>
-        <div class="when">Until you delete it</div>
+        <div class="when">7-day grace, then gone</div>
       </div>
     </div>
 
     <div class="ret-grid">
       <div class="ret-cell">
-        <div class="k">Mask map</div>
-        <div class="v">Persistent</div>
-        <div class="n">Stable per user so Mary is always Jackson. Sealed with a per-user key. Deleted when you delete your account.</div>
-      </div>
-      <div class="ret-cell">
-        <div class="k">Masked content</div>
+        <div class="k">Raw email &amp; calendar</div>
         <div class="v">≤ 24 hours</div>
-        <div class="n">In our edge queue just long enough to assemble your brief. Then purged.</div>
+        <div class="n">Fetched, read, turned into your brief, then deleted. Re-fetchable from Google if ever needed, so we don't keep it.</div>
       </div>
       <div class="ret-cell">
-        <div class="k">Anthropic</div>
+        <div class="k">The model providers</div>
         <div class="v">Zero</div>
-        <div class="n">Contractually no retention. Not stored, not logged, not used for training.</div>
+        <div class="n">Only masked input is ever sent, and it is not retained or trained on by Anthropic, OpenAI, or Cloudflare Workers AI.</div>
       </div>
       <div class="ret-cell">
-        <div class="k">Local data</div>
-        <div class="v">You decide</div>
-        <div class="n">Briefs, loops, settings. Encrypted at rest. Deletes with the app.</div>
+        <div class="k">Loops, handbook, profile</div>
+        <div class="v">Until you delete</div>
+        <div class="n">The useful output Aria builds for you. All visible in the app. Kept until you delete your account.</div>
+      </div>
+      <div class="ret-cell">
+        <div class="k">When you delete</div>
+        <div class="v">7-day grace</div>
+        <div class="n">Everything is removed and your Google access revoked upstream. Recoverable within 7 days; permanent after.</div>
       </div>
     </div>
   </div>
@@ -1181,7 +1183,7 @@
     <div class="num">§ 06 · Security</div>
     <div>
       <h2>The boring, important stuff.</h2>
-      <p class="frame">Each plate below is something we are willing to put a stake in, and each one is verifiable, not just claimed.</p>
+      <p class="frame">No badges we haven't earned. Just what's actually true about how Ariadot is built today.</p>
     </div>
   </div>
 
@@ -1192,9 +1194,9 @@
         <h4>Encryption</h4>
       </div>
       <ul>
-        <li>TLS 1.3 in transit, <b>AES-256-GCM at rest</b>, on edge and on device.</li>
-        <li>Local store sealed with a device-bound key in the Secure Enclave (iOS) or Keystore (Android).</li>
-        <li>Per-user envelope keys rotated every 90 days.</li>
+        <li><b>Encrypted in transit at every hop</b>: app to our edge, edge to Gmail, edge to every model provider.</li>
+        <li>Encrypted at rest.</li>
+        <li>Your Google access tokens are <b>additionally sealed with a per-user key</b>, so a partial exposure doesn't unlock them.</li>
       </ul>
     </div>
 
@@ -1204,57 +1206,57 @@
         <h4>Where it runs</h4>
       </div>
       <ul>
-        <li>All processing on <b>Cloudflare Workers</b>, region-pinned (EU or US, you pick).</li>
-        <li>No cross-region transfer of masked data without re-consent.</li>
-        <li>Anthropic calls routed within your chosen region.</li>
+        <li>All processing on <b>Cloudflare Workers</b>, with state isolated per user.</li>
+        <li>Only <b>masked</b> content is ever sent to a model.</li>
+        <li>Raw email and calendar is <b>deleted within 24 hours</b> of producing your brief.</li>
       </ul>
     </div>
 
     <div class="plate">
       <div class="plate-h">
         <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg></div>
-        <h4>OWASP &amp; AppSec</h4>
+        <h4>Untrusted input</h4>
       </div>
       <ul>
-        <li>Threat model covers the <b>OWASP LLM Top 10</b>: prompt injection, output handling, training-data leakage.</li>
-        <li>Inbound prompt-injection scanning on every message before reasoning.</li>
-        <li><b>Semgrep</b> in CI for design-time vulnerability checks, on every PR.</li>
+        <li>Your email is untrusted by default. Every message is screened for <b>prompt-injection</b> before any reasoning, and content is fenced off from instructions.</li>
+        <li>A <b>credential guard</b> drops anything resembling a password, OTP, or secret before storage.</li>
+        <li><b>Semgrep</b> runs in CI on every change.</li>
       </ul>
     </div>
 
     <div class="plate">
       <div class="plate-h">
         <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M4 6l16 12M20 6L4 18"/></svg></div>
-        <h4>Authentication</h4>
+        <h4>Access &amp; sign-in</h4>
       </div>
       <ul>
-        <li>Passkey by default. No passwords, no SMS one-time codes.</li>
-        <li>Per-device approval, revoke any device from any other device.</li>
-        <li>Optional biometric lock on the brief itself.</li>
+        <li>Sign in with <b>Apple</b> or <b>Google</b>. No passwords for us to lose.</li>
+        <li>Gmail and Calendar are <b>read-only</b>: we cannot send, delete, or change anything.</li>
+        <li>Access to our own systems is protected with multi-factor authentication.</li>
       </ul>
     </div>
 
     <div class="plate">
       <div class="plate-h">
         <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
-        <h4>Subprocessors</h4>
+        <h4>Sub-processors</h4>
       </div>
       <ul>
-        <li>Listed publicly: Cloudflare (edge), Anthropic (LLM), Stripe (billing).</li>
-        <li>Changes announced 30 days in advance, in app and on the trust page.</li>
-        <li>All bound by ariadot's data-processing addendum.</li>
+        <li>Named in our <a href="/privacy#subprocessors">privacy policy</a>: Cloudflare, Anthropic, OpenAI, Google, and TickTick (only if you connect it).</li>
+        <li>No advertisers, no data brokers, no analytics resold.</li>
+        <li>Each receives only the minimum needed, masked where it leaves our edge.</li>
       </ul>
     </div>
 
     <div class="plate">
       <div class="plate-h">
-        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
-        <h4>Audits &amp; certs</h4>
+        <div class="sigil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h4>What we don't claim</h4>
       </div>
       <ul>
-        <li><b>SOC 2 Type II</b>, annual, report on request.</li>
-        <li><b>GDPR and CCPA</b> compliant. DPA available before signup.</li>
-        <li>Independent pen test every six months, summary published.</li>
+        <li>We're a small team in private beta. We don't yet hold SOC 2 or a published audit, and we won't pretend otherwise.</li>
+        <li>We process your email in readable form to do the work, and hold the keys to do it. <b>We are not zero-knowledge, and we don't claim to be.</b></li>
+        <li>What we promise is on this page, and it's true today.</li>
       </ul>
     </div>
   </div>
@@ -1274,8 +1276,8 @@
     <details open>
       <summary>Which models do you use, and why those?<span class="plus">+</span></summary>
       <div class="answer">
-        <p>We use two Anthropic Claude models: <b>Claude Haiku</b> for the high-volume work (classifying loops, extracting dates and amounts, drafting short copy) and <b>Claude Sonnet</b> for the harder, more delicate work (writing the brief in your voice, weighing the shape of a day, judging tone).</p>
-        <p>Both run under a single Anthropic API contract that sets server-side retention to zero and forbids training on our traffic. Both only ever receive masked input. We do not use any other model provider.</p>
+        <p>A small set, each picked for a job. <b>Anthropic's Claude Sonnet</b> does the delicate work, writing the brief in your voice and judging the shape of a day; <b>Claude Haiku</b> handles lighter Aria tasks. <b>OpenAI's smallest model</b> does fast first-pass classification, deciding what's even worth a closer look. And <b>Llama, running on Cloudflare Workers AI</b>, does the privacy-sensitive screening, including the credential guard that catches passwords and secrets.</p>
+        <p>Every one of them only ever receives <b>masked</b> input, and none of them retains or trains on it. We're also exploring running a model (Kimi) locally on Cloudflare Workers, so that more of the reasoning can happen without your data leaving our own edge at all.</p>
       </div>
     </details>
 
@@ -1288,26 +1290,26 @@
     </details>
 
     <details>
-      <summary>So Anthropic actually never sees my real email content?<span class="plus">+</span></summary>
+      <summary>So the AI models never see my real email content?<span class="plus">+</span></summary>
       <div class="answer">
-        <p>Correct. Every API call from ariadot to Anthropic contains masked text only: names, emails, addresses, phone numbers, account references, amounts, and any free text that resembles PII have all been swapped for stand-ins before the call is built. The mapping between real and masked values is held only in our edge keystore, sealed with a per-user key, and never sent to any model.</p>
+        <p>Correct. Every API call to a model contains masked text only: names, emails, addresses, phone numbers, account references, amounts, and any free text that resembles PII have all been swapped for stand-ins before the call is built. The mapping between real and masked values is held only on our edge, sealed with a per-user key, and never sent to any model.</p>
         <p>The mapping is also <b>stable per user</b>: once Mary becomes Jackson, she stays Jackson across every future brief. That continuity is what makes reasoning over your week possible, while still keeping the real names off the wire.</p>
         <p>The strongest argument for this is not trust, it is that <b>we built the system so that "trust us" is not load bearing.</b></p>
       </div>
     </details>
 
     <details>
-      <summary>What if I type a password or OTP into the app itself?<span class="plus">+</span></summary>
+      <summary>What about passwords, OTPs, or secrets in my email?<span class="plus">+</span></summary>
       <div class="answer">
-        <p>An on-device classifier scans anything you type into ariadot, and if it looks like a password, OTP, API key, or secret, the app refuses to send it. We never want that material reaching our edge, let alone the model. This is one of the few places where on-device ML is the right tool for the job, and we run it there.</p>
+        <p>A credential guard runs over every message before any reasoning. If something looks like a password, one-time code, API key, or recovery phrase, the message is dropped, not stored and not sent to a model. The whole point of Ariadot is the loops and dates, never your secrets.</p>
       </div>
     </details>
 
     <details>
       <summary>Why process on Cloudflare instead of on device?<span class="plus">+</span></summary>
       <div class="answer">
-        <p>Because the key input to ariadot is your email, and email lives on a server, not on your phone. A fully on-device architecture would mean constantly pulling your entire inbox onto the device, which is heavy, battery-hungry, and worse for privacy than people assume.</p>
-        <p>Cloudflare Workers let us do the work in a region-pinned, encrypted, ephemeral environment, with strict isolation per user. The phone is a thin client by design.</p>
+        <p>Because the input to Ariadot is your email, and email lives on a server, not on your phone. A fully on-device design would mean constantly pulling your whole inbox onto the device, which is heavy, battery-hungry, and worse for privacy than people assume.</p>
+        <p>Cloudflare Workers let us do the work in an encrypted environment with strict per-user isolation, then delete the raw material once your brief is written. The app is a thin client: it shows you the brief, the loops, and your handbook, and holds nothing it doesn't need to.</p>
       </div>
     </details>
 
@@ -1333,9 +1335,37 @@
     </details>
 
     <details>
+      <summary>How long do you keep my email?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>The <b>raw email and calendar</b> we fetch is deleted within <b>24 hours</b> of writing your brief. It's re-fetchable from Google if ever needed, so there's no reason to hold it. What stays is the useful output, your loops, handbook, and the profile Aria builds, and that's kept <b>until you delete your account</b>. Delete runs with a 7-day grace window, then it's permanent and your Google access is revoked.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can anyone at Ariadot read my email or my briefs?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>No. There is no internal tool that surfaces your briefs or your inbox, and we don't review them. When you contact support, you choose what to share. We process your email content to do the work and we hold the keys required to do that, so we're honest that we are not a zero-knowledge service. What we won't do is read your mail for any reason other than running the product for you.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is everything encrypted?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Yes, in transit at every hop, from the app to our edge, from our edge to Gmail, and from our edge to each model provider, and at rest. Your Google access tokens get an extra layer: they're sealed with a key unique to your account, so even a partial data exposure doesn't hand someone your inbox.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I see everything Ariadot knows about me?<span class="plus">+</span></summary>
+      <div class="answer">
+        <p>Yes, and that's deliberate. Everything Aria keeps is visible in the app: your <b>loops</b>, your <b>handbook</b>, the <b>profile</b> Aria has formed of your routines, and an <b>Activity log</b> showing what it decided about each email it read. Nothing is hidden in a backend you can't see.</p>
+      </div>
+    </details>
+
+    <details>
       <summary>How does ariadot make money?<span class="plus">+</span></summary>
       <div class="answer">
-        <p>Subscription, plain and simple. <b>$8 a month or $72 a year</b>, after a 14-day free trial. No free tier funded by data, no ads, no enterprise upsell that quietly relaxes the privacy model. If ariadot ever pursues a different business model, you will hear about it in this section first.</p>
+        <p>It will be a subscription, plain and simple, paid for by the people who use it. It's free during the private beta. There is no free tier funded by data, no ads, and no "data partner" of any kind. If we ever change the business model, you'll hear about it here first.</p>
       </div>
     </details>
 
