@@ -392,6 +392,38 @@
   .legend .pin.edge { background: var(--calendar); }
   .legend .pin.llm { background: var(--bleed); }
 
+  /* Sensitivity tiers */
+  .tiers { border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: var(--paper); }
+  .tier { display: grid; grid-template-columns: 200px 1fr; gap: 28px; padding: 26px 28px; border-top: 1px solid var(--rule-soft); }
+  .tier:first-child { border-top: 0; }
+  @media (max-width: 760px) { .tier { grid-template-columns: 1fr; gap: 14px; } }
+  .tier .tier-label .badge {
+    display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; padding: 4px 8px; border-radius: 3px; margin-bottom: 12px;
+  }
+  .tier.t1 .badge { background: var(--info); color: var(--paper); }
+  .tier.t2 .badge { background: var(--due); color: var(--paper); }
+  .tier.t3 .badge { background: var(--bleed); color: var(--paper); }
+  .tier .tier-label h3 { font-family: var(--serif); font-weight: 600; font-size: 20px; margin: 0 0 8px; }
+  .tier .tier-label p { font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--ink-2); margin: 0; line-height: 1.5; }
+  .tier .tier-label p b { font-style: normal; color: var(--ink); }
+  .tier .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .tier .chip {
+    font-family: var(--mono); font-size: 12.5px; color: var(--ink);
+    background: var(--paper-2); border: 1px solid var(--rule); border-radius: 5px; padding: 6px 11px;
+  }
+  .tier.t3 .chip { color: var(--bleed); border-color: rgba(193,74,50,0.35); }
+  .tier .behavior { font-family: var(--serif); font-size: 15px; color: var(--ink-2); line-height: 1.55; margin: 0; }
+  .tier .behavior b { color: var(--ink); font-weight: 600; }
+  .tier .behavior em { font-style: italic; }
+  .refusal-bar {
+    margin-top: 24px; border: 1px solid rgba(193,74,50,0.4); border-radius: 8px;
+    background: rgba(193,74,50,0.06); padding: 22px 26px;
+  }
+  .refusal-bar .tag { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--bleed); }
+  .refusal-bar q { display: block; font-family: var(--display); font-style: italic; font-size: 26px; color: var(--ink); margin: 10px 0 8px; }
+  .refusal-bar .note { font-family: var(--mono); font-size: 12px; color: var(--ink-3); margin: 0; }
+
   /* Ledger */
   .ledger {
     display: grid; grid-template-columns: 1fr 1fr; gap: 0;
@@ -1115,38 +1147,76 @@
 <!-- WHAT GETS SENT (LEDGER) -->
 <section class="section" id="data">
   <div class="head">
-    <div class="num"><span class="sn">05</span><span class="sl">The ledger</span></div>
+    <div class="num"><span class="sn">05</span><span class="sl">Sensitivity tiers</span></div>
     <div>
-      <h2>What leaves your inbox, line by line.</h2>
-      <p class="frame">No hedging, no "may include." Two columns. Left side is what travels to the model. Right side is what never does.</p>
+      <h2>What we'll hold, <em>ask before holding,</em> or <em>refuse outright.</em></h2>
+      <p class="frame">Ariadot keeps loops and a handbook. It is <b>not</b> a password manager, and the line between the two is drawn in three tiers, enforced before anything is ever stored.</p>
     </div>
   </div>
 
-  <div class="ledger">
-    <div class="col sent">
-      <div class="col-h">
-        <span class="stamp">Sent to Claude</span>
-        <h4>Masked, then forwarded</h4>
+  <div class="tiers">
+    <div class="tier t1">
+      <div class="tier-label">
+        <span class="badge">Tier 1 · Reference</span>
+        <h3>Store freely</h3>
+        <p>No friction. <b>This is the handbook.</b></p>
       </div>
-      <ul>
-        <li><span class="glyph">→</span><div>Email content with natural masks substituted in<small>"helena.dorff" instead of "priya.menon", "$2,610" instead of "$1,840". Dates, times, and deadlines are left exactly as they are, so the reasoning lands on the right day.</small></div></li>
-        <li><span class="glyph">→</span><div>Structural metadata<small>Timestamps, thread shape, message length, attachment types. No filenames.</small></div></li>
-        <li><span class="glyph">→</span><div>Anonymous account ID<small>A random identifier. Not tied to your email, your name, or your phone number.</small></div></li>
-      </ul>
-    </div>
-    <div class="col kept">
-      <div class="col-h">
-        <span class="stamp">Held by us, never sent to a model</span>
-        <h4>Never sent to any model</h4>
+      <div>
+        <div class="chips">
+          <span class="chip">plumber · name · phone</span>
+          <span class="chip">school office hours</span>
+          <span class="chip">wifi network name</span>
+          <span class="chip">passport expiry</span>
+          <span class="chip">insurance excess</span>
+          <span class="chip">appliance warranty</span>
+        </div>
+        <p class="behavior"><b>Behavior.</b> Stored when you save it. Surfaced when you ask, or quietly alongside a related time-bound loop.</p>
       </div>
-      <ul>
-        <li><span class="glyph">◦</span><div>Your real names, emails, addresses, phone numbers<small>Replaced with stand-ins before any model call. The mapping is held server-side, sealed with a per-user key.</small></div></li>
-        <li><span class="glyph">◦</span><div>Anything that looks like a password, OTP, or secret<small>A credential guard catches these and drops the message before it reaches a model.</small></div></li>
-        <li><span class="glyph">◦</span><div>Financial figures, account numbers, IDs<small>Replaced with realistic stand-ins before the model call.</small></div></li>
-        <li><span class="glyph">◦</span><div>Calendar event titles and locations<small>Masked the same way as email before reasoning; shown in the clear only back to you in the app.</small></div></li>
-        <li><span class="glyph">◦</span><div>The mask map<small>The key that unmasks your brief. Held per user, sealed with a key only your account can unlock. Stable across sessions for continuity.</small></div></li>
-      </ul>
     </div>
+
+    <div class="tier t2">
+      <div class="tier-label">
+        <span class="badge">Tier 2 · Identifiers</span>
+        <h3>Ask first</h3>
+        <p>Stored only with a one-time OK per category. <b>An identifier labels an account; on its own it unlocks nothing.</b></p>
+      </div>
+      <div>
+        <div class="chips">
+          <span class="chip">BSB + account number</span>
+          <span class="chip">card last 4 digits</span>
+          <span class="chip">policy numbers</span>
+          <span class="chip">customer reference</span>
+          <span class="chip">Medicare number</span>
+          <span class="chip">licence / rego</span>
+        </div>
+        <p class="behavior"><b>Behavior.</b> The first time you try to save one, Aria asks: <em>"This is an identifier, not a password. Store it? Yes / No / Always allow this category."</em> Never read out in the morning brief, retrieved on demand only.</p>
+      </div>
+    </div>
+
+    <div class="tier t3">
+      <div class="tier-label">
+        <span class="badge">Tier 3 · Credentials</span>
+        <h3>Refuse, hard</h3>
+        <p>No override. <b>Possession alone unlocks something, that belongs in a password manager.</b></p>
+      </div>
+      <div>
+        <div class="chips">
+          <span class="chip">passwords</span>
+          <span class="chip">PINs</span>
+          <span class="chip">recovery codes</span>
+          <span class="chip">2FA / OTP</span>
+          <span class="chip">full card + CVV</span>
+          <span class="chip">Tax File Number</span>
+        </div>
+        <p class="behavior"><b>Behavior.</b> Detected and refused before storage. Aria won't keep it, and it never reaches a model. The same check runs as a fast pattern match <b>and</b> again as a model pass, defence in depth.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="refusal-bar">
+    <span class="tag">[!] Tier 3 refusal</span>
+    <q>"That's a password. Not in here. Tell me where it lives, not what it is."</q>
+    <p class="note">The exact line Aria gives when you try to hand it a credential.</p>
   </div>
 
   <!-- The promises -->
