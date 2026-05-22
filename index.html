@@ -4,6 +4,21 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ariadot, a calm hand on your day</title>
+<meta name="description" content="ariadot reads your email so you don't have to keep a list. Twice a day it reads back what's open, what's coming, and what just landed. Nothing to set up." />
+<!-- Favicon + home-screen icon -->
+<link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
+<link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
+<meta name="theme-color" content="#15120d" />
+<!-- Social share -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="ariadot — a calm hand on your day" />
+<meta property="og:description" content="The things you'd forget, remembered for you. ariadot reads your email and quietly keeps the loops, the dates, and the details worth remembering." />
+<meta property="og:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<meta property="og:url" content="https://ariadot.app/" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="ariadot — a calm hand on your day" />
+<meta name="twitter:description" content="The things you'd forget, remembered for you." />
+<meta name="twitter:image" content="https://ariadot.app/ariadot-icon-dark.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -81,7 +96,8 @@
   /* Hero */
   .hero { padding: 88px 0 80px; border-bottom: 1px solid var(--rule); }
   .hero .stamp { display: flex; align-items: center; gap: 14px; margin-bottom: 32px; }
-  .hero .stamp .seal { width: 60px; height: 60px; border-radius: 14px; background: var(--paper-2); border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset, 0 6px 18px rgba(26,24,20,0.08); }
+  .hero .stamp .seal { width: 60px; height: 60px; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 18px rgba(26,24,20,0.14); }
+  .hero .stamp .seal img { width: 100%; height: 100%; display: block; object-fit: cover; }
   .hero .stamp .seal svg { width: 48px; height: 48px; }
   .hero .stamp .meta { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); line-height: 1.6; }
   .hero .stamp .meta b { color: var(--ink); font-weight: 500; }
@@ -745,7 +761,7 @@
   <div class="hero-layout">
     <div>
       <div class="stamp">
-        <div class="seal"><svg aria-hidden="true"><use href="#ariadot"/></svg></div>
+        <div class="seal"><img src="/ariadot-icon-dark.png" alt="ariadot app icon" width="60" height="60" /></div>
         <div class="meta">
           <b>ariadot</b><br/>
           a calm hand on your day
