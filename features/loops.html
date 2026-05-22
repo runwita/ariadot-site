@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index,follow" />
+<title>Loops · Ariadot</title>
+<meta name="description" content="Everything Ariadot finds, sorted by how much it actually needs you: needs you now, on you, FYI." />
+<link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
+<link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
+<meta name="theme-color" content="#15120d" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Loops · Ariadot" />
+<meta property="og:description" content="Everything Ariadot finds, sorted by how much it actually needs you." />
+<meta property="og:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<meta property="og:url" content="https://ariadot.app/features/loops" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#faf6ec; --paper-2:#f3ecd9; --paper-3:#ebe3cc; --ink:#1a1814; --ink-2:#5a544a;
+    --ink-3:#968d7c; --rule:#ddd3bc; --rule-soft:#e6dec8; --accent:#8a3a1f;
+    --info:#6a7a5a; --due:#b07a1f; --bleed:#c14a32;
+    --serif:"Source Serif 4","New York",Georgia,serif;
+    --display:"Cormorant Garamond","Source Serif 4",serif;
+    --sans:-apple-system,"SF Pro Text",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(138,58,31,0.3); }
+  a:hover { border-bottom-color:var(--accent); }
+  ::selection { background: rgba(138,58,31,0.18); }
+
+  /* Nav (shared) */
+  .topnav { position:sticky; top:0; z-index:50;
+    background:color-mix(in oklab, var(--paper) 90%, transparent);
+    backdrop-filter:blur(14px) saturate(160%); border-bottom:1px solid var(--rule-soft); }
+  .topnav .inner { max-width:1080px; margin:0 auto; padding:14px 32px;
+    display:flex; align-items:center; justify-content:space-between; }
+  .topnav .name { font-family:var(--display); font-style:italic; font-weight:500;
+    font-size:24px; color:var(--ink); border:0; }
+  .topnav .name .dot { display:inline-block; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); margin-left:2px; transform:translateY(-2px); }
+  .topnav .links { display:flex; gap:22px; font-family:var(--sans); font-size:14px; }
+  .topnav .links a { color:var(--ink-2); border:0; }
+  .topnav .links a:hover { color:var(--ink); }
+  .topnav .links a.here { color:var(--ink); font-weight:600; }
+  .nav-toggle { display:none; }
+  .burger { display:none; cursor:pointer; padding:8px; margin:-8px -8px -8px 0; }
+  .burger span { display:block; width:22px; height:2px; background:var(--ink);
+    border-radius:2px; transition:transform 0.25s ease, opacity 0.2s ease; }
+  .burger span + span { margin-top:5px; }
+  @media (max-width:760px){
+    .topnav .inner { position:relative; padding:14px 24px; }
+    .burger { display:block; }
+    .topnav .links {
+      position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0;
+      background:var(--paper); border-bottom:1px solid var(--rule);
+      box-shadow:0 14px 30px rgba(26,24,20,0.10);
+      max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+    .topnav .links a { padding:15px 24px; font-size:16px; border-bottom:1px solid var(--rule-soft); }
+    .topnav .links a:last-child { border-bottom:0; }
+    .nav-toggle:checked ~ .inner .links { max-height:70vh; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(2) { opacity:0; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  }
+
+  .wrap { max-width:1080px; margin:0 auto; padding:24px 32px 80px; }
+  @media (max-width:760px){ .wrap { padding:20px 24px 64px; } }
+
+  /* Feature tabs */
+  .ftabs { display:flex; gap:8px; margin:14px 0 40px; font-family:var(--sans); font-size:13.5px; flex-wrap:wrap; }
+  .ftabs a {
+    border:1px solid var(--rule); border-radius:999px; padding:7px 16px; color:var(--ink-2);
+    background:var(--paper); }
+  .ftabs a:hover { color:var(--ink); border-color:var(--ink-3); }
+  .ftabs a.here { background:var(--ink); color:var(--paper); border-color:var(--ink); }
+
+  /* Hero split */
+  .feat { display:grid; grid-template-columns:1fr 0.82fr; gap:64px; align-items:center; }
+  @media (max-width:860px){ .feat { grid-template-columns:1fr; gap:40px; } }
+  .feat .eyebrow { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 14px; }
+  .feat h1 { font-family:var(--serif); font-weight:600; font-size:clamp(34px,5vw,54px);
+    line-height:1.04; letter-spacing:-0.018em; margin:0 0 20px; }
+  .feat h1 em { font-family:var(--display); font-style:italic; font-weight:500; }
+  .feat .lede { font-size:20px; line-height:1.5; color:var(--ink-2); margin:0 0 28px; max-width:48ch; }
+  .feat .lede b { color:var(--ink); font-weight:600; }
+
+  .points { display:grid; gap:20px; margin:0 0 32px; }
+  .point h3 { font-family:var(--serif); font-weight:600; font-size:18px; margin:0 0 4px; display:flex; align-items:center; gap:9px; }
+  .point .pip { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+  .point .pip.bleed { background:var(--bleed); } .point .pip.due { background:var(--due); } .point .pip.info { background:var(--info); }
+  .point p { margin:0; color:var(--ink-2); font-size:15.5px; line-height:1.55; }
+
+  .cta-row { display:flex; gap:12px; flex-wrap:wrap; }
+  .btn { font-family:var(--sans); font-size:14.5px; font-weight:600; padding:12px 20px; border-radius:999px;
+    border:1px solid var(--ink); background:var(--ink); color:var(--paper); display:inline-flex; align-items:center; gap:7px; }
+  .btn.ghost { background:transparent; color:var(--ink); }
+  .btn:hover { background:var(--accent); border-color:var(--accent); color:var(--paper); }
+
+  /* Phone frame */
+  .phone { justify-self:center; width:100%; max-width:300px; }
+  .phone .frame {
+    border-radius:42px; padding:10px; background:#15120d;
+    box-shadow:0 30px 70px rgba(26,24,20,0.22), 0 6px 16px rgba(26,24,20,0.10);
+  }
+  .phone .frame img { width:100%; display:block; border-radius:32px; }
+  .phone .caption { text-align:center; font-family:var(--mono); font-size:11px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--ink-3); margin-top:16px; }
+
+  .footer { margin-top:72px; padding-top:24px; border-top:1px solid var(--rule);
+    font-family:var(--sans); font-size:13.5px; color:var(--ink-3);
+    display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .footer a { color:var(--ink-3); }
+  .footer .spacer { flex:1; }
+</style>
+</head>
+<body>
+  <nav class="topnav">
+    <input type="checkbox" id="navToggle" class="nav-toggle" aria-hidden="true" />
+    <div class="inner">
+      <a class="name" href="/">ariadot<span class="dot"></span></a>
+      <label for="navToggle" class="burger" aria-label="Open menu"><span></span><span></span><span></span></label>
+      <div class="links">
+        <a href="/">Home</a>
+        <a class="here" href="/features/loops">Features</a>
+        <a href="/safety">Safety</a>
+        <a href="/faq">FAQ</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <nav class="ftabs" aria-label="Features">
+      <a href="/features/brief">The Brief</a>
+      <a class="here" href="/features/loops">Loops</a>
+      <a href="/features/handbook">The Handbook</a>
+    </nav>
+
+    <section class="feat">
+      <div>
+        <p class="eyebrow">Loops</p>
+        <h1>Everything open, <em>sorted by how much it needs you.</em></h1>
+        <p class="lede">A loop is anything still hanging: a reply you owe, a renewal coming up, a form due before term starts. Ariadot opens them from your inbox on its own, and sorts them so the loud things stay loud and the quiet things stay quiet. <b>You close them, snooze them, or hand them off.</b></p>
+
+        <div class="points">
+          <div class="point">
+            <h3><span class="pip bleed"></span>Needs you now</h3>
+            <p>Promises past their date, a bill gone overdue. These come first, every time.</p>
+          </div>
+          <div class="point">
+            <h3><span class="pip due"></span>On you</h3>
+            <p>A real date attached: a renewal in a fortnight, a deposit due Friday. Surfaced with enough runway to act.</p>
+          </div>
+          <div class="point">
+            <h3><span class="pip info"></span>FYI</h3>
+            <p>No deadline, just a thread you'd rather not drop. Quietly noted, never nagging.</p>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn" href="/#join">Request access <span>&rarr;</span></a>
+          <a class="btn ghost" href="/features/handbook">See the Handbook</a>
+        </div>
+      </div>
+
+      <div class="phone">
+        <div class="frame"><img src="/screens/loops.png" alt="The Ariadot Loops screen on an iPhone, showing open loops grouped into Needs you now, On you, and FYI, each drawn from Gmail with a date." /></div>
+        <p class="caption">Your open loops</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      <span>© 2026 Ariadot · beta</span>
+      <span class="spacer"></span>
+      <a href="/safety">Safety</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="https://discord.gg/PqXE4XTqbR">Discord</a>
+    </div>
+  </div>
+</body>
+</html>
