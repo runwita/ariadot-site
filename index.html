@@ -339,6 +339,11 @@
     margin-top: 36px;
   }
   @media (max-width: 800px) { .rhythm { grid-template-columns: 1fr; } }
+  /* Mobile: drop the AM/PM brief cards and the trailing quote (these live on
+     the feature pages). */
+  @media (max-width: 760px) {
+    .rhythm, .rhythm-quote { display: none; }
+  }
   .rhythm-card {
     border: 1px solid var(--rule); border-radius: 6px;
     padding: 28px 30px;
@@ -707,6 +712,17 @@
     align-items: center;
   }
   @media (max-width: 900px) { .waitlist { grid-template-columns: 1fr; padding: 40px 28px; gap: 32px; } }
+  /* Mobile: stack the email field and button so the CTA aligns full-width
+     (the inline pill mis-sizes the button on some Android browsers). */
+  @media (max-width: 560px) {
+    .waitlist .field {
+      flex-direction: column; gap: 10px;
+      border-radius: 16px; padding: 14px;
+      align-items: stretch;
+    }
+    .waitlist .field input { padding: 8px 6px; text-align: center; }
+    .waitlist .field button { width: 100%; padding: 14px 20px; }
+  }
   .waitlist h3 {
     font-family: var(--serif); font-weight: 600;
     font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.01em;
@@ -1076,7 +1092,7 @@
     </div>
   </div>
 
-  <div class="pull wide">
+  <div class="pull wide rhythm-quote">
     <q>The brief only ever shows you the near: today, the rest of the week. The odd insurance renewal eight months out isn't clutter on your list, it's held quietly in the background, and Aria brings it back when it's close. That's the trade a task manager can't make: nothing to file now, and still nothing forgotten later.</q>
     <div class="cite">Why it's not a to-do list</div>
   </div>
