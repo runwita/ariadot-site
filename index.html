@@ -902,31 +902,31 @@
 <!-- HOW IT WORKS -->
 <section class="section" id="flow">
   <div class="head">
-    <div class="num"><span class="sn">03</span><span class="sl">How it works</span></div>
+    <div class="num"><span class="sn">03</span><span class="sl">The core loop</span></div>
     <div>
-      <h2>Connect your email. <em>That's the whole setup.</em></h2>
-      <p class="frame">No tagging, no rules, no folders to maintain. ariadot reads your inbox, does the work, and writes you a brief. Twice a day, in plain prose.</p>
+      <h2>Read, sort, surface. <em>That's the whole machine.</em></h2>
+      <p class="frame">Everything in the app is plumbing around one idea. Connect once, then it runs in the background and writes you a brief twice a day. No tagging, no rules, no folders to maintain.</p>
     </div>
   </div>
 
   <div class="flow">
     <div class="step">
       <div class="step-n">i.</div>
-      <p class="step-tag">15 seconds</p>
-      <h3>Plug in your email.</h3>
-      <p>Read-only Google OAuth for Gmail and Calendar. We never see your password, and there are no folders to make or rules to write. Connect <b>more than one account</b>, work and personal, and Ariadot reads them together into a single brief.</p>
+      <p class="step-tag">once, ~15 seconds</p>
+      <h3>Authorise.</h3>
+      <p>Sign in with Apple or Google, then read-only access to <b>Gmail and Google Calendar</b>. Connect more than one account, work and personal, read together. Optionally connect <b>TickTick</b> so you can turn a loop into a task. No folders to maintain, no rules to write.</p>
     </div>
     <div class="step">
       <div class="step-n">ii.</div>
-      <p class="step-tag">Background, ongoing</p>
-      <h3>We read, mask, and reason.</h3>
-      <p>Messages are pulled to our edge, screened for anything secret, masked with realistic stand-ins, then reasoned over. A fast, cheap model triages; Claude does the careful judgement. The raw email is deleted within 24 hours.</p>
+      <p class="step-tag">background, ongoing</p>
+      <h3>Read, screen, reason.</h3>
+      <p>We poll Gmail every 15 minutes and Calendar daily. A cheap pre-filter drops most of the inbox before any heavier model sees it; what survives is screened for secrets, masked, and reasoned over. <b>Aria writes the brief in your voice.</b> The raw email is deleted within 24 hours.</p>
     </div>
     <div class="step">
       <div class="step-n">iii.</div>
-      <p class="step-tag">Twice a day</p>
-      <h3>Read your brief. Act on Loops.</h3>
-      <p>The morning brief sets the shape of your day. The evening brief winds it down. Both are read only, on purpose. When you want to close, snooze, or hand something off, that lives on the Loops page.</p>
+      <p class="step-tag">twice a day</p>
+      <h3>Read it on the lock screen.</h3>
+      <p>The morning brief lands as a notification you can read without unlocking. Open the app to close, snooze, or, if you've connected TickTick, send a loop across as a task. The brief itself is read-only, on purpose.</p>
     </div>
   </div>
 
@@ -949,6 +949,25 @@
   <div class="pull">
     <q>The brief only ever shows you the near: today, the rest of the week. The odd insurance renewal eight months out isn't clutter on your list, it's held quietly in the background, and Aria brings it back when it's close. That's the trade a task manager can't make: nothing to file now, and still nothing forgotten later.</q>
     <div class="cite">Why it's not a to-do list</div>
+  </div>
+
+  <p class="frame" style="margin: 56px 0 22px;">And there are only three ways anything ever gets in. Two of them you don't lift a finger for.</p>
+  <div class="concept-grid">
+    <article class="concept">
+      <p class="kicker">Input · 01</p>
+      <h3>It just reads</h3>
+      <p>Gmail and Calendar are polled, screened, and turned into loops in the background. <b>You do nothing.</b> This is where almost everything comes from.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">Input · 02</p>
+      <h3>You tap a loop</h3>
+      <p>Close it, snooze it, or send it to TickTick. If you complete it in TickTick, the loop closes here too, one source of truth, no double-entry.</p>
+    </article>
+    <article class="concept">
+      <p class="kicker">Input · 03</p>
+      <h3>You just tell Aria</h3>
+      <p>A plain-language line to Aria. <em>"The plumber is John, 0412…"</em> files it to your handbook. <em>"The dentist is sorted"</em> closes the loop. No syntax to learn.</p>
+    </article>
   </div>
 </section>
 
