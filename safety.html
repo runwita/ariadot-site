@@ -117,7 +117,7 @@
   <div class="wrap">
     <p class="eyebrow">Your email, kept safe</p>
     <h1>Your email is yours. We treat it that way.</h1>
-    <p class="lede">Ariadot reads some of the most personal things you own, so you deserve to know exactly how we handle it. <em>Six promises, in plain words, and one honest limit we won't hide from you.</em></p>
+    <p class="lede">Ariadot reads some of the most personal things you own, so you deserve to know exactly how we handle it. <em>Seven promises, in plain words, and one honest limit we won't hide from you.</em></p>
 
     <div class="promise">
       <p class="pn">i.</p>
@@ -129,12 +129,14 @@
       <p class="pn">ii.</p>
       <h2>We can only read. Never send, reply, or delete.</h2>
       <p>Google only lets us <b>see</b> what's already in your inbox. We have no way to send mail, reply to anyone, or move a thing to the bin. Not by accident, not on purpose. That limit is set by Google's read-only permission, not just promised by us.</p>
+      <p>Got a work inbox and a personal one? Connect both, and Ariadot reads them together into a single morning note, without ever crossing the read-only line on either.</p>
     </div>
 
     <div class="promise">
       <p class="pn">iii.</p>
       <h2>Names and numbers get swapped before any AI reads them.</h2>
       <p>Before we ask an AI to help write your note, we change every real name, phone number, address and dollar amount into a believable fake one. The AI reasons about a stranger's details, never yours.</p>
+      <p>We use <b>realistic</b> stand-ins, not robotic placeholders like <code>«person_3»</code>, for two reasons: models reason better over natural text, and the fakes are drawn from a synthetic set that's uncorrelated with anything real. So even if a model's output leaked, it would describe a coherent stranger, not you. The swap is also <b>stable</b>: once "Mary" becomes "Jackson," she stays Jackson in every future note, which is what lets Aria reason about your week without ever seeing the real cast.</p>
       <p>We swap the real ones back <b>at our end</b>, just before the note reaches you, using a map that's sealed with a key unique to you and never sent to any model. <em>What we don't touch are dates and times</em>, because a note that reasons about the wrong day is worse than useless.</p>
     </div>
 
@@ -142,19 +144,26 @@
       <p class="pn">iv.</p>
       <h2>The AI doesn't keep what it sees, or train on it.</h2>
       <p>We mostly use <b>Claude</b>, made by Anthropic, with a couple of smaller models for the quick sorting and screening. Each one only ever sees the swapped, fake version, and none of them keep it or learn from it.</p>
+      <p>Your email is also untrusted by default. Every message is checked for hidden instructions (the "prompt injection" trick where an email tries to talk to the AI) before any reasoning, so a message can never tell Ariadot what to do.</p>
     </div>
 
     <div class="promise">
       <p class="pn">v.</p>
-      <h2>The raw email doesn't hang around.</h2>
-      <p>Once Ariadot has read a message and written your note, the original is <b>deleted within a day</b>. Most go within minutes; a daily sweep makes sure nothing older than that remains. Your email still lives safely in Gmail, where it always has, so there's no reason for us to keep a copy.</p>
-      <p>What we <em>do</em> keep is the useful part: your loops, your handbook, and a quiet profile of your routines. You can see all of it in the app.</p>
+      <h2>We won't even hold a secret if we find one.</h2>
+      <p>A guard reads every message first and drops anything that looks like a <b>password, one-time code, API key, or recovery phrase</b>. It's never stored and never sent to a model. Ariadot is about your loops and your dates, never your secrets, so we built it to refuse them on purpose, not just decline to ask.</p>
     </div>
 
     <div class="promise">
       <p class="pn">vi.</p>
+      <h2>The raw email doesn't hang around.</h2>
+      <p>Once Ariadot has read a message and written your note, the original is <b>deleted within a day</b>. Most go within minutes; a daily sweep makes sure nothing older than that remains. Your email still lives safely in Gmail, where it always has, so there's no reason for us to keep a copy.</p>
+      <p>What we <em>do</em> keep is the useful part: your loops, your handbook, and a quiet profile of your routines, all <b>encrypted at rest</b>. And you can see every bit of it in the app, including an activity log of what Ariadot decided about each email it read. Nothing is hidden in a back room you can't look into.</p>
+    </div>
+
+    <div class="promise">
+      <p class="pn">vii.</p>
       <h2>You can delete everything yourself.</h2>
-      <p>Settings &rarr; Delete account. There's a <b>7-day window</b> in case you change your mind, then it's gone for good, and your Google connection is switched off at Google's end. No "we'll keep it just in case."</p>
+      <p>Settings &rarr; Delete account. There's a <b>7-day window</b> in case you change your mind, then it's gone for good: every loop, note, and handbook entry, the profile Aria built, and your Google connection switched off at Google's end. No "we'll keep it just in case."</p>
     </div>
 
     <section class="worries">
