@@ -21,7 +21,7 @@
   :root {
     --paper:#faf6ec; --paper-2:#f3ecd9; --ink:#1a1814; --ink-2:#5a544a;
     --ink-3:#968d7c; --rule:#ddd3bc; --rule-soft:#e6dec8; --accent:#8a3a1f;
-    --info:#6a7a5a;
+    --info:#6a7a5a; --due:#b07a1f; --bleed:#c14a32;
     --serif:"Source Serif 4","New York",Georgia,serif;
     --display:"Cormorant Garamond","Source Serif 4",serif;
     --sans:-apple-system,"SF Pro Text",system-ui,sans-serif;
@@ -87,6 +87,41 @@
   .qa .answer { margin-top:13px; color:var(--ink-2); font-size:16.5px; line-height:1.6; max-width:72ch; }
   .qa .answer p { margin:0 0 12px; } .qa .answer p:last-child { margin:0; }
   .qa .answer b { color:var(--ink); font-weight:600; }
+
+  /* Sensitivity tiers */
+  .tiers-head { margin-top:60px; padding-top:36px; border-top:2px solid var(--rule); }
+  .tiers-head .eyebrow { color:var(--ink-3); }
+  .tiers-head h2 { font-family:var(--serif); font-weight:600; font-size:clamp(26px,4vw,34px);
+    letter-spacing:-0.012em; margin:0 0 10px; border:0; padding:0; }
+  .tiers-head .intro { color:var(--ink-2); margin:0 0 24px; max-width:64ch; }
+  .tiers-head .intro b { color:var(--ink); font-weight:600; }
+  .tiers { border:1px solid var(--rule); border-radius:8px; overflow:hidden; background:var(--paper); }
+  .tier { display:grid; grid-template-columns:200px 1fr; gap:28px; padding:26px 28px; border-top:1px solid var(--rule-soft); }
+  .tier:first-child { border-top:0; }
+  @media (max-width:680px){ .tier { grid-template-columns:1fr; gap:14px; } }
+  .tier .tier-label .badge {
+    display:inline-block; font-family:var(--mono); font-size:10px; font-weight:600;
+    letter-spacing:0.16em; text-transform:uppercase; padding:4px 8px; border-radius:3px; margin-bottom:12px; }
+  .tier.t1 .badge { background:var(--info); color:var(--paper); }
+  .tier.t2 .badge { background:var(--due); color:var(--paper); }
+  .tier.t3 .badge { background:var(--bleed); color:var(--paper); }
+  .tier .tier-label h3 { font-family:var(--serif); font-weight:600; font-size:20px; margin:0 0 8px; }
+  .tier .tier-label p { font-family:var(--serif); font-style:italic; font-size:14px; color:var(--ink-2); margin:0; line-height:1.5; }
+  .tier .tier-label p b { font-style:normal; color:var(--ink); }
+  .tier .chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .tier .chip {
+    font-family:var(--mono); font-size:12.5px; color:var(--ink);
+    background:var(--paper-2); border:1px solid var(--rule); border-radius:5px; padding:6px 11px; }
+  .tier.t3 .chip { color:var(--bleed); border-color:rgba(193,74,50,0.35); }
+  .tier .behavior { font-family:var(--serif); font-size:15px; color:var(--ink-2); line-height:1.55; margin:0; }
+  .tier .behavior b { color:var(--ink); font-weight:600; }
+  .tier .behavior em { font-style:italic; }
+  .refusal-bar {
+    margin-top:24px; border:1px solid rgba(193,74,50,0.4); border-radius:8px;
+    background:rgba(193,74,50,0.06); padding:22px 26px; }
+  .refusal-bar .tag { font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--bleed); }
+  .refusal-bar q { display:block; font-family:var(--display); font-style:italic; font-size:24px; color:var(--ink); margin:10px 0 8px; }
+  .refusal-bar .note { font-family:var(--mono); font-size:12px; color:var(--ink-3); margin:0; }
 
   .callout { margin-top:48px; background:var(--paper-2); border:1px solid var(--rule);
     border-radius:8px; padding:26px 28px; }
@@ -165,6 +200,77 @@
       <h2>You can delete everything yourself.</h2>
       <p>Settings &rarr; Delete account. There's a <b>7-day window</b> in case you change your mind, then it's gone for good: every loop, note, and handbook entry, the profile Aria built, and your Google connection switched off at Google's end. No "we'll keep it just in case."</p>
     </div>
+
+    <section class="tiers-head">
+      <p class="eyebrow">What it will and won't keep</p>
+      <h2>Three tiers, decided before anything is stored.</h2>
+      <p class="intro">Ariadot keeps loops and a handbook. It is <b>not</b> a password manager, and the line between the two is drawn in three tiers, checked before a single thing is written down.</p>
+
+      <div class="tiers">
+        <div class="tier t1">
+          <div class="tier-label">
+            <span class="badge">Tier 1 &middot; Reference</span>
+            <h3>Kept freely</h3>
+            <p>No friction. <b>This is the handbook.</b></p>
+          </div>
+          <div>
+            <div class="chips">
+              <span class="chip">plumber &middot; name &middot; phone</span>
+              <span class="chip">school office hours</span>
+              <span class="chip">wifi network name</span>
+              <span class="chip">passport expiry</span>
+              <span class="chip">insurance excess</span>
+              <span class="chip">appliance warranty</span>
+            </div>
+            <p class="behavior"><b>How it behaves.</b> Saved when you save it. Surfaced when you ask, or quietly alongside a related deadline. The everyday details that are a pain to dig up, right there when you need them.</p>
+          </div>
+        </div>
+
+        <div class="tier t2">
+          <div class="tier-label">
+            <span class="badge">Tier 2 &middot; Identifiers</span>
+            <h3>Only with your OK</h3>
+            <p>Stored once you say yes, per category. <b>An identifier labels an account; on its own it unlocks nothing.</b></p>
+          </div>
+          <div>
+            <div class="chips">
+              <span class="chip">BSB + account number</span>
+              <span class="chip">card last 4 digits</span>
+              <span class="chip">policy numbers</span>
+              <span class="chip">customer reference</span>
+              <span class="chip">Medicare number</span>
+              <span class="chip">licence / rego</span>
+            </div>
+            <p class="behavior"><b>How it behaves.</b> The first time one comes up, Aria asks: <em>"This is an identifier, not a password. Store it? Yes / No / Always allow this category."</em> Never read out in the morning note, only fetched when you go looking.</p>
+          </div>
+        </div>
+
+        <div class="tier t3">
+          <div class="tier-label">
+            <span class="badge">Tier 3 &middot; Credentials</span>
+            <h3>Refused, full stop</h3>
+            <p>No override. <b>If possession alone unlocks something, it belongs in a password manager.</b></p>
+          </div>
+          <div>
+            <div class="chips">
+              <span class="chip">passwords</span>
+              <span class="chip">PINs</span>
+              <span class="chip">recovery codes</span>
+              <span class="chip">2FA / OTP</span>
+              <span class="chip">full card + CVV</span>
+              <span class="chip">Tax File Number</span>
+            </div>
+            <p class="behavior"><b>How it behaves.</b> Caught and refused before storage. Aria won't keep it, and it never reaches a model. The same check runs as a fast pattern match <b>and</b> again as a model pass, so it's defence in depth, not a single filter.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="refusal-bar">
+        <span class="tag">[!] What Aria says to a credential</span>
+        <q>"That's a password. Not in here. Tell me where it lives, not what it is."</q>
+        <p class="note">The exact line you'll get if you ever try to hand it a secret.</p>
+      </div>
+    </section>
 
     <section class="worries">
       <p class="eyebrow">Common worries</p>
