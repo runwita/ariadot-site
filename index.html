@@ -8,7 +8,7 @@
 <!-- Favicon + home-screen icon -->
 <link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
 <link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
-<meta name="theme-color" content="#15120d" />
+<meta name="theme-color" content="#0e1620" />
 <!-- Social share -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="ariadot, a calm hand on your day" />
@@ -21,35 +21,35 @@
 <meta name="twitter:image" content="https://ariadot.app/ariadot-icon-dark.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,500;1,8..60,600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper:    #faf6ec;
-    --paper-2:  #f3ecd9;
-    --paper-3:  #ebe3cc;
-    --paper-4:  #e6dec8;
-    --ink:      #1a1814;
-    --ink-2:    #5a544a;
-    --ink-3:    #968d7c;
-    --ink-4:    #c4baa3;
-    --rule:     #ddd3bc;
-    --rule-soft:#e6dec8;
-    --accent:   #8a3a1f;
-    --accent-warm: #d97a5a;
-    --accent-tint: rgba(138,58,31,0.10);
-    --bleed:    #c14a32;
-    --due:      #b07a1f;
-    --info:     #6a7a5a;
-    --calendar: #5a6e8a;
-    --serif:  "Source Serif 4", "New York", Georgia, serif;
-    --display:"Cormorant Garamond", "Source Serif 4", serif;
-    --sans:   -apple-system, "SF Pro Text", system-ui, sans-serif;
+    --paper:    #f8faf7;
+    --paper-2:  #eef0ed;
+    --paper-3:  #e2e5df;
+    --paper-4:  #e6e9e2;
+    --ink:      #0b2f4a;
+    --ink-2:    #4a6c84;
+    --ink-3:    #8aa0b0;
+    --ink-4:    #b8c4ce;
+    --rule:     #dbded7;
+    --rule-soft:#e6e9e2;
+    --accent:   #4a5c2e;
+    --accent-warm: #6a7d4a;
+    --accent-tint: rgba(74,92,46,0.10);
+    --bleed:    #0b2f4a;
+    --due:      #4a5c2e;
+    --info:     #8aa0b0;
+    --calendar: #4a6c84;
+    --serif:  "Spectral", Georgia, serif;
+    --display:"GFS Didot", "Cormorant Garamond", Georgia, serif;
+    --sans:   "DM Sans", -apple-system, "SF Pro Text", system-ui, sans-serif;
     --mono:   "IBM Plex Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
-  ::selection { background: rgba(138,58,31,0.18); }
-  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(138,58,31,0.3); }
+  ::selection { background: rgba(74,92,46,0.18); }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(74,92,46,0.3); }
   a:hover { border-bottom-color: var(--accent); }
 
   /* Top nav */
@@ -205,9 +205,9 @@
     font-family: var(--serif);
   }
   .brief-card.evening {
-    background: #1a1814;
-    color: #ede5d3;
-    border-color: #2e2920;
+    background: #0b2f4a;
+    color: #ecefe8;
+    border-color: #2a3340;
     transform: rotate(0.5deg);
   }
   .brief-card.morning { transform: rotate(-0.5deg); }
@@ -216,18 +216,18 @@
     font-size: 18px; color: var(--ink-2); letter-spacing: -0.005em;
     margin: 0 0 14px;
   }
-  .brief-card.evening .bc-mark { color: #b0a690; }
+  .brief-card.evening .bc-mark { color: #b0bcc4; }
   .brief-card .bc-date {
     font-family: var(--serif); font-weight: 600; font-size: 17px;
     line-height: 1.2; margin: 0 0 4px;
   }
   .brief-card .bc-date em { font-family: var(--serif); font-style: italic; font-weight: 400; color: var(--ink-2); }
-  .brief-card.evening .bc-date em { color: #b0a690; }
+  .brief-card.evening .bc-date em { color: #b0bcc4; }
   .brief-card .bc-when {
     font-family: var(--serif); font-style: italic; color: var(--ink-2); font-size: 14px;
     margin: 0 0 16px; padding-bottom: 14px; border-bottom: 1px solid var(--rule);
   }
-  .brief-card.evening .bc-when { color: #7a715f; border-bottom-color: #2e2920; }
+  .brief-card.evening .bc-when { color: #6a7a88; border-bottom-color: #2a3340; }
   .brief-card .bc-h {
     font-family: var(--serif); font-weight: 600; font-size: 17px;
     margin: 14px 0 8px; display: flex; align-items: center; gap: 8px;
@@ -240,7 +240,7 @@
     font-family: var(--serif); font-size: 14.5px; line-height: 1.5;
     color: var(--ink); margin: 0 0 10px;
   }
-  .brief-card.evening .bc-p { color: #ede5d3; }
+  .brief-card.evening .bc-p { color: #ecefe8; }
   .brief-card .bc-p b { font-weight: 600; }
   .brief-card .bc-stamp {
     position: absolute; top: -8px; left: 14px;
@@ -249,12 +249,12 @@
     background: var(--accent); color: var(--paper);
     box-shadow: 0 2px 4px rgba(26,24,20,0.12);
   }
-  .brief-card.evening .bc-stamp { background: var(--accent-warm); color: #1a1814; }
+  .brief-card.evening .bc-stamp { background: var(--accent-warm); color: #0b2f4a; }
   .brief-card .bc-foot {
     font-family: var(--serif); font-style: italic; font-size: 13px;
     color: var(--ink-3); margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--rule);
   }
-  .brief-card.evening .bc-foot { color: #7a715f; border-top-color: #2e2920; }
+  .brief-card.evening .bc-foot { color: #6a7a88; border-top-color: #2a3340; }
 
   /* Section scaffolding */
   .section { padding: 96px 0; border-top: 3px solid var(--ink); }
@@ -349,19 +349,19 @@
     padding: 28px 30px;
   }
   .rhythm-card.am { background: var(--paper-2); }
-  .rhythm-card.pm { background: #1a1814; color: #ede5d3; border-color: #2e2920; }
+  .rhythm-card.pm { background: #0b2f4a; color: #ecefe8; border-color: #2a3340; }
   .rhythm-card .tag {
     display: inline-block;
     font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase;
     padding: 4px 10px; border-radius: 3px; margin-bottom: 18px;
   }
   .rhythm-card.am .tag { background: var(--ink); color: var(--paper); }
-  .rhythm-card.pm .tag { background: var(--accent-warm); color: #1a1814; }
+  .rhythm-card.pm .tag { background: var(--accent-warm); color: #0b2f4a; }
   .rhythm-card h4 {
     font-family: var(--serif); font-weight: 600; font-size: 24px; letter-spacing: -0.005em;
     margin: 0 0 10px;
   }
-  .rhythm-card.pm h4 { color: #ede5d3; }
+  .rhythm-card.pm h4 { color: #ecefe8; }
   .rhythm-card .when {
     font-family: var(--display); font-style: italic; font-size: 18px; color: var(--accent); margin: 0 0 16px;
   }
@@ -370,9 +370,9 @@
     font-family: var(--serif); font-size: 16px; line-height: 1.55; margin: 0 0 12px;
     color: var(--ink-2);
   }
-  .rhythm-card.pm p { color: #b0a690; }
+  .rhythm-card.pm p { color: #b0bcc4; }
   .rhythm-card p b { color: var(--ink); font-weight: 600; }
-  .rhythm-card.pm p b { color: #ede5d3; }
+  .rhythm-card.pm p b { color: #ecefe8; }
 
   /* Privacy card */
   .privacy-card {
@@ -751,7 +751,7 @@
     background: var(--accent); color: var(--paper);
     padding: 12px 20px; border-radius: 999px;
   }
-  .waitlist .field button:hover { background: #a04528; }
+  .waitlist .field button:hover { background: #4a5c2e; }
   .waitlist .fine { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(250,246,236,0.55); }
 
   /* Colophon */
@@ -864,11 +864,11 @@
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <symbol id="ariadot" viewBox="0 0 184 184">
-      <rect width="184" height="184" rx="40" fill="#faf6ec"/>
+      <rect width="184" height="184" rx="40" fill="#f8faf7"/>
       <text x="92" y="138" text-anchor="middle"
             font-family="'Cormorant Garamond', 'Source Serif 4', serif"
-            font-style="italic" font-weight="500" font-size="156" fill="#1a1814">a</text>
-      <circle cx="138" cy="138" r="11" fill="#8a3a1f"/>
+            font-style="italic" font-weight="500" font-size="156" fill="#0b2f4a">a</text>
+      <circle cx="138" cy="138" r="11" fill="#4a5c2e"/>
     </symbol>
   </defs>
 </svg>
