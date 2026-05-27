@@ -800,7 +800,7 @@
   .colophon .col-l { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
   .colophon .col-l svg { width: 22px; height: 22px; transform: translateY(4px); }
   .colophon .col-l .name { font-family: var(--display); font-style: italic; font-size: 22px; color: var(--ink); font-weight: 500; letter-spacing: -0.005em; }
-  .colophon .links { display: flex; gap: 22px; }
+  .colophon .links { display: flex; gap: 22px; flex-wrap: wrap; }
   .colophon .links a { color: var(--ink-3); border-bottom: 0; }
   .colophon .links a:hover { color: var(--ink); }
 
@@ -944,6 +944,27 @@
     .waitlist h3 { font-size: clamp(24px, 7vw, 30px); }
     .waitlist p { font-size: 15.5px; }
     .colophon { padding: 40px 0 56px; margin-top: 48px; }
+  }
+
+  /* "What we never do" — tight list, not six tall cards. Each line is a
+     red "No" tag + a one-line promise, so all six read at a glance. */
+  .never-list { list-style: none; padding: 0; margin: 0;
+    border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--paper); }
+  .never-list li {
+    display: flex; align-items: baseline; gap: 16px;
+    padding: 18px 24px; border-top: 1px solid var(--rule-soft);
+    font-family: var(--serif); font-size: 16.5px; line-height: 1.5; color: var(--ink-2);
+  }
+  .never-list li:first-child { border-top: 0; }
+  .never-list li .no {
+    flex-shrink: 0; font-family: var(--mono); font-size: 10px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--bleed); border: 1px solid rgba(193,74,50,0.35);
+    border-radius: 3px; padding: 4px 8px; transform: translateY(-1px);
+  }
+  .never-list li .nv b { color: var(--ink); font-weight: 600; }
+  @media (max-width: 760px) {
+    .never-list li { padding: 14px 18px; gap: 12px; font-size: 15px; }
   }
 
   /* Extra-narrow phones (≤400px): one more step down so nothing crowds
@@ -1114,39 +1135,10 @@
   </div>
 </section>
 
-<!-- ARIA PROPOSES -->
-<section class="section" id="proposals">
-  <div class="head">
-    <div class="num"><span class="sn">03</span><span class="sl">Aria proposes</span></div>
-    <div>
-      <h2>Nothing is kept <em>until you say so.</em></h2>
-      <p class="frame">Ariadot never files things behind your back. Read something worth holding and Aria <b>proposes</b> it, you keep or skip with a tap. It remembers a no, so it won't ask twice.</p>
-    </div>
-  </div>
-
-  <div class="concept-grid">
-    <article class="concept">
-      <p class="kicker">It asks</p>
-      <h3>A proposal, not a fait accompli</h3>
-      <p>A policy number, a renewal date, your usual plumber? Aria shows it as a suggested entry. <b>Keep</b> adds it, <b>Skip</b> drops it. Your handbook only holds what you approved.</p>
-    </article>
-    <article class="concept">
-      <p class="kicker">It remembers</p>
-      <h3>A no means no</h3>
-      <p>Skip a proposal and Aria won't surface that same thing again. You're not training a system that nags. You're teaching it, once, where your line is.</p>
-    </article>
-    <article class="concept">
-      <p class="kicker">It refuses</p>
-      <h3>Some things it won't even offer</h3>
-      <p>Passwords, one-time codes, bank logins. A guard catches anything that looks like a secret and drops it before it's ever stored, so it's never even a proposal. <b>Ariadot is not a password manager,</b> on purpose.</p>
-    </article>
-  </div>
-</section>
-
 <!-- HOW IT WORKS -->
 <section class="section" id="flow">
   <div class="head">
-    <div class="num"><span class="sn">04</span><span class="sl">How it works</span></div>
+    <div class="num"><span class="sn">03</span><span class="sl">How it works</span></div>
     <div>
       <h2>Reading the email is the easy part. <em>The judgement is the work.</em></h2>
       <p class="frame">Not fetching the mail, but the thinking you'd otherwise do yourself: what matters today, how urgent it is, when a quiet thing should resurface. Ariadot does that in the background and writes you a brief twice a day. No tagging, no rules, no folders.</p>
@@ -1218,45 +1210,21 @@
 <!-- WHAT WE NEVER DO -->
 <section class="section" id="safety">
   <div class="head">
-    <div class="num"><span class="sn">05</span><span class="sl">What we never do</span></div>
+    <div class="num"><span class="sn">04</span><span class="sl">What we never do</span></div>
     <div>
       <h2>A short list. <em>None of this. Ever.</em></h2>
       <p class="frame">Ariadot reads some of the most personal email you own, so here's what we'll never do with it. Every line is true today, not a someday promise.</p>
     </div>
   </div>
 
-  <div class="concept-grid">
-    <article class="concept">
-      <p class="kicker">No.</p>
-      <h3>Show you ads</h3>
-      <p>Not on the site, not in the app, not ever. Your inbox is not an audience to sell.</p>
-    </article>
-    <article class="concept">
-      <p class="kicker">No.</p>
-      <h3>Sell or share your data</h3>
-      <p>We don't sell, rent, or swap your email or anything we learn from it. No advertisers, no data brokers.</p>
-    </article>
-    <article class="concept">
-      <p class="kicker">No.</p>
-      <h3>Train AI on your mail</h3>
-      <p>Nothing from your inbox trains a model, ours or anyone else's. Every model sees a masked copy and keeps none of it.</p>
-    </article>
-    <article class="concept">
-      <p class="kicker">No.</p>
-      <h3>Read it ourselves</h3>
-      <p>No one at Ariadot sits down and browses your inbox. Not support, not engineers. Software does one quick pass, then moves on.</p>
-    </article>
-    <article class="concept">
-      <p class="kicker">No.</p>
-      <h3>Hold your passwords</h3>
-      <p>We won't keep passwords, PINs, or bank logins. A guard drops anything that looks like a secret before it's ever stored.</p>
-    </article>
-    <article class="concept">
-      <p class="kicker">No.</p>
-      <h3>Send from your inbox</h3>
-      <p>Read-only, always. We can't reply, forward, or delete a thing. That limit is set by Google, not just promised by us.</p>
-    </article>
-  </div>
+  <ul class="never-list">
+    <li><span class="no">No</span><span class="nv"><b>Ads.</b> Not on the site, not in the app, not ever.</span></li>
+    <li><span class="no">No</span><span class="nv"><b>Selling or sharing your data.</b> No advertisers, no data brokers.</span></li>
+    <li><span class="no">No</span><span class="nv"><b>Training AI on your mail.</b> Every model sees a masked copy and keeps none of it.</span></li>
+    <li><span class="no">No</span><span class="nv"><b>Reading it ourselves.</b> Software does one quick pass, then moves on. No one browses your inbox.</span></li>
+    <li><span class="no">No</span><span class="nv"><b>Holding your passwords.</b> A guard drops anything that looks like a secret before it's stored.</span></li>
+    <li><span class="no">No</span><span class="nv"><b>Sending from your inbox.</b> Read-only, always. Set by Google, not just promised by us.</span></li>
+  </ul>
 
   <div class="pull wide">
     <q>The full picture, in plain words: how masking works, what we keep, how to delete it, and the one thing we honestly can't promise.</q>
