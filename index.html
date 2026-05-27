@@ -888,6 +888,72 @@
   .model h4 { font-family: var(--serif); font-weight: 600; font-size: 19px; letter-spacing: -0.003em; margin: 0 0 6px; }
   .model p { font-family: var(--serif); font-size: 14.5px; line-height: 1.5; color: var(--ink-2); margin: 0; }
   .model p b { color: var(--ink); font-weight: 600; }
+
+  /* ───────────────────────────────────────────────────────────────
+     MOBILE-FIRST TUNING (≤760px)
+     The desktop layout is rich and stays as-is. On phones the same
+     content read as one long wall of oversized serif prose. This block
+     scales type down, cuts the big section padding, tightens the intro
+     "frame" paragraphs, and gives the stacked cards real breathing room
+     so each section is a scannable chunk, not an essay.
+     ─────────────────────────────────────────────────────────────── */
+  @media (max-width: 760px) {
+    html, body { font-size: 16px; }
+
+    /* Hero: smaller headline + lede, less vertical drama */
+    .hero h1 { font-size: clamp(32px, 9vw, 42px); line-height: 1.06; margin-bottom: 18px; }
+    .hero .lede { font-size: 17px; line-height: 1.5; margin-bottom: 26px; }
+    .hero .stamp { margin-bottom: 22px; gap: 14px; }
+    .hero .stamp .seal { width: 52px; height: 52px; }
+    .hero .stamp .meta .name { font-size: 34px; }
+    .hero .row { gap: 10px; }
+    .hero .row .btn { width: 100%; justify-content: center; }
+    .hero .availability { margin: 6px 0 0 0; }
+
+    /* Sections: cut the cavernous padding nearly in half */
+    .section { padding: 48px 0; border-top-width: 2px; }
+    .section.tight { padding: 40px 0; }
+    .section .head { margin-bottom: 28px; }
+    .section h2 { font-size: clamp(26px, 7vw, 32px); line-height: 1.1; margin-bottom: 14px; }
+
+    /* The intro "frame" paragraph is the main wall — shrink it hard and
+       cap its measure so it reads as a caption, not a body essay. */
+    .section .frame { font-size: 16px; line-height: 1.5; }
+
+    /* Stacked cards: tighten padding + type so three of them aren't a
+       scroll marathon. */
+    .concept { padding: 20px 20px 22px; }
+    .concept h3 { font-size: 19px; }
+    .concept p { font-size: 15px; line-height: 1.5; }
+    .concept-grid { gap: 14px; }
+
+    .step h3 { font-size: 20px; }
+    .step p { font-size: 15px; }
+    .flow { gap: 18px; }
+
+    /* Pull quotes + bridge: dialed back so they don't dominate */
+    .pull { margin-top: 28px; padding: 22px 24px; }
+    .pull q { font-size: 20px; line-height: 1.4; }
+    .bridge { margin-top: 28px; padding: 20px 22px; gap: 14px; }
+    .bridge .b-text { font-size: 17px; }
+    .body-prose { font-size: 16.5px; line-height: 1.6; }
+
+    /* Tier / promise / plate / ledger text down a notch */
+    .promise h4, .plate h4, .tier .tier-label h3 { font-size: 17px; }
+    .promise p, .plate li, .ledger li { font-size: 14.5px; }
+    .waitlist h3 { font-size: clamp(24px, 7vw, 30px); }
+    .waitlist p { font-size: 15.5px; }
+    .colophon { padding: 40px 0 56px; margin-top: 48px; }
+  }
+
+  /* Extra-narrow phones (≤400px): one more step down so nothing crowds
+     the edge on a Galaxy-class viewport. */
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 30px; }
+    .section h2 { font-size: 25px; }
+    .page { padding: 0 18px; }
+    .topnav .inner { padding: 12px 18px; }
+  }
 </style>
 </head>
 <body>
@@ -993,19 +1059,19 @@
     <div class="num"><span class="sn">01</span><span class="sl">The premise</span></div>
     <div>
       <h2>It's <em>not</em> a task manager. That's the whole point.</h2>
-      <p class="frame">A task manager only knows what you remember to type into it, which means the things you forget never make it in. ariadot works the other way around: it reads your inbox and surfaces the loops on its own, with nothing to set up, no list to build, no reminder to write. It reports. You close.</p>
+      <p class="frame">A task manager only knows what you remember to type in, so the things you forget never make it. Ariadot works the other way: it reads your inbox and surfaces the loops on its own. Nothing to set up. It reports, you close.</p>
     </div>
   </div>
 
-  <p class="frame" style="margin: 0 0 22px;">Ariadot sorts what it finds by how much it actually needs you, so the loud things stay loud and the quiet things stay quiet.</p>
+  <p class="frame" style="margin: 0 0 22px;">It sorts what it finds by how much it needs you. Loud things stay loud, quiet things stay quiet.</p>
   <div class="concept-grid">
     <article class="concept">
       <div class="loop-head"><span class="pip bleed"></span><h3>Needs you now</h3></div>
-      <p>Promises past their date. A confirmation you said you'd send last week, a bill that's crossed into overdue. <b>These come first, every time.</b></p>
+      <p>Promises past their date. The confirmation you owed last week, a bill gone overdue. <b>These come first, every time.</b></p>
     </article>
     <article class="concept">
       <div class="loop-head"><span class="pip due"></span><h3>Due soon</h3></div>
-      <p>Attached to a real date. A renewal in two weeks, an invoice Thursday, a friend's birthday this weekend. Surfaced with enough runway to actually do something.</p>
+      <p>Attached to a real date. A renewal in two weeks, an invoice Thursday, a birthday this weekend. Surfaced with runway to act.</p>
     </article>
     <article class="concept">
       <div class="loop-head"><span class="pip info"></span><h3>Just so you know</h3></div>
@@ -1025,7 +1091,7 @@
     <div class="num"><span class="sn">02</span><span class="sl">The handbook</span></div>
     <div>
       <h2>The details you'd never think to file, <em>until the one moment you need them.</em></h2>
-      <p class="frame">Not everything worth remembering is a deadline. The insurance policy number. Your anniversary. The membership ID buried in a welcome email. Ariadot keeps a quiet handbook of these, built from your mail as it reads, so the answer is already there when you go looking.</p>
+      <p class="frame">Not everything worth remembering is a deadline. The policy number, the anniversary, the membership ID buried in a welcome email. Ariadot keeps a quiet handbook of these, built from your mail, so the answer's already there when you look.</p>
     </div>
   </div>
 
@@ -1033,17 +1099,17 @@
     <article class="concept">
       <p class="kicker">What it holds</p>
       <h3>The small, important things</h3>
-      <p>Account and policy numbers, IDs, the renewal dates that matter, the name of the person you always deal with. <b>Not password-manager secrets</b>, just the everyday details that are a pain to dig up.</p>
+      <p>Account and policy numbers, IDs, renewal dates, the name of the person you always deal with. <b>Not password-manager secrets</b>, just the everyday details that are a pain to dig up.</p>
     </article>
     <article class="concept">
       <p class="kicker">How it grows</p>
       <h3>Aria offers, you decide</h3>
-      <p>When Ariadot spots something durable in your mail, it doesn't just file it. It <b>proposes</b> the entry and you tap to keep or skip. The handbook fills itself, one small yes at a time, and never with anything you didn't approve.</p>
+      <p>Spot something durable in your mail and Ariadot doesn't just file it. It <b>proposes</b> the entry, you tap keep or skip. The handbook fills itself one small yes at a time, never with anything you didn't approve.</p>
     </article>
     <article class="concept">
       <p class="kicker">Coming soon</p>
       <h3>Hand it to whoever needs it</h3>
-      <p>Because it's built passively, it's actually <b>there</b> when your partner asks "what's our energy account number?" Soon you'll be able to share the handbook with your spouse, so the household details live in one place, kept current with zero effort from either of you.</p>
+      <p>Because it builds passively, it's actually <b>there</b> when your partner asks "what's our energy account number?" Soon you'll share the handbook with your spouse, so household details live in one place, current with zero effort.</p>
     </article>
   </div>
 </section>
@@ -1054,7 +1120,7 @@
     <div class="num"><span class="sn">03</span><span class="sl">Aria proposes</span></div>
     <div>
       <h2>Nothing is kept <em>until you say so.</em></h2>
-      <p class="frame">Ariadot never quietly files things behind your back. When it reads something worth holding, Aria <b>proposes</b> it, and you keep it or skip it with a tap. The app fills itself one small yes at a time, and remembers a no so it doesn't ask twice.</p>
+      <p class="frame">Ariadot never files things behind your back. Read something worth holding and Aria <b>proposes</b> it, you keep or skip with a tap. It remembers a no, so it won't ask twice.</p>
     </div>
   </div>
 
@@ -1062,7 +1128,7 @@
     <article class="concept">
       <p class="kicker">It asks</p>
       <h3>A proposal, not a fait accompli</h3>
-      <p>Spot a policy number, a renewal date, the name of your usual plumber? Aria shows it as a suggested handbook entry. <b>Keep</b> adds it; <b>Skip</b> drops it. Your handbook only ever holds what you approved.</p>
+      <p>A policy number, a renewal date, your usual plumber? Aria shows it as a suggested entry. <b>Keep</b> adds it, <b>Skip</b> drops it. Your handbook only holds what you approved.</p>
     </article>
     <article class="concept">
       <p class="kicker">It remembers</p>
@@ -1083,7 +1149,7 @@
     <div class="num"><span class="sn">04</span><span class="sl">How it works</span></div>
     <div>
       <h2>Reading the email is the easy part. <em>The judgement is the work.</em></h2>
-      <p class="frame">The hard part isn't fetching your mail, it's the thinking you'd otherwise do yourself: weighing what actually matters today, how urgent it is, when a quiet thing should resurface, and how to say it back to you in a line you'll actually read. Ariadot does that in the background and writes you a brief twice a day. No tagging, no rules, no folders to maintain.</p>
+      <p class="frame">Not fetching the mail, but the thinking you'd otherwise do yourself: what matters today, how urgent it is, when a quiet thing should resurface. Ariadot does that in the background and writes you a brief twice a day. No tagging, no rules, no folders.</p>
     </div>
   </div>
 
@@ -1129,7 +1195,7 @@
     <div class="cite">Why it's not a to-do list</div>
   </div>
 
-  <p class="frame" style="margin: 56px 0 22px;">And there are only three ways anything ever gets in. Two of them you don't lift a finger for.</p>
+  <p class="frame" style="margin: 56px 0 22px;">Only three ways anything gets in. Two you don't lift a finger for.</p>
   <div class="concept-grid">
     <article class="concept">
       <p class="kicker">Input · 01</p>
@@ -1155,7 +1221,7 @@
     <div class="num"><span class="sn">05</span><span class="sl">What we never do</span></div>
     <div>
       <h2>A short list. <em>None of this. Ever.</em></h2>
-      <p class="frame">Ariadot reads some of the most personal email you own, so the most useful thing we can tell you is what we will never do with it. Every line here is true today, not a someday promise.</p>
+      <p class="frame">Ariadot reads some of the most personal email you own, so here's what we'll never do with it. Every line is true today, not a someday promise.</p>
     </div>
   </div>
 
