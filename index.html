@@ -994,6 +994,16 @@
     .never-list li { padding: 14px 18px; gap: 12px; font-size: 15px; }
   }
 
+  /* Mobile: hide the heavy card sub-grids that made these two sections
+     long. The section heading + intro paragraph stay (they carry the
+     point); the detailed cards live on the feature pages. Scoped tightly:
+     only the handbook's card grid and the how-it-works i/ii/iii steps,
+     NOT the loop-type cards in section 01 or the input cards in 03. */
+  @media (max-width: 760px) {
+    #handbook .concept-grid { display: none; }
+    #flow .flow { display: none; }
+  }
+
   /* Extra-narrow phones (≤400px): one more step down so nothing crowds
      the edge on a Galaxy-class viewport. */
   @media (max-width: 400px) {
