@@ -746,15 +746,6 @@
   @media (max-width: 900px) { .waitlist { grid-template-columns: 1fr; padding: 40px 28px; gap: 32px; } }
   /* Mobile: stack the email field and button so the CTA aligns full-width
      (the inline pill mis-sizes the button on some Android browsers). */
-  @media (max-width: 560px) {
-    .waitlist .field {
-      flex-direction: column; gap: 10px;
-      border-radius: 16px; padding: 14px;
-      align-items: stretch;
-    }
-    .waitlist .field input { padding: 8px 6px; text-align: center; }
-    .waitlist .field button { width: 100%; padding: 14px 20px; }
-  }
   .waitlist h3 {
     font-family: var(--serif); font-weight: 600;
     font-size: clamp(28px, 3.4vw, 40px); line-height: 1.1; letter-spacing: -0.01em;
@@ -785,6 +776,27 @@
   }
   .waitlist .field button:hover { background: #4a5c2e; }
   .waitlist .fine { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: rgba(250,246,236,0.55); }
+
+  /* Mobile waitlist: drop the wrapping pill entirely so we don't get a
+     rounded button nested inside a rounded box. The input becomes its own
+     bordered field, the button sits below as a clean full-width CTA. This
+     block lives AFTER the base .field rules so source order lets it win. */
+  @media (max-width: 560px) {
+    .waitlist .field {
+      flex-direction: column; gap: 12px;
+      background: transparent; border: 0; padding: 0;
+      border-radius: 0; align-items: stretch;
+    }
+    .waitlist .field input {
+      width: 100%; padding: 16px 18px; text-align: left;
+      background: rgba(250,246,236,0.08);
+      border: 1px solid rgba(250,246,236,0.18);
+      border-radius: 12px;
+    }
+    .waitlist .field button {
+      width: 100%; padding: 16px 20px; border-radius: 12px; font-size: 15px;
+    }
+  }
 
   /* Colophon */
   .colophon {
