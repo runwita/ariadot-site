@@ -796,13 +796,28 @@
     font-family: var(--mono); font-size: 11.5px; color: var(--ink-3);
     letter-spacing: 0.04em;
   }
-  @media (max-width: 760px) { .colophon { grid-template-columns: 1fr; align-items: start; } }
+  @media (max-width: 760px) { .colophon { grid-template-columns: 1fr; align-items: start; gap: 28px; } }
   .colophon .col-l { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
   .colophon .col-l svg { width: 22px; height: 22px; transform: translateY(4px); }
   .colophon .col-l .name { font-family: var(--display); font-style: italic; font-size: 22px; color: var(--ink); font-weight: 500; letter-spacing: -0.005em; }
   .colophon .links { display: flex; gap: 22px; flex-wrap: wrap; }
-  .colophon .links a { color: var(--ink-3); border-bottom: 0; }
+  /* Each link stays on one line — never break "Terms of service" or
+     "Subprocessors" mid-phrase. */
+  .colophon .links a { color: var(--ink-3); border-bottom: 0; white-space: nowrap; }
   .colophon .links a:hover { color: var(--ink); }
+  /* Mobile: a clean two-column link grid with real tap targets, instead
+     of a cramped flex row that overflowed the screen edge. */
+  @media (max-width: 760px) {
+    .colophon .links {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+      width: 100%; margin-top: 4px;
+    }
+    .colophon .links a {
+      padding: 12px 0; font-size: 13px;
+      border-bottom: 1px solid var(--rule-soft) !important;
+    }
+    .colophon .links a:nth-child(odd) { padding-right: 16px; }
+  }
 
   /* Pull quote */
   .pull {
