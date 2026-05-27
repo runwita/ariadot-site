@@ -6,9 +6,140 @@
 <meta name="robots" content="index,follow" />
 <title>FAQ · Ariadot</title>
 <meta name="description" content="The questions we get most about Ariadot: the models, the masking, retention, security, and what we will and won't hold." />
+<link rel="canonical" href="https://ariadot.app/faq" />
+<!-- Social share -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="FAQ · Ariadot" />
+<meta property="og:description" content="The questions we get most about Ariadot: the models, the masking, retention, security, and what we will and won't hold." />
+<meta property="og:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<meta property="og:url" content="https://ariadot.app/faq" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="FAQ · Ariadot" />
+<meta name="twitter:description" content="The questions we get most about Ariadot: the models, the masking, retention, and security." />
+<meta name="twitter:image" content="https://ariadot.app/ariadot-icon-dark.png" />
 <link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
 <link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
 <meta name="theme-color" content="#0e1620" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which models do you use, and why those?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A small set, each picked for a job. Anthropic's Claude Sonnet does the delicate work, writing the brief in your voice and judging the shape of a day; Claude Haiku handles lighter Aria tasks. OpenAI's smallest model does fast first-pass classification, deciding what's even worth a closer look. And Llama, running on Cloudflare Workers AI , does the privacy-sensitive screening, including the credential guard that catches passwords and secrets. Every one of them only ever receives masked input, and none of them retains or trains on it. We're also exploring running a model (Kimi) locally on Cloudflare Workers, so that more of the reasoning can happen without your data leaving our own edge at all."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why mask with realistic names instead of «person_3» placeholders?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Two reasons. First , models reason better over natural text. Placeholders like «person_3» degrade the quality of judgement and write awkward briefs. Second , the masks are drawn from a synthetic dataset that is statistically diverse and uncorrelated with anything real. So if model output were ever leaked, it would describe a coherent stranger, not you. This is also why we never send obvious markers like [REDACTED] in their place. The model should not even know it is reasoning over masked data; that is the whole point."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "So the AI models never see my real email content?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Correct. Every API call to a model contains masked text only: names, emails, addresses, phone numbers, account references, amounts, and any free text that resembles PII have all been swapped for stand-ins before the call is built. The mapping between real and masked values is held only on our edge, sealed with a per-user key, and never sent to any model. The mapping is also stable per user : once Mary becomes Jackson, she stays Jackson across every future brief. That continuity is what makes reasoning over your week possible, while still keeping the real names off the wire. The strongest argument for this is not trust, it is that we built the system so that \"trust us\" is not load bearing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long do you keep my email?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The raw email and calendar we fetch is deleted within 24 hours of writing your brief. Your mail still lives in Gmail where it always has, so there's no reason for us to hold a copy. What stays is the useful output, your loops, handbook, and the profile Aria builds, and that's kept until you delete your account . Delete runs with a 7-day grace window, then it's permanent and your Google access is revoked."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can anyone at Ariadot read my email or my briefs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. There is no internal tool that surfaces your briefs or your inbox, and we don't review them. When you contact support, you choose what to share. We process your email content to do the work and we hold the keys required to do that, so we're honest that we are not a zero-knowledge service. What we won't do is read your mail for any reason other than running the product for you."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is everything encrypted?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, in transit at every hop, from the app to our edge, from our edge to Gmail, and from our edge to each model provider, and at rest. Your Google access tokens get an extra layer: they're sealed with a key unique to your account, so even a partial data exposure doesn't hand someone your inbox."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about passwords, OTPs, or secrets in my email?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A credential guard runs over every message before any reasoning. If something looks like a password, one-time code, API key, or recovery phrase, the message is dropped, not stored and not sent to a model. The whole point of Ariadot is the loops and dates, never your secrets."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about prompt injection? My email is full of untrusted content.",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Treated as a first-class threat. Every message is screened for prompt-injection patterns before reasoning, and untrusted content is fenced off so the model cannot mistake email body for instructions. Output is constrained to a strict schema so the model cannot ask the system to do anything outside its job. We run Semgrep in CI to catch design-time vulnerabilities on every change."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I see everything Ariadot knows about me?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and that's deliberate. Everything Aria keeps is visible in the app: your loops , your handbook , the profile Aria has formed of your routines, and an Activity log showing what it decided about each email it read. Nothing is hidden in a backend you can't see."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why process on Cloudflare instead of on device?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because the input to Ariadot is your email, and email lives on a server, not on your phone. A fully on-device design would mean constantly pulling your whole inbox onto the device, which is heavy, battery-hungry, and worse for privacy than people assume. Cloudflare Workers let us do the work in an encrypted environment with strict per-user isolation, then delete the raw material once your brief is written. The app is a thin client: it shows you the brief, the loops, and your handbook, and holds nothing it doesn't need to."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where is the brief read, and can I act from it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The brief is intentionally read only. It exists to give you a clear, calm summary, not to lure you into clicking. To close a loop, snooze it, or hand it off, you move to the Loops page. That separation keeps the brief honest and keeps you in control of what gets actioned."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "I'm not in the EU. Do I still get GDPR-style rights?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. We apply GDPR-equivalent rights to every Ariadot user regardless of jurisdiction: access, correction, portability, erasure, and the right to know who we share with. Right of erasure is a single button in Settings. See our privacy policy for the retention details."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does ariadot make money?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It will be a subscription, plain and simple, paid for by the people who use it. It's free during the private beta. There is no free tier funded by data, no ads, and no \"data partner\" of any kind. If we ever change the business model, you'll hear about it first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What platforms is it on?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "iOS and Android, in private beta now. macOS and Windows are not on the near roadmap; the briefs are designed to live in your pocket."
+      }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">

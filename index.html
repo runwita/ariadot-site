@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ariadot, a calm hand on your day</title>
 <meta name="description" content="ariadot reads your email so you don't have to keep a list. Twice a day it reads back what's open, what's coming, and what just landed. Nothing to set up." />
+<link rel="canonical" href="https://ariadot.app/" />
+<meta name="robots" content="index,follow" />
 <!-- Favicon + home-screen icon -->
 <link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
 <link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
@@ -19,6 +21,36 @@
 <meta name="twitter:title" content="ariadot, a calm hand on your day" />
 <meta name="twitter:description" content="The things you'd forget, remembered for you." />
 <meta name="twitter:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://ariadot.app/#organization",
+      "name": "Ariadot",
+      "url": "https://ariadot.app/",
+      "logo": "https://ariadot.app/ariadot-icon-dark.png"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "Ariadot",
+      "operatingSystem": "iOS, Android",
+      "applicationCategory": "ProductivityApplication",
+      "url": "https://ariadot.app/",
+      "publisher": { "@id": "https://ariadot.app/#organization" },
+      "description": "Ariadot reads your email and calendar and surfaces the one-off, time-sensitive things that slip through the cracks, then sends one short brief each morning in a voice that knows you.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free during private beta"
+      }
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
