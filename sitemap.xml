@@ -37,6 +37,30 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://ariadot.app/blog/</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ariadot.app/blog/gemini-spark-vs-ariadot</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ariadot.app/blog/chatgpt-vs-ariadot</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ariadot.app/blog/claude-cowork-vs-ariadot</loc>
+    <lastmod>2026-05-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://ariadot.app/privacy</loc>
     <lastmod>2026-05-24</lastmod>
     <changefreq>yearly</changefreq>

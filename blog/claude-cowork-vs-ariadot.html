@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index,follow" />
+<title>Claude Cowork vs Ariadot: a work agent vs a personal inbox assistant</title>
+<link rel="canonical" href="https://ariadot.app/blog/claude-cowork-vs-ariadot" />
+<meta name="description" content="Claude Cowork is an agent for knowledge work you assign tasks to. Ariadot is a personal assistant that watches your inbox unprompted and masks your details. Where each one fits." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Claude Cowork vs Ariadot: work agent vs personal inbox assistant" />
+<meta name="twitter:description" content="Cowork executes multi-step work you assign. Ariadot quietly watches your inbox for what slips, with zero setup and details masked. Where each fits." />
+<meta name="twitter:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
+<link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
+<meta name="theme-color" content="#0e1620" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Claude Cowork vs Ariadot: a work agent vs a personal inbox assistant" />
+<meta property="og:description" content="Cowork executes multi-step work you assign. Ariadot quietly watches your inbox for what slips, zero setup, details masked." />
+<meta property="og:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<meta property="og:url" content="https://ariadot.app/blog/claude-cowork-vs-ariadot" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Claude Cowork vs Ariadot: a work agent vs a personal inbox assistant",
+      "description": "Claude Cowork is an agent for knowledge work you assign tasks to. Ariadot watches your inbox unprompted and masks your details. Where each one fits.",
+      "datePublished": "2026-05-30",
+      "dateModified": "2026-05-30",
+      "author": { "@type": "Organization", "name": "Ariadot" },
+      "publisher": { "@type": "Organization", "name": "Ariadot", "logo": { "@type": "ImageObject", "url": "https://ariadot.app/ariadot-icon-dark.png" } },
+      "mainEntityOfPage": "https://ariadot.app/blog/claude-cowork-vs-ariadot"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Claude Cowork an email assistant like Ariadot?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Not really. Claude Cowork is an agent for knowledge work, it executes multi-step tasks you assign, such as research synthesis and document preparation, and can use your computer. Ariadot is a personal assistant for the email and life-admin that slips: it reads your inbox unprompted and sends a short daily brief. Different jobs." }
+        },
+        {
+          "@type": "Question",
+          "name": "Could I use Claude Cowork to manage my inbox?",
+          "acceptedAnswer": { "@type": "Answer", "text": "You could assign it inbox tasks, but Cowork is built to execute work you direct, not to quietly watch your inbox every day for the one-off things you'd forget. Ariadot needs no assignment: it decides what's worth surfacing on its own, twice a day, and never acts on your behalf." }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Ariadot's privacy different?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ariadot masks personal details before any cloud model sees the text and does not train on your data. It's purpose-built for the sensitivity of reading someone's whole inbox. See ariadot.app/safety." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --paper:#f8faf7; --paper-2:#eef0ed; --paper-3:#e2e5df; --ink:#0b2f4a; --ink-2:#4a6c84;
+    --ink-3:#8aa0b0; --rule:#dbded7; --rule-soft:#e6e9e2; --accent:#4a5c2e; --accent-warm:#6a7d4a;
+    --serif:"Source Serif 4","New York",Georgia,serif;
+    --display:"Cormorant Garamond","Source Serif 4",serif;
+    --sans:-apple-system,"SF Pro Text",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(74,92,46,0.3); }
+  a:hover { border-bottom-color:var(--accent); }
+  ::selection { background:rgba(74,92,46,0.18); }
+
+  .topnav { position:sticky; top:0; z-index:50;
+    background:color-mix(in oklab, var(--paper) 90%, transparent);
+    backdrop-filter:blur(14px) saturate(160%); border-bottom:1px solid var(--rule-soft); }
+  .topnav .inner { max-width:1080px; margin:0 auto; padding:14px 32px;
+    display:flex; align-items:center; justify-content:space-between; }
+  .topnav .name { font-family:var(--display); font-style:italic; font-weight:500;
+    font-size:24px; color:var(--ink); border:0; }
+  .topnav .name .dot { display:inline-block; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); margin-left:2px; transform:translateY(-2px); }
+  .topnav .links { display:flex; gap:22px; font-family:var(--sans); font-size:14px; }
+  .topnav .links a { color:var(--ink-2); border:0; }
+  .topnav .links a:hover { color:var(--ink); }
+  .topnav .links a.here { color:var(--ink); font-weight:600; }
+  .nav-toggle { display:none; }
+  .burger { display:none; cursor:pointer; padding:8px; margin:-8px -8px -8px 0; }
+  .burger span { display:block; width:22px; height:2px; background:var(--ink);
+    border-radius:2px; transition:transform 0.25s ease, opacity 0.2s ease; }
+  .burger span + span { margin-top:5px; }
+  @media (max-width:760px){
+    .topnav .inner { position:relative; padding:14px 24px; }
+    .burger { display:block; }
+    .topnav .links {
+      position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0;
+      background:var(--paper); border-bottom:1px solid var(--rule);
+      box-shadow:0 14px 30px rgba(26,24,20,0.10);
+      max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+    .topnav .links a { padding:15px 24px; font-size:16px; border-bottom:1px solid var(--rule-soft); }
+    .topnav .links a:last-child { border-bottom:0; }
+    .nav-toggle:checked ~ .inner .links { max-height:70vh; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(2) { opacity:0; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  }
+
+  .article { max-width:720px; margin:0 auto; padding:48px 32px 40px; }
+  @media (max-width:760px){ .article { padding:32px 24px 28px; } }
+  .crumb { font-family:var(--sans); font-size:13px; color:var(--ink-3); margin:0 0 18px; }
+  .crumb a { color:var(--ink-3); border:0; }
+  .crumb a:hover { color:var(--ink-2); }
+  .eyebrow { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 16px; }
+  .article h1 { font-family:var(--serif); font-weight:600; font-size:clamp(30px,4.6vw,46px);
+    line-height:1.08; letter-spacing:-0.018em; margin:0 0 18px; }
+  .article h1 em { font-family:var(--display); font-style:italic; font-weight:500; }
+  .standfirst { font-size:20px; line-height:1.5; color:var(--ink-2); margin:0 0 14px; }
+  .standfirst b { color:var(--ink); font-weight:600; }
+  .meta { font-family:var(--sans); font-size:13px; color:var(--ink-3); margin:0 0 36px;
+    padding-bottom:24px; border-bottom:1px solid var(--rule); }
+  .article h2 { font-family:var(--serif); font-weight:600; font-size:26px; line-height:1.2;
+    letter-spacing:-0.01em; margin:40px 0 14px; }
+  .article h3 { font-family:var(--serif); font-weight:600; font-size:19px; margin:28px 0 6px; }
+  .article p { margin:0 0 18px; color:var(--ink); }
+  .article p.muted { color:var(--ink-2); }
+  .pull { border-left:3px solid var(--accent); padding:4px 0 4px 20px; margin:24px 0;
+    font-family:var(--display); font-style:italic; font-size:24px; line-height:1.35; color:var(--ink); }
+  .cmp { width:100%; border-collapse:collapse; margin:8px 0 26px; font-size:15.5px; }
+  .cmp th, .cmp td { text-align:left; padding:12px 14px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  .cmp th { font-family:var(--sans); font-size:12.5px; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600; }
+  .cmp td:first-child { font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink-2); width:30%; }
+  @media (max-width:620px){ .cmp td:first-child { width:38%; } .cmp th, .cmp td { padding:10px 8px; } }
+  .cta { margin:40px 0 8px; padding:28px; border:1px solid var(--rule); border-radius:18px;
+    background:var(--paper-2); text-align:center; }
+  .cta h3 { font-family:var(--display); font-style:italic; font-weight:500; font-size:26px; margin:0 0 8px; }
+  .cta p { color:var(--ink-2); font-size:15.5px; margin:0 0 18px; }
+  .btn { font-family:var(--sans); font-size:14.5px; font-weight:600; padding:12px 22px; border-radius:999px;
+    border:1px solid var(--ink); background:var(--ink); color:var(--paper); display:inline-flex; align-items:center; gap:7px; }
+  .btn:hover { background:var(--accent); border-color:var(--accent); color:var(--paper); }
+  .related { font-family:var(--sans); font-size:14px; color:var(--ink-3); margin-top:14px; }
+  .related a { color:var(--accent); }
+  .footer { max-width:720px; margin:56px auto 0; padding:24px 32px 64px; border-top:1px solid var(--rule);
+    font-family:var(--sans); font-size:13.5px; color:var(--ink-3);
+    display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .footer a { color:var(--ink-3); }
+  .footer .spacer { flex:1; }
+</style>
+</head>
+<body>
+  <nav class="topnav">
+    <input type="checkbox" id="navToggle" class="nav-toggle" aria-hidden="true" />
+    <div class="inner">
+      <a class="name" href="/">ariadot<span class="dot"></span></a>
+      <label for="navToggle" class="burger" aria-label="Open menu"><span></span><span></span><span></span></label>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="/features/loops">Features</a>
+        <a href="/safety">Safety</a>
+        <a href="/faq">FAQ</a>
+        <a class="here" href="/blog/">Blog</a>
+        <a href="https://ariadot.canny.io">Roadmap</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="article">
+    <p class="crumb"><a href="/blog/">Blog</a> &nbsp;/&nbsp; Comparisons</p>
+    <p class="eyebrow">Claude Cowork vs Ariadot</p>
+    <h1>A coworker for the work. <em>A quiet hand for the rest.</em></h1>
+    <p class="standfirst">Claude Cowork is an agent for knowledge work &mdash; it executes the multi-step things you assign: research synthesis, document prep, jobs you'd hand to a sharp colleague. Ariadot isn't competing for that. <b>It's the personal layer underneath the work: the inbox and life-admin that slips while you're heads-down on everything else.</b></p>
+    <p class="meta">Comparison &middot; 30 May 2026 &middot; 5 min read</p>
+
+    <p>These two get compared because they're both "AI that works in the background," but they're aimed at different halves of your day. Anthropic describes Claude Cowork as an agentic system that executes multi-step knowledge work on your behalf &mdash; research, document preparation, analysis, even using your computer to finish a task. It's a remarkable coworker. You give it a job, it carries the job out.</p>
+
+    <p>Ariadot does something smaller and quieter, and it's the part Cowork isn't built for: it watches your <i>personal</i> inbox &mdash; the renewal, the school form, the reply you owe, the bill with a quiet deadline &mdash; and it does it without being assigned anything.</p>
+
+    <h2>The line between them</h2>
+
+    <h3>Cowork is assigned work. Ariadot is unassigned vigilance.</h3>
+    <p>Cowork shines when you know the task: "synthesise these papers," "prep this deck," "pull this analysis together." You direct it; it executes. Ariadot exists for the opposite case &mdash; the things you <i>don't</i> know to assign because you haven't seen them yet. It reads the inbox and decides what's worth surfacing on its own. There's no task to hand it.</p>
+
+    <p class="pull">You give Cowork a job. You give Ariadot your inbox, and never think about it again.</p>
+
+    <h3>Work product vs life admin</h3>
+    <p>Cowork's output is deliverables &mdash; documents, research, completed tasks. Ariadot's output is one short brief, twice a day, of what's open and coming up in your personal life. One makes the work; the other makes sure the form due before term doesn't slip while you're making the work.</p>
+
+    <h3>It surfaces; it doesn't act</h3>
+    <p>Cowork takes actions to complete what you assign. Ariadot deliberately never acts on your behalf &mdash; no sending, no booking, no changes. It only tells you what it noticed, and you decide. For something reading your whole personal inbox, that restraint is the point.</p>
+
+    <h3>Built for the sensitivity of an inbox</h3>
+    <p>Reading someone's entire personal inbox is a different trust bar than running a work task. Ariadot <a href="/safety">masks personal details before any cloud model sees the text</a> and never trains on your data &mdash; a posture designed specifically for the thing it does.</p>
+
+    <h2>Side by side</h2>
+    <table class="cmp">
+      <thead><tr><th></th><th>Claude Cowork</th><th>Ariadot</th></tr></thead>
+      <tbody>
+        <tr><td>What it's for</td><td>Knowledge work: research, docs, multi-step tasks</td><td>Personal inbox &amp; life-admin that slips</td></tr>
+        <tr><td>How you use it</td><td>You assign it a task; it executes</td><td>Connect inbox once; it decides what to surface</td></tr>
+        <tr><td>Output</td><td>Deliverables &mdash; documents, analyses, completed work</td><td>One short brief, twice a day</td></tr>
+        <tr><td>Acts on your behalf?</td><td>Yes &mdash; completes the work you assign</td><td>No &mdash; surfaces, never acts</td></tr>
+        <tr><td>Privacy</td><td>General agentic system for work</td><td>Details masked before any model; no training on your data</td></tr>
+        <tr><td>Best for</td><td>Getting defined work done</td><td>Not losing the undefined things</td></tr>
+      </tbody>
+    </table>
+
+    <h2>So which should you use?</h2>
+    <p class="muted">It's not really an either/or. Use Claude Cowork for the work you'd assign a brilliant colleague &mdash; it's built for exactly that. Use Ariadot for the personal stream running alongside the work, the one-off time-sensitive things you'd never think to hand anyone, kept quietly and privately. One is your AI coworker. The other is the calm hand on your day.</p>
+
+    <div class="cta">
+      <h3>The life-admin layer under the work</h3>
+      <p>Ariadot is in private beta. Free while it lasts.</p>
+      <a class="btn" href="/#join">Request access <span>&rarr;</span></a>
+    </div>
+    <p class="related">Related: <a href="/safety">How Ariadot reads your email without seeing your name</a> &middot; <a href="/blog/gemini-spark-vs-ariadot">Gemini Spark vs Ariadot</a> &middot; <a href="/blog/">More comparisons</a></p>
+  </article>
+
+  <div class="footer">
+    <span>© 2026 Ariadot · beta</span>
+    <span class="spacer"></span>
+    <a href="/safety">Safety</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="https://ariadot.canny.io">Roadmap</a>
+    <a href="https://discord.gg/PqXE4XTqbR">Discord</a>
+  </div>
+</body>
+</html>

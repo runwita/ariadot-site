@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index,follow" />
+<title>ChatGPT vs Ariadot: can scheduled tasks replace an email assistant?</title>
+<link rel="canonical" href="https://ariadot.app/blog/chatgpt-vs-ariadot" />
+<meta name="description" content="ChatGPT with scheduled tasks can read your email if you ask it to. Ariadot reads your inbox unprompted and sends one brief a day. The honest difference, and when each wins." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="ChatGPT vs Ariadot: can scheduled tasks replace an email assistant?" />
+<meta name="twitter:description" content="ChatGPT does what you ask. Ariadot watches your inbox for what you'd forget to ask about. The honest comparison." />
+<meta name="twitter:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
+<link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
+<meta name="theme-color" content="#0e1620" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="ChatGPT vs Ariadot: can scheduled tasks replace an email assistant?" />
+<meta property="og:description" content="ChatGPT does what you ask. Ariadot watches your inbox for what you'd forget to ask about. The honest comparison." />
+<meta property="og:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<meta property="og:url" content="https://ariadot.app/blog/chatgpt-vs-ariadot" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "ChatGPT vs Ariadot: can scheduled tasks replace an email assistant?",
+      "description": "ChatGPT with scheduled tasks and connectors can read your email if you ask it to. Ariadot reads your inbox unprompted and sends one brief a day. The honest difference.",
+      "datePublished": "2026-05-30",
+      "dateModified": "2026-05-30",
+      "author": { "@type": "Organization", "name": "Ariadot" },
+      "publisher": { "@type": "Organization", "name": "Ariadot", "logo": { "@type": "ImageObject", "url": "https://ariadot.app/ariadot-icon-dark.png" } },
+      "mainEntityOfPage": "https://ariadot.app/blog/chatgpt-vs-ariadot"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can ChatGPT read my email and remind me of things?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes, with connectors and scheduled tasks ChatGPT can read a connected inbox and run a prompt you write on a schedule. The catch is that you have to know what to ask for and set it up. Ariadot reads your inbox without being prompted and surfaces the things you would not have thought to ask about, then sends one short brief a day." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Ariadot do that ChatGPT scheduled tasks don't?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It runs unprompted on a fixed job (inbox to reminders to a daily brief), it masks personal details before any model sees them and never trains on your data, and it comes to you rather than waiting for you to open a chat. A scheduled task runs the prompt you wrote; Ariadot finds what you didn't write a prompt for." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Ariadot more private than using ChatGPT with my email connected?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ariadot masks names, emails, phone numbers and account references before any cloud model sees the text, and does not use your data to train models. Connecting a general assistant to your inbox sends your mail to a general-purpose model. See ariadot.app/safety for the full posture." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --paper:#f8faf7; --paper-2:#eef0ed; --paper-3:#e2e5df; --ink:#0b2f4a; --ink-2:#4a6c84;
+    --ink-3:#8aa0b0; --rule:#dbded7; --rule-soft:#e6e9e2; --accent:#4a5c2e; --accent-warm:#6a7d4a;
+    --serif:"Source Serif 4","New York",Georgia,serif;
+    --display:"Cormorant Garamond","Source Serif 4",serif;
+    --sans:-apple-system,"SF Pro Text",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(74,92,46,0.3); }
+  a:hover { border-bottom-color:var(--accent); }
+  ::selection { background:rgba(74,92,46,0.18); }
+
+  .topnav { position:sticky; top:0; z-index:50;
+    background:color-mix(in oklab, var(--paper) 90%, transparent);
+    backdrop-filter:blur(14px) saturate(160%); border-bottom:1px solid var(--rule-soft); }
+  .topnav .inner { max-width:1080px; margin:0 auto; padding:14px 32px;
+    display:flex; align-items:center; justify-content:space-between; }
+  .topnav .name { font-family:var(--display); font-style:italic; font-weight:500;
+    font-size:24px; color:var(--ink); border:0; }
+  .topnav .name .dot { display:inline-block; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); margin-left:2px; transform:translateY(-2px); }
+  .topnav .links { display:flex; gap:22px; font-family:var(--sans); font-size:14px; }
+  .topnav .links a { color:var(--ink-2); border:0; }
+  .topnav .links a:hover { color:var(--ink); }
+  .topnav .links a.here { color:var(--ink); font-weight:600; }
+  .nav-toggle { display:none; }
+  .burger { display:none; cursor:pointer; padding:8px; margin:-8px -8px -8px 0; }
+  .burger span { display:block; width:22px; height:2px; background:var(--ink);
+    border-radius:2px; transition:transform 0.25s ease, opacity 0.2s ease; }
+  .burger span + span { margin-top:5px; }
+  @media (max-width:760px){
+    .topnav .inner { position:relative; padding:14px 24px; }
+    .burger { display:block; }
+    .topnav .links {
+      position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0;
+      background:var(--paper); border-bottom:1px solid var(--rule);
+      box-shadow:0 14px 30px rgba(26,24,20,0.10);
+      max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+    .topnav .links a { padding:15px 24px; font-size:16px; border-bottom:1px solid var(--rule-soft); }
+    .topnav .links a:last-child { border-bottom:0; }
+    .nav-toggle:checked ~ .inner .links { max-height:70vh; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(2) { opacity:0; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  }
+
+  .article { max-width:720px; margin:0 auto; padding:48px 32px 40px; }
+  @media (max-width:760px){ .article { padding:32px 24px 28px; } }
+  .crumb { font-family:var(--sans); font-size:13px; color:var(--ink-3); margin:0 0 18px; }
+  .crumb a { color:var(--ink-3); border:0; }
+  .crumb a:hover { color:var(--ink-2); }
+  .eyebrow { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 16px; }
+  .article h1 { font-family:var(--serif); font-weight:600; font-size:clamp(30px,4.6vw,46px);
+    line-height:1.08; letter-spacing:-0.018em; margin:0 0 18px; }
+  .article h1 em { font-family:var(--display); font-style:italic; font-weight:500; }
+  .standfirst { font-size:20px; line-height:1.5; color:var(--ink-2); margin:0 0 14px; }
+  .standfirst b { color:var(--ink); font-weight:600; }
+  .meta { font-family:var(--sans); font-size:13px; color:var(--ink-3); margin:0 0 36px;
+    padding-bottom:24px; border-bottom:1px solid var(--rule); }
+  .article h2 { font-family:var(--serif); font-weight:600; font-size:26px; line-height:1.2;
+    letter-spacing:-0.01em; margin:40px 0 14px; }
+  .article h3 { font-family:var(--serif); font-weight:600; font-size:19px; margin:28px 0 6px; }
+  .article p { margin:0 0 18px; color:var(--ink); }
+  .article p.muted { color:var(--ink-2); }
+  .article ul { margin:0 0 18px; padding-left:22px; color:var(--ink); }
+  .article li { margin:0 0 9px; }
+
+  /* honest framing callout */
+  .pull { border-left:3px solid var(--accent); padding:4px 0 4px 20px; margin:24px 0;
+    font-family:var(--display); font-style:italic; font-size:24px; line-height:1.35; color:var(--ink); }
+
+  /* comparison table */
+  .cmp { width:100%; border-collapse:collapse; margin:8px 0 26px; font-size:15.5px; }
+  .cmp th, .cmp td { text-align:left; padding:12px 14px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  .cmp th { font-family:var(--sans); font-size:12.5px; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600; }
+  .cmp td:first-child { font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink-2); width:30%; }
+  @media (max-width:620px){ .cmp td:first-child { width:38%; } .cmp th, .cmp td { padding:10px 8px; } }
+
+  .cta { margin:40px 0 8px; padding:28px; border:1px solid var(--rule); border-radius:18px;
+    background:var(--paper-2); text-align:center; }
+  .cta h3 { font-family:var(--display); font-style:italic; font-weight:500; font-size:26px; margin:0 0 8px; }
+  .cta p { color:var(--ink-2); font-size:15.5px; margin:0 0 18px; }
+  .btn { font-family:var(--sans); font-size:14.5px; font-weight:600; padding:12px 22px; border-radius:999px;
+    border:1px solid var(--ink); background:var(--ink); color:var(--paper); display:inline-flex; align-items:center; gap:7px; }
+  .btn:hover { background:var(--accent); border-color:var(--accent); color:var(--paper); }
+
+  .related { font-family:var(--sans); font-size:14px; color:var(--ink-3); margin-top:14px; }
+  .related a { color:var(--accent); }
+
+  .footer { max-width:720px; margin:56px auto 0; padding:24px 32px 64px; border-top:1px solid var(--rule);
+    font-family:var(--sans); font-size:13.5px; color:var(--ink-3);
+    display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .footer a { color:var(--ink-3); }
+  .footer .spacer { flex:1; }
+</style>
+</head>
+<body>
+  <nav class="topnav">
+    <input type="checkbox" id="navToggle" class="nav-toggle" aria-hidden="true" />
+    <div class="inner">
+      <a class="name" href="/">ariadot<span class="dot"></span></a>
+      <label for="navToggle" class="burger" aria-label="Open menu"><span></span><span></span><span></span></label>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="/features/loops">Features</a>
+        <a href="/safety">Safety</a>
+        <a href="/faq">FAQ</a>
+        <a class="here" href="/blog/">Blog</a>
+        <a href="https://ariadot.canny.io">Roadmap</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="article">
+    <p class="crumb"><a href="/blog/">Blog</a> &nbsp;/&nbsp; Comparisons</p>
+    <p class="eyebrow">ChatGPT vs Ariadot</p>
+    <h1>"ChatGPT can already do this. <em>Why would I use your app?"</em></h1>
+    <p class="standfirst">It's the fair question. ChatGPT now has connectors and scheduled tasks, so it <i>can</i> read a connected inbox and run a prompt on a timer. <b>The honest answer isn't that it can't. It's that you have to tell it to, every step of the way</b> &mdash; and the whole point of Ariadot is the things you'd never think to ask about.</p>
+    <p class="meta">Comparison &middot; 30 May 2026 &middot; 5 min read</p>
+
+    <p>If you're handy with AI, you've probably already wired something up: a ChatGPT scheduled task that "checks my inbox each morning and lists what needs a reply." It works. So does a custom GPT with the Gmail connector. The capability overlap with an email assistant is real, and pretending otherwise would be silly.</p>
+
+    <p>But there's a difference between a tool that <i>can</i> do a job when instructed and a product that <i>does</i> that one job, on its own, every day, without you in the loop. That gap is the entire reason Ariadot exists.</p>
+
+    <p class="pull">A scheduled task runs the prompt you wrote. Ariadot finds the thing you didn't write a prompt for.</p>
+
+    <h2>The five real differences</h2>
+
+    <h3>1. Proactive, not prompted</h3>
+    <p>A ChatGPT scheduled task executes <i>your</i> instructions. That means you have to know, in advance, what to watch for: "remind me about replies," "flag invoices," "tell me about renewals." But the thing that actually bites you is the one you didn't anticipate &mdash; the school form due in three weeks, the parking fine with a quiet deadline, the reply you promised and forgot. Ariadot reads the whole inbox and surfaces what matters <i>without</i> a rule for it. You can't forget to write a prompt for a category you didn't see coming.</p>
+
+    <h3>2. One narrow job, done the same way every day</h3>
+    <p>A general assistant pointed at your inbox does an open-ended task, and open-ended tasks drift &mdash; different emphasis, different misses, different format depending on the day and the wording. Ariadot does exactly one thing: read your email and calendar, track the open loops, and send a short brief twice a day. Narrow and boring is a feature when the job is "never let something slip."</p>
+
+    <h3>3. Your details never reach a general model unmasked</h3>
+    <p>Connecting a general assistant to your inbox sends your mail &mdash; names, addresses, account numbers &mdash; to a general-purpose model. Ariadot <a href="/safety">masks personal details before any cloud model sees the text</a>, and never uses your data to train anything. For something reading every email you get, that posture isn't a nice-to-have.</p>
+
+    <h3>4. It comes to you</h3>
+    <p>With ChatGPT you open the app, wait for the task, or go re-establish context in a chat. Ariadot pushes one brief to your phone &mdash; morning and evening &mdash; written in a voice that already knows your week. There's nothing to open and nothing to re-explain.</p>
+
+    <h3>5. Reliability over capability</h3>
+    <p>ChatGPT is vastly more <i>capable</i> &mdash; it'll write your code, plan your trip, draft the email. Ariadot can't do any of that, and won't try. What it offers instead is that the narrow thing happens, dependably, in the background, so the deadline buried on page two of a long thread doesn't become tomorrow's problem.</p>
+
+    <h2>Side by side</h2>
+    <table class="cmp">
+      <thead><tr><th></th><th>ChatGPT (with scheduled tasks &amp; connectors)</th><th>Ariadot</th></tr></thead>
+      <tbody>
+        <tr><td>How it runs</td><td>Runs a prompt you write, on a timer you set</td><td>Runs on its own; no prompt to write or maintain</td></tr>
+        <tr><td>What it catches</td><td>What you told it to look for</td><td>What you'd have forgotten to look for</td></tr>
+        <tr><td>Scope</td><td>Anything &mdash; general assistant</td><td>One job: inbox &rarr; reminders &rarr; brief</td></tr>
+        <tr><td>Privacy</td><td>Your mail goes to a general model</td><td>Details masked before any model; no training on your data</td></tr>
+        <tr><td>Delivery</td><td>You open it / check the task</td><td>Pushed to you, twice a day</td></tr>
+        <tr><td>Best for</td><td>Open-ended work you actively drive</td><td>The quiet, time-sensitive things that slip</td></tr>
+      </tbody>
+    </table>
+
+    <h2>So which should you use?</h2>
+    <p class="muted">Both, honestly. Keep ChatGPT for the open-ended work &mdash; it's better at it than anything purpose-built. Use Ariadot for the one job a general assistant can technically do but won't reliably do unattended: catching what's about to slip out of your inbox before it costs you. They're not really competitors. One waits for you to ask. The other has already noticed.</p>
+
+    <div class="cta">
+      <h3>Let it watch the inbox so you don't have to</h3>
+      <p>Ariadot is in private beta. Free while it lasts.</p>
+      <a class="btn" href="/#join">Request access <span>&rarr;</span></a>
+    </div>
+    <p class="related">Related: <a href="/safety">How Ariadot reads your email without seeing your name</a> &middot; <a href="/features/loops">What it tracks</a> &middot; <a href="/blog/">More comparisons</a></p>
+  </article>
+
+  <div class="footer">
+    <span>© 2026 Ariadot · beta</span>
+    <span class="spacer"></span>
+    <a href="/safety">Safety</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="https://ariadot.canny.io">Roadmap</a>
+    <a href="https://discord.gg/PqXE4XTqbR">Discord</a>
+  </div>
+</body>
+</html>

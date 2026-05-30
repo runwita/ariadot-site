@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index,follow" />
+<title>Blog · Ariadot — comparisons and notes on email assistants</title>
+<link rel="canonical" href="https://ariadot.app/blog/" />
+<meta name="description" content="Honest comparisons of Ariadot with ChatGPT, Gemini Spark and Claude Cowork, plus notes on managing email, reminders, and the things that slip through the cracks." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Blog · Ariadot" />
+<meta name="twitter:description" content="Honest comparisons with ChatGPT, Gemini Spark and Claude Cowork, plus notes on managing email and reminders." />
+<meta name="twitter:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
+<link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
+<meta name="theme-color" content="#0e1620" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Blog · Ariadot — comparisons and notes on email assistants" />
+<meta property="og:description" content="Honest comparisons with ChatGPT, Gemini Spark and Claude Cowork, plus notes on managing email and reminders." />
+<meta property="og:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<meta property="og:url" content="https://ariadot.app/blog/" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Ariadot Blog",
+  "url": "https://ariadot.app/blog/",
+  "description": "Honest comparisons of Ariadot with other AI assistants, plus notes on managing email and reminders.",
+  "publisher": { "@type": "Organization", "name": "Ariadot", "logo": { "@type": "ImageObject", "url": "https://ariadot.app/ariadot-icon-dark.png" } },
+  "blogPost": [
+    { "@type": "BlogPosting", "headline": "ChatGPT vs Ariadot: can scheduled tasks replace an email assistant?", "url": "https://ariadot.app/blog/chatgpt-vs-ariadot", "datePublished": "2026-05-30" },
+    { "@type": "BlogPosting", "headline": "Gemini Spark vs Ariadot: the autonomous agent vs the quiet inbox watcher", "url": "https://ariadot.app/blog/gemini-spark-vs-ariadot", "datePublished": "2026-05-30" },
+    { "@type": "BlogPosting", "headline": "Claude Cowork vs Ariadot: a work agent vs a personal inbox assistant", "url": "https://ariadot.app/blog/claude-cowork-vs-ariadot", "datePublished": "2026-05-30" }
+  ]
+}
+</script>
+<style>
+  :root {
+    --paper:#f8faf7; --paper-2:#eef0ed; --paper-3:#e2e5df; --ink:#0b2f4a; --ink-2:#4a6c84;
+    --ink-3:#8aa0b0; --rule:#dbded7; --rule-soft:#e6e9e2; --accent:#4a5c2e; --accent-warm:#6a7d4a;
+    --serif:"Source Serif 4","New York",Georgia,serif;
+    --display:"Cormorant Garamond","Source Serif 4",serif;
+    --sans:-apple-system,"SF Pro Text",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(74,92,46,0.3); }
+  a:hover { border-bottom-color:var(--accent); }
+  ::selection { background:rgba(74,92,46,0.18); }
+
+  .topnav { position:sticky; top:0; z-index:50;
+    background:color-mix(in oklab, var(--paper) 90%, transparent);
+    backdrop-filter:blur(14px) saturate(160%); border-bottom:1px solid var(--rule-soft); }
+  .topnav .inner { max-width:1080px; margin:0 auto; padding:14px 32px;
+    display:flex; align-items:center; justify-content:space-between; }
+  .topnav .name { font-family:var(--display); font-style:italic; font-weight:500;
+    font-size:24px; color:var(--ink); border:0; }
+  .topnav .name .dot { display:inline-block; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); margin-left:2px; transform:translateY(-2px); }
+  .topnav .links { display:flex; gap:22px; font-family:var(--sans); font-size:14px; }
+  .topnav .links a { color:var(--ink-2); border:0; }
+  .topnav .links a:hover { color:var(--ink); }
+  .topnav .links a.here { color:var(--ink); font-weight:600; }
+  .nav-toggle { display:none; }
+  .burger { display:none; cursor:pointer; padding:8px; margin:-8px -8px -8px 0; }
+  .burger span { display:block; width:22px; height:2px; background:var(--ink);
+    border-radius:2px; transition:transform 0.25s ease, opacity 0.2s ease; }
+  .burger span + span { margin-top:5px; }
+  @media (max-width:760px){
+    .topnav .inner { position:relative; padding:14px 24px; }
+    .burger { display:block; }
+    .topnav .links {
+      position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0;
+      background:var(--paper); border-bottom:1px solid var(--rule);
+      box-shadow:0 14px 30px rgba(26,24,20,0.10);
+      max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+    .topnav .links a { padding:15px 24px; font-size:16px; border-bottom:1px solid var(--rule-soft); }
+    .topnav .links a:last-child { border-bottom:0; }
+    .nav-toggle:checked ~ .inner .links { max-height:70vh; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(2) { opacity:0; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  }
+
+  .wrap { max-width:760px; margin:0 auto; padding:56px 32px 40px; }
+  @media (max-width:760px){ .wrap { padding:36px 24px 28px; } }
+  .head .eyebrow { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 14px; }
+  .head h1 { font-family:var(--serif); font-weight:600; font-size:clamp(32px,5vw,48px);
+    line-height:1.06; letter-spacing:-0.018em; margin:0 0 16px; }
+  .head h1 em { font-family:var(--display); font-style:italic; font-weight:500; }
+  .head .lede { font-size:20px; line-height:1.5; color:var(--ink-2); margin:0 0 8px; max-width:54ch; }
+
+  .section-label { font-family:var(--sans); font-size:12.5px; font-weight:600; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--ink-3); margin:48px 0 0; padding-bottom:10px;
+    border-bottom:1px solid var(--rule); }
+
+  .posts { display:grid; gap:0; }
+  .post { display:block; padding:26px 0; border-bottom:1px solid var(--rule-soft); border-radius:0; }
+  .post:hover { border-bottom-color:var(--rule-soft); }
+  .post .tag { font-family:var(--mono); font-size:11px; font-weight:600; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--accent); }
+  .post h2 { font-family:var(--serif); font-weight:600; font-size:23px; line-height:1.2;
+    margin:8px 0 8px; color:var(--ink); letter-spacing:-0.01em; }
+  .post p { margin:0; color:var(--ink-2); font-size:16px; line-height:1.5; }
+  .post .arrow { font-family:var(--sans); font-size:14px; font-weight:600; color:var(--accent); margin-top:10px; display:inline-block; }
+
+  .footer { max-width:760px; margin:56px auto 0; padding:24px 32px 64px; border-top:1px solid var(--rule);
+    font-family:var(--sans); font-size:13.5px; color:var(--ink-3);
+    display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .footer a { color:var(--ink-3); }
+  .footer .spacer { flex:1; }
+</style>
+</head>
+<body>
+  <nav class="topnav">
+    <input type="checkbox" id="navToggle" class="nav-toggle" aria-hidden="true" />
+    <div class="inner">
+      <a class="name" href="/">ariadot<span class="dot"></span></a>
+      <label for="navToggle" class="burger" aria-label="Open menu"><span></span><span></span><span></span></label>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="/features/loops">Features</a>
+        <a href="/safety">Safety</a>
+        <a href="/faq">FAQ</a>
+        <a class="here" href="/blog/">Blog</a>
+        <a href="https://ariadot.canny.io">Roadmap</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <header class="head">
+      <p class="eyebrow">The Ariadot blog</p>
+      <h1>Honest comparisons, <em>and a few notes.</em></h1>
+      <p class="lede">Where Ariadot fits next to the big AI assistants, and how an inbox-watcher differs from a general one. No strawmen.</p>
+    </header>
+
+    <p class="section-label">Comparisons</p>
+    <div class="posts">
+      <a class="post" href="/blog/gemini-spark-vs-ariadot">
+        <span class="tag">Gemini Spark vs Ariadot</span>
+        <h2>The most powerful agent, and the quietest one</h2>
+        <p>Gemini Spark is the closest thing big tech has shipped to Ariadot. Where it ends and a zero-setup, privacy-first inbox watcher begins.</p>
+        <span class="arrow">Read &rarr;</span>
+      </a>
+      <a class="post" href="/blog/chatgpt-vs-ariadot">
+        <span class="tag">ChatGPT vs Ariadot</span>
+        <h2>"ChatGPT can already do this. Why your app?"</h2>
+        <p>ChatGPT with scheduled tasks can read your inbox if you ask. The honest difference is everything you'd never think to ask about.</p>
+        <span class="arrow">Read &rarr;</span>
+      </a>
+      <a class="post" href="/blog/claude-cowork-vs-ariadot">
+        <span class="tag">Claude Cowork vs Ariadot</span>
+        <h2>A coworker for the work, a quiet hand for the rest</h2>
+        <p>Claude Cowork executes the knowledge work you assign. Ariadot watches the personal inbox you'd never think to hand anyone.</p>
+        <span class="arrow">Read &rarr;</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>© 2026 Ariadot · beta</span>
+    <span class="spacer"></span>
+    <a href="/safety">Safety</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="https://ariadot.canny.io">Roadmap</a>
+    <a href="https://discord.gg/PqXE4XTqbR">Discord</a>
+  </div>
+</body>
+</html>
