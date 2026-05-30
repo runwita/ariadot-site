@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="index,follow" />
+<title>Gemini Spark vs Ariadot: the autonomous agent vs the quiet inbox watcher</title>
+<link rel="canonical" href="https://ariadot.app/blog/gemini-spark-vs-ariadot" />
+<meta name="description" content="Gemini Spark is a powerful agent you point at your inbox. Ariadot is the one already watching, with nothing to set up and your details masked before any model." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Gemini Spark vs Ariadot: autonomous agent vs quiet inbox watcher" />
+<meta name="twitter:description" content="Spark is a configurable do-everything agent. Ariadot does one calm job, with zero setup and your details masked before any model. The honest comparison." />
+<meta name="twitter:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<link rel="icon" type="image/png" href="/ariadot-icon-dark.png" />
+<link rel="apple-touch-icon" href="/ariadot-icon-dark.png" />
+<meta name="theme-color" content="#0e1620" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Gemini Spark vs Ariadot: the autonomous agent vs the quiet inbox watcher" />
+<meta property="og:description" content="Spark is a configurable do-everything agent. Ariadot does one calm job, zero setup, details masked before any model." />
+<meta property="og:image" content="https://ariadot.app/ariadot-icon-dark.png" />
+<meta property="og:url" content="https://ariadot.app/blog/gemini-spark-vs-ariadot" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Spectral:ital,wght@0,300;0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Gemini Spark vs Ariadot: the autonomous agent vs the quiet inbox watcher",
+      "description": "Gemini Spark is a powerful agent you point at your inbox. Ariadot does one calm job with zero setup and masks your details before any model. The honest comparison.",
+      "datePublished": "2026-05-30",
+      "dateModified": "2026-05-30",
+      "author": { "@type": "Organization", "name": "Ariadot" },
+      "publisher": { "@type": "Organization", "name": "Ariadot", "logo": { "@type": "ImageObject", "url": "https://ariadot.app/ariadot-icon-dark.png" } },
+      "mainEntityOfPage": "https://ariadot.app/blog/gemini-spark-vs-ariadot"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Gemini Spark the same as Ariadot?",
+          "acceptedAnswer": { "@type": "Answer", "text": "They overlap but aim at different things. Gemini Spark is a general autonomous agent you direct with tasks, schedules and skills; it can browse, book, build spreadsheets and act across your Google apps. Ariadot does one job with no setup: it reads your inbox and calendar and sends a short brief of what's open and coming up, and it masks personal details before any model sees them." }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I have to set up Ariadot like I set up a Gemini Spark schedule?",
+          "acceptedAnswer": { "@type": "Answer", "text": "No. Gemini Spark works under your direction, so you write the task or schedule (for example, 'every Monday scan my inbox and recap it'). Ariadot has nothing to configure: you connect your inbox once and it decides what's worth surfacing on its own, twice a day." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Ariadot more private than Gemini Spark?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Ariadot masks names, emails, phone numbers and account references before any cloud model sees the text, and never uses your data to train models. Gemini Spark connects your Gmail, Drive and Calendar to Google's models and is offered to Google AI Ultra subscribers. If keeping your inbox out of a general model matters to you, that's the main difference. See ariadot.app/safety." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use both Gemini Spark and Ariadot?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Spark is the better choice for complex, multi-step tasks you want an agent to carry out. Ariadot is the calm daily layer that watches for the time-sensitive things that slip, with no setup and your details masked. They serve different needs." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<style>
+  :root {
+    --paper:#f8faf7; --paper-2:#eef0ed; --paper-3:#e2e5df; --ink:#0b2f4a; --ink-2:#4a6c84;
+    --ink-3:#8aa0b0; --rule:#dbded7; --rule-soft:#e6e9e2; --accent:#4a5c2e; --accent-warm:#6a7d4a;
+    --serif:"Source Serif 4","New York",Georgia,serif;
+    --display:"Cormorant Garamond","Source Serif 4",serif;
+    --sans:-apple-system,"SF Pro Text",system-ui,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  * { box-sizing:border-box; }
+  html { -webkit-text-size-adjust:100%; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--serif); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  a { color:var(--accent); text-decoration:none; border-bottom:1px solid rgba(74,92,46,0.3); }
+  a:hover { border-bottom-color:var(--accent); }
+  ::selection { background:rgba(74,92,46,0.18); }
+
+  .topnav { position:sticky; top:0; z-index:50;
+    background:color-mix(in oklab, var(--paper) 90%, transparent);
+    backdrop-filter:blur(14px) saturate(160%); border-bottom:1px solid var(--rule-soft); }
+  .topnav .inner { max-width:1080px; margin:0 auto; padding:14px 32px;
+    display:flex; align-items:center; justify-content:space-between; }
+  .topnav .name { font-family:var(--display); font-style:italic; font-weight:500;
+    font-size:24px; color:var(--ink); border:0; }
+  .topnav .name .dot { display:inline-block; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); margin-left:2px; transform:translateY(-2px); }
+  .topnav .links { display:flex; gap:22px; font-family:var(--sans); font-size:14px; }
+  .topnav .links a { color:var(--ink-2); border:0; }
+  .topnav .links a:hover { color:var(--ink); }
+  .topnav .links a.here { color:var(--ink); font-weight:600; }
+  .nav-toggle { display:none; }
+  .burger { display:none; cursor:pointer; padding:8px; margin:-8px -8px -8px 0; }
+  .burger span { display:block; width:22px; height:2px; background:var(--ink);
+    border-radius:2px; transition:transform 0.25s ease, opacity 0.2s ease; }
+  .burger span + span { margin-top:5px; }
+  @media (max-width:760px){
+    .topnav .inner { position:relative; padding:14px 24px; }
+    .burger { display:block; }
+    .topnav .links {
+      position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0;
+      background:var(--paper); border-bottom:1px solid var(--rule);
+      box-shadow:0 14px 30px rgba(26,24,20,0.10);
+      max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+    .topnav .links a { padding:15px 24px; font-size:16px; border-bottom:1px solid var(--rule-soft); }
+    .topnav .links a:last-child { border-bottom:0; }
+    .nav-toggle:checked ~ .inner .links { max-height:70vh; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(2) { opacity:0; }
+    .nav-toggle:checked ~ .inner .burger span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+  }
+
+  .article { max-width:720px; margin:0 auto; padding:48px 32px 40px; }
+  @media (max-width:760px){ .article { padding:32px 24px 28px; } }
+  .crumb { font-family:var(--sans); font-size:13px; color:var(--ink-3); margin:0 0 18px; }
+  .crumb a { color:var(--ink-3); border:0; }
+  .crumb a:hover { color:var(--ink-2); }
+  .eyebrow { font-family:var(--mono); font-size:12px; font-weight:600; letter-spacing:0.16em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 16px; }
+  .article h1 { font-family:var(--serif); font-weight:600; font-size:clamp(30px,4.6vw,46px);
+    line-height:1.08; letter-spacing:-0.018em; margin:0 0 18px; }
+  .article h1 em { font-family:var(--display); font-style:italic; font-weight:500; }
+  .standfirst { font-size:20px; line-height:1.5; color:var(--ink-2); margin:0 0 14px; }
+  .standfirst b { color:var(--ink); font-weight:600; }
+  .meta { font-family:var(--sans); font-size:13px; color:var(--ink-3); margin:0 0 36px;
+    padding-bottom:24px; border-bottom:1px solid var(--rule); }
+  .article h2 { font-family:var(--serif); font-weight:600; font-size:26px; line-height:1.2;
+    letter-spacing:-0.01em; margin:40px 0 14px; }
+  .article h3 { font-family:var(--serif); font-weight:600; font-size:19px; margin:28px 0 6px; }
+  .article p { margin:0 0 18px; color:var(--ink); }
+  .article p.muted { color:var(--ink-2); }
+  .article ul { margin:0 0 18px; padding-left:22px; color:var(--ink); }
+  .article li { margin:0 0 9px; }
+  .pull { border-left:3px solid var(--accent); padding:4px 0 4px 20px; margin:24px 0;
+    font-family:var(--display); font-style:italic; font-size:24px; line-height:1.35; color:var(--ink); }
+  .cmp { width:100%; border-collapse:collapse; margin:8px 0 26px; font-size:15.5px; }
+  .cmp th, .cmp td { text-align:left; padding:12px 14px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  .cmp th { font-family:var(--sans); font-size:12.5px; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--ink-3); font-weight:600; }
+  .cmp td:first-child { font-family:var(--sans); font-weight:600; font-size:14px; color:var(--ink-2); width:30%; }
+  @media (max-width:620px){ .cmp td:first-child { width:38%; } .cmp th, .cmp td { padding:10px 8px; } }
+  .cta { margin:40px 0 8px; padding:28px; border:1px solid var(--rule); border-radius:18px;
+    background:var(--paper-2); text-align:center; }
+  .cta h3 { font-family:var(--display); font-style:italic; font-weight:500; font-size:26px; margin:0 0 8px; }
+  .cta p { color:var(--ink-2); font-size:15.5px; margin:0 0 18px; }
+  .btn { font-family:var(--sans); font-size:14.5px; font-weight:600; padding:12px 22px; border-radius:999px;
+    border:1px solid var(--ink); background:var(--ink); color:var(--paper); display:inline-flex; align-items:center; gap:7px; }
+  .btn:hover { background:var(--accent); border-color:var(--accent); color:var(--paper); }
+  .related { font-family:var(--sans); font-size:14px; color:var(--ink-3); margin-top:14px; }
+  .related a { color:var(--accent); }
+  .footer { max-width:720px; margin:56px auto 0; padding:24px 32px 64px; border-top:1px solid var(--rule);
+    font-family:var(--sans); font-size:13.5px; color:var(--ink-3);
+    display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+  .footer a { color:var(--ink-3); }
+  .footer .spacer { flex:1; }
+</style>
+</head>
+<body>
+  <nav class="topnav">
+    <input type="checkbox" id="navToggle" class="nav-toggle" aria-hidden="true" />
+    <div class="inner">
+      <a class="name" href="/">ariadot<span class="dot"></span></a>
+      <label for="navToggle" class="burger" aria-label="Open menu"><span></span><span></span><span></span></label>
+      <div class="links">
+        <a href="/">Home</a>
+        <a href="/features/loops">Features</a>
+        <a href="/safety">Safety</a>
+        <a href="/faq">FAQ</a>
+        <a class="here" href="/blog/">Blog</a>
+        <a href="https://ariadot.canny.io">Roadmap</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="article">
+    <p class="crumb"><a href="/blog/">Blog</a> &nbsp;/&nbsp; Comparisons</p>
+    <p class="eyebrow">Gemini Spark vs Ariadot</p>
+    <h1>The most powerful agent, <em>and the quietest one.</em></h1>
+    <p class="standfirst">Gemini Spark is the closest thing to Ariadot that big tech has shipped: an autonomous agent that works your inbox in the background. So this comparison won't pretend Spark can't do it. <b>It can. The difference is that Spark is something you configure and direct, while Ariadot is something you forget is running</b>, and what each one does with your data.</p>
+    <p class="meta">Comparison &middot; 30 May 2026 &middot; 6 min read</p>
+
+    <p>Most "AI vs AI" comparisons set up a strawman. Not this one. <a href="https://gemini.google/overview/agent/spark/">Gemini Spark</a> is genuinely impressive and genuinely overlapping: Google describes it as a "24/7 personal AI agent" that "works in the background," and its own examples include "every Monday at 9:00 AM, scan my inbox and review my emails from the past week, give me a recap and a prioritized to-do list." That is squarely in Ariadot's lane.</p>
+
+    <p>So if you have Spark and you've set that schedule up, you have something close to a daily brief. The honest question isn't "can Spark do this", it's "what's different, and does the difference matter to you." Two things do.</p>
+
+    <h2>Difference one: nothing to set up, nothing to direct</h2>
+    <p>Spark is built around <b>Tasks, Skills, and Schedules</b>, you tell it what to do and when. Google's own framing: it "operates autonomously, but always under your direction." That direction is the work. You write the prompt ("scan my inbox and recap it"), you define the schedule, you tune the skill. It's powerful precisely because it's configurable.</p>
+    <p>Ariadot has no Tasks, Skills, or Schedules. You connect your inbox once and it decides what's worth surfacing, the renewal, the reply you owe, the form due before term, on its own. There's no prompt to write and no schedule to maintain, which means there's nothing to forget to set up. The thing you'd never think to automate is exactly the thing that bites you, and a tool you have to direct can't catch what you didn't direct it toward.</p>
+
+    <p class="pull">Spark does what you tell it to, brilliantly. Ariadot notices what you didn't think to tell anyone.</p>
+
+    <h2>Difference two: where your inbox goes</h2>
+    <p>This is the one that matters most, and it's stark because the competitor is Google. To work, Spark connects your Gmail, Drive, and Calendar to Google's models, and it's rolling out to Google AI Ultra subscribers. Your email becomes context for a general-purpose model run by the company whose core business is understanding you.</p>
+    <p>Ariadot is built the opposite way. It <a href="/safety">masks personal details (names, emails, phone numbers, account numbers) before any cloud model sees the text</a>, and it never uses your data to train anything. An assistant that reads every email you get is the one place that posture should be non-negotiable. If "keep my inbox out of a general model" is a line you care about, it's the clearest reason to choose Ariadot.</p>
+
+    <h2>Difference three: one calm job vs a do-everything agent</h2>
+    <p>Spark is maximalist by design, it browses the web, compares vendors, completes bookings, organizes your Drive into spreadsheets, acts across your apps. That breadth is the point of an agent. Ariadot is deliberately the opposite: it does one narrow thing, read the inbox, keep the loops, send a short brief, and it never acts on your behalf. No bookings, no sending, no taking actions. Just a quiet, dependable read of what matters, twice a day. Some people want an agent with its hands on the wheel; some want a calm second pair of eyes that never touches anything. They're different products for different temperaments.</p>
+
+    <h2>Side by side</h2>
+    <table class="cmp">
+      <thead><tr><th></th><th>Gemini Spark</th><th>Ariadot</th></tr></thead>
+      <tbody>
+        <tr><td>Setup</td><td>You write Tasks, Skills &amp; Schedules to direct it</td><td>Connect inbox once; nothing to configure</td></tr>
+        <tr><td>Scope</td><td>General agent: browse, book, build, act across apps</td><td>One job: inbox &rarr; loops &rarr; brief</td></tr>
+        <tr><td>Acts on your behalf?</td><td>Yes, takes multi-step actions under your direction</td><td>No, surfaces, never acts</td></tr>
+        <tr><td>Privacy</td><td>Connects Gmail/Drive/Calendar to Google's models</td><td>Details masked before any model; no training on your data</td></tr>
+        <tr><td>Availability</td><td>Coming soon; Google AI Ultra, US, 18+, rolling out</td><td>In private beta now; iOS &amp; Android</td></tr>
+        <tr><td>Best for</td><td>Complex multi-step tasks you want carried out</td><td>The quiet, time-sensitive things that slip</td></tr>
+      </tbody>
+    </table>
+
+    <h2>So which should you use?</h2>
+    <p class="muted">If you want a powerful agent to take complex tasks off your plate, and you're comfortable connecting your Google life to it, Spark is a remarkable tool, and you should use it for that. Ariadot isn't trying to be that. It's the calm daily layer underneath: no setup, no actions taken on your behalf, and your details never handed to a general model. If what you actually want is to stop losing things in your inbox without giving an agent the keys, that's the one to choose. Plenty of people will run both.</p>
+
+    <div class="cta">
+      <h3>A quiet read of your inbox. Nothing to set up.</h3>
+      <p>Ariadot is in private beta. Free while it lasts.</p>
+      <a class="btn" href="/#join">Request access <span>&rarr;</span></a>
+    </div>
+    <p class="related">Related: <a href="/safety">How Ariadot reads your email without seeing your name</a> &middot; <a href="/blog/chatgpt-vs-ariadot">ChatGPT vs Ariadot</a> &middot; <a href="/blog/">More comparisons</a></p>
+  </article>
+
+  <div class="footer">
+    <span>© 2026 Ariadot · beta</span>
+    <span class="spacer"></span>
+    <a href="/safety">Safety</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+    <a href="https://ariadot.canny.io">Roadmap</a>
+    <a href="https://discord.gg/PqXE4XTqbR">Discord</a>
+  </div>
+</body>
+</html>
